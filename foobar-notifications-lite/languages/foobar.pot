@@ -1,0 +1,2765 @@
+# Copyright (C) 2023 FooBar
+# This file is distributed under the same license as the FooBar package.
+msgid ""
+msgstr ""
+"Project-Id-Version: FooBar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: FooPlugins <info@fooplugins.com>\n"
+"Last-Translator: Brad Vincent <brad@fooplugins.com>\n"
+"Report-Msgid-Bugs-To: https://fooplugins.com\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: includes/admin/class-help.php:29
+msgid "FooBar Help"
+msgstr ""
+
+#: includes/admin/class-help.php:30, includes/pro/bartypes/freeshipping/admin/class-metabox-help.php:19
+msgid "Help"
+msgstr ""
+
+#: includes/admin/class-help.php:64
+msgid "%s demos created successfully"
+msgstr ""
+
+#: includes/admin/class-settings.php:20
+msgid "FooBar Settings"
+msgstr ""
+
+#: includes/admin/class-settings.php:21, includes/admin/class-settings.php:133
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-settings.php:31, includes/admin/notification/metabox/settings/class-general.php:197, includes/pro/admin/notification/metabox/settings/class-appearance.php:20
+msgid "General"
+msgstr ""
+
+#: includes/admin/class-settings.php:38
+msgid "Always Enqueue Assets"
+msgstr ""
+
+#: includes/admin/class-settings.php:39
+msgid "By default, FooBar javascript and stylesheet assets are only enqueued in your pages when needed. Some themes always need these assets in order to function."
+msgstr ""
+
+#: includes/admin/class-settings.php:44
+msgid "Enqueue Polyfills"
+msgstr ""
+
+#: includes/admin/class-settings.php:45
+msgid "FooBar uses modern JavaScript API's which may not be supported in older browsers. Enable the enqueueing of polyfills for better backwards compatibility."
+msgstr ""
+
+#: includes/admin/class-settings.php:50
+msgid "Enable Debug Mode"
+msgstr ""
+
+#: includes/admin/class-settings.php:51
+msgid "Helps to debug problems and diagnose issues. Enable debugging if you need support for an issue you are having."
+msgstr ""
+
+#: includes/admin/class-settings.php:58, includes/admin/notification/metabox/settings/class-advanced.php:16
+msgid "Advanced"
+msgstr ""
+
+#: includes/admin/class-settings.php:65
+msgid "Demo Content Created"
+msgstr ""
+
+#: includes/admin/class-settings.php:66
+msgid "If the demo content has been created, then this will be checked. You can uncheck this to allow for demo content to be created again."
+msgstr ""
+
+#: includes/admin/class-settings.php:83
+msgid "System Info"
+msgstr ""
+
+#: includes/admin/class-settings.php:89
+msgid "Your System Information"
+msgstr ""
+
+#: includes/admin/class-settings.php:90
+msgid "The below system info can be used when submitting a support ticket, to help us replicate your environment."
+msgstr ""
+
+#: includes/admin/class-settings.php:128
+msgid "FooBar version"
+msgstr ""
+
+#: includes/admin/class-settings.php:129
+msgid "WordPress version"
+msgstr ""
+
+#: includes/admin/class-settings.php:130
+msgid "Activated Theme"
+msgstr ""
+
+#: includes/admin/class-settings.php:131
+msgid "WordPress URL"
+msgstr ""
+
+#: includes/admin/class-settings.php:132
+msgid "PHP version"
+msgstr ""
+
+#: includes/admin/class-settings.php:134
+msgid "Active Plugins"
+msgstr ""
+
+#: includes/admin/foofields/custom/class-icon-picker.php:15
+msgid "Select Icon"
+msgstr ""
+
+#: includes/admin/foofields/custom/class-icon-picker.php:16
+msgid "Clear Icon"
+msgstr ""
+
+#: includes/admin/foofields/custom/class-icon-picker.php:17, includes/admin/notification/metabox/settings/class-content-call-to-action.php:152, includes/admin/notification/metabox/settings/class-content-cookie.php:129, includes/admin/notification/metabox/settings/class-general.php:243, includes/pro/bartypes/countdown/class-bar-type.php:175, includes/pro/bartypes/countdown/class-bar-type.php:210, includes/pro/bartypes/countdown/class-bar-type.php:322, includes/pro/bartypes/freeshipping/class-bar-type.php:285, includes/pro/bartypes/tweet/class-bar-type.php:270
+msgid "Default"
+msgstr ""
+
+#: includes/admin/foofields/custom/conditions/class-field.php:94
+msgid "Invalid condition!"
+msgstr ""
+
+#: includes/admin/notification/class-columns.php:36, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:68
+msgid "Type"
+msgstr ""
+
+#: includes/admin/notification/class-columns.php:37, includes/admin/notification/metabox/settings/class-content-call-to-action.php:146, includes/admin/notification/metabox/settings/class-content-cookie.php:123, includes/admin/notification/metabox/settings/class-general.php:25, includes/admin/notification/metabox/settings/class-general.php:160, includes/pro/bartypes/countdown/class-bar-type.php:203, includes/pro/bartypes/countdown/class-bar-type.php:315, includes/pro/bartypes/tweet/class-bar-type.php:264
+msgid "Position"
+msgstr ""
+
+#: includes/admin/notification/class-columns.php:38, includes/admin/notification/metabox/settings/class-visibility.php:16, includes/admin/notification/metabox/settings/class-visibility.php:23
+msgid "Visibility"
+msgstr ""
+
+#: includes/admin/notification/class-columns.php:39, includes/admin/notification/metabox/class-shortcode.php:18, includes/admin/notification/metabox/settings/class-visibility.php:51, includes/functions.php:648
+msgid "Shortcode"
+msgstr ""
+
+#: includes/admin/notification/class-columns.php:79
+msgid "NO TYPE!"
+msgstr ""
+
+#: includes/admin/notification/class-columns.php:97, includes/admin/notification/metabox/class-shortcode.php:57
+msgid "Shortcode copied to clipboard :)"
+msgstr ""
+
+#: includes/admin/notification/class-preview.php:73
+msgid "Preview"
+msgstr ""
+
+#: includes/admin/notification/metabox/class-debug.php:18
+msgid "Debug Information"
+msgstr ""
+
+#: includes/admin/notification/metabox/class-debug.php:25
+msgid "Debug information is showing here because the enabled debug mode on the settings page. To hide this, disable debug mode."
+msgstr ""
+
+#: includes/admin/notification/metabox/class-debug.php:60
+msgid "No debug info available."
+msgstr ""
+
+#: includes/admin/notification/metabox/class-inline-preview.php:18
+msgid "Inline Preview"
+msgstr ""
+
+#: includes/admin/notification/metabox/class-inline-preview.php:61, includes/admin/notification/metabox/class-preview.php:72
+msgid "Preview not available."
+msgstr ""
+
+#: includes/admin/notification/metabox/class-preview.php:18
+msgid "Frontend Preview"
+msgstr ""
+
+#: includes/admin/notification/metabox/class-preview.php:64
+msgid "Launch Frontend Preview"
+msgstr ""
+
+#: includes/admin/notification/metabox/class-preview.php:68
+msgid "Remember to \"Update\" to see your changes in the frontend preview."
+msgstr ""
+
+#: includes/admin/notification/metabox/class-preview.php:69
+msgid "You can preview the notification on any page, by adding %s to the URL"
+msgstr ""
+
+#: includes/admin/notification/metabox/class-preview.php:55
+msgid "A frontend preview is not available with inline bars."
+msgstr ""
+
+#: includes/admin/notification/metabox/class-settings.php:20
+msgid "Notification Settings"
+msgstr ""
+
+#: includes/admin/notification/metabox/class-shortcode.php:60
+msgid "Shortcode not available yet!"
+msgstr ""
+
+#: includes/admin/notification/metabox/class-shortcode.php:58
+msgid "Paste the above shortcode into a post or page to show the notification."
+msgstr ""
+
+#: includes/admin/notification/metabox/class-types.php:17
+msgid "What type of notification do you want to create?"
+msgstr ""
+
+#: includes/admin/notification/metabox/class-types.php:66
+msgid "Create Notification"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-advanced.php:23
+msgid "Custom Settings"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-advanced.php:24
+msgid "Add any custom settings which will be merged with the existing settings. Only to be used by developers!"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:29, includes/admin/notification/metabox/settings/class-appearance.php:36, includes/pro/admin/notification/metabox/settings/class-appearance.php:179
+msgid "Appearance"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:42, includes/pro/admin/notification/metabox/settings/class-appearance.php:26
+msgid "Color Scheme"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:43
+msgid "Choose from one of the pre-defined color schemes available."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:52, includes/pro/admin/notification/metabox/settings/class-appearance.php:52
+msgid "Transition"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:53, includes/pro/admin/notification/metabox/settings/class-appearance.php:53
+msgid "What transition should the notification use when opening or closing?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:71
+msgid "Blue"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:75
+msgid "Green"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:79
+msgid "Purple"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:83
+msgid "Red"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:87
+msgid "Orange"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:91
+msgid "Yellow"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:95
+msgid "Dark"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:99
+msgid "Light"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:109
+msgid "Slide"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:110
+msgid "A slide animation is used when opening or closing the bar"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:113
+msgid "Fade"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:114
+msgid "A fade animation is used when opening or closing the bar"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:117
+msgid "Slide + Fade"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:118
+msgid "The bar will slide and fade at the same time"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:121, includes/admin/notification/metabox/settings/class-general.php:234, includes/pro/admin/notification/metabox/settings/class-appearance.php:212, includes/pro/bartypes/signup/class-bar-type.php:633
+msgid "None"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-appearance.php:122
+msgid "No transition is used - it is immediate"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:34, includes/admin/notification/metabox/settings/class-content-call-to-action.php:28, includes/admin/notification/metabox/settings/class-content-cookie.php:28, includes/pro/bartypes/countdown/class-bar-type.php:111, includes/pro/bartypes/freeshipping/class-bar-type.php:139, includes/pro/bartypes/freeshipping/class-bar-type.php:267, includes/pro/bartypes/signup/class-bar-type.php:539, includes/pro/bartypes/tweet/class-bar-type.php:105
+msgid "Content"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:42, includes/admin/notification/metabox/settings/class-content-call-to-action.php:36, includes/admin/notification/metabox/settings/class-content-cookie.php:36, includes/pro/bartypes/countdown/class-bar-type.php:190, includes/pro/bartypes/freeshipping/class-bar-type.php:147, includes/pro/bartypes/freeshipping/class-bar-type.php:225, includes/pro/bartypes/tweet/class-bar-type.php:113
+msgid "Message"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:43
+msgid "Set the message displayed for the announcement."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:49, includes/admin/notification/metabox/settings/class-content-announcement.php:87, includes/admin/notification/metabox/settings/class-content-call-to-action.php:43, includes/admin/notification/metabox/settings/class-content-call-to-action.php:80, includes/admin/notification/metabox/settings/class-content-call-to-action.php:117, includes/admin/notification/metabox/settings/class-content-cookie.php:42, includes/admin/notification/metabox/settings/class-content-cookie.php:78, includes/admin/notification/metabox/settings/class-content-cookie.php:114, includes/admin/notification/metabox/settings/class-content-cookie.php:171, includes/pro/bartypes/countdown/class-bar-type.php:194, includes/pro/bartypes/countdown/class-bar-type.php:250, includes/pro/bartypes/countdown/class-bar-type.php:287, includes/pro/bartypes/countdown/class-bar-type.php:351, includes/pro/bartypes/freeshipping/class-bar-type.php:154, includes/pro/bartypes/freeshipping/class-bar-type.php:188, includes/pro/bartypes/freeshipping/class-bar-type.php:232, includes/pro/bartypes/freeshipping/class-bar-type.php:308, includes/pro/bartypes/freeshipping/class-bar-type.php:353, includes/pro/bartypes/freeshipping/class-bar-type.php:406, includes/pro/bartypes/signup/class-bar-type.php:449, includes/pro/bartypes/signup/class-bar-type.php:483, includes/pro/bartypes/signup/class-bar-type.php:557, includes/pro/bartypes/signup/class-bar-type.php:591, includes/pro/bartypes/tweet/class-bar-type.php:120, includes/pro/bartypes/tweet/class-bar-type.php:181, includes/pro/bartypes/tweet/class-bar-type.php:218
+msgid "Text"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:50
+msgid "Welcome to our website. Please enjoy your visit..."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:51, includes/admin/notification/metabox/settings/class-content-call-to-action.php:44, includes/admin/notification/metabox/settings/class-content-cookie.php:43, includes/pro/bartypes/countdown/class-bar-type.php:195, includes/pro/bartypes/countdown/class-bar-type.php:352, includes/pro/bartypes/signup/class-bar-type.php:450, includes/pro/bartypes/signup/class-bar-type.php:558, includes/pro/bartypes/signup/class-bar-type.php:592
+msgid "You can use %s in this field 😀"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:51, includes/admin/notification/metabox/settings/class-content-call-to-action.php:44, includes/admin/notification/metabox/settings/class-content-cookie.php:43, includes/pro/bartypes/countdown/class-bar-type.php:195, includes/pro/bartypes/countdown/class-bar-type.php:352, includes/pro/bartypes/freeshipping/class-bar-type.php:155, includes/pro/bartypes/freeshipping/class-bar-type.php:233, includes/pro/bartypes/freeshipping/class-bar-type.php:309, includes/pro/bartypes/signup/class-bar-type.php:450, includes/pro/bartypes/signup/class-bar-type.php:558, includes/pro/bartypes/signup/class-bar-type.php:592, includes/pro/bartypes/tweet/class-bar-type.php:121
+msgid "emoji's"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:60, includes/admin/notification/metabox/settings/class-content-call-to-action.php:53, includes/pro/bartypes/countdown/class-bar-type.php:225, includes/pro/bartypes/freeshipping/class-bar-type.php:163, includes/pro/bartypes/signup/class-bar-type.php:458, includes/pro/bartypes/tweet/class-bar-type.php:154
+msgid "Show Link?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:61, includes/admin/notification/metabox/settings/class-content-call-to-action.php:54, includes/pro/bartypes/countdown/class-bar-type.php:226, includes/pro/bartypes/freeshipping/class-bar-type.php:164, includes/pro/bartypes/signup/class-bar-type.php:459, includes/pro/bartypes/tweet/class-bar-type.php:155
+msgid "Do you want to show an anchor link next to the message?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:65, includes/admin/notification/metabox/settings/class-content-call-to-action.php:58, includes/admin/notification/metabox/settings/class-content-cookie.php:56, includes/admin/notification/metabox/settings/class-content-cookie.php:149, includes/admin/notification/metabox/settings/class-general.php:213, includes/admin/notification/metabox/settings/class-general.php:294, includes/admin/notification/metabox/settings/class-general.php:307, includes/pro/bartypes/countdown/class-bar-type.php:230, includes/pro/bartypes/freeshipping/class-bar-type.php:168, includes/pro/bartypes/freeshipping/class-bar-type.php:246, includes/pro/bartypes/freeshipping/class-bar-type.php:322, includes/pro/bartypes/freeshipping/class-bar-type.php:333, includes/pro/bartypes/freeshipping/class-bar-type.php:375, includes/pro/bartypes/freeshipping/class-bar-type.php:428, includes/pro/bartypes/signup/class-bar-type.php:463, includes/pro/bartypes/tweet/class-bar-type.php:135, includes/pro/bartypes/tweet/class-bar-type.php:147, includes/pro/bartypes/tweet/class-bar-type.php:159, includes/pro/bartypes/tweet/class-bar-type.php:233, includes/pro/bartypes/tweet/class-bar-type.php:245, includes/pro/visibility/conditions/class-user-logged-in.php:24
+msgid "No"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:66, includes/admin/notification/metabox/settings/class-content-call-to-action.php:59, includes/admin/notification/metabox/settings/class-content-cookie.php:57, includes/admin/notification/metabox/settings/class-content-cookie.php:150, includes/admin/notification/metabox/settings/class-general.php:209, includes/admin/notification/metabox/settings/class-general.php:290, includes/admin/notification/metabox/settings/class-general.php:303, includes/pro/bartypes/countdown/class-bar-type.php:231, includes/pro/bartypes/freeshipping/class-bar-type.php:169, includes/pro/bartypes/freeshipping/class-bar-type.php:247, includes/pro/bartypes/freeshipping/class-bar-type.php:323, includes/pro/bartypes/freeshipping/class-bar-type.php:334, includes/pro/bartypes/freeshipping/class-bar-type.php:376, includes/pro/bartypes/freeshipping/class-bar-type.php:429, includes/pro/bartypes/signup/class-bar-type.php:464, includes/pro/bartypes/tweet/class-bar-type.php:136, includes/pro/bartypes/tweet/class-bar-type.php:148, includes/pro/bartypes/tweet/class-bar-type.php:160, includes/pro/bartypes/tweet/class-bar-type.php:234, includes/pro/bartypes/tweet/class-bar-type.php:246, includes/pro/visibility/conditions/class-user-logged-in.php:23
+msgid "Yes"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:75, includes/admin/notification/metabox/settings/class-content-call-to-action.php:67, includes/pro/bartypes/countdown/class-bar-type.php:237, includes/pro/bartypes/freeshipping/class-bar-type.php:175, includes/pro/bartypes/signup/class-bar-type.php:470, includes/pro/bartypes/tweet/class-bar-type.php:168
+msgid "Link"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:76, includes/admin/notification/metabox/settings/class-content-call-to-action.php:68, includes/pro/bartypes/tweet/class-bar-type.php:169
+msgid "Set the options for the link displayed next to the message."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:88, includes/admin/notification/metabox/settings/class-content-call-to-action.php:81, includes/admin/notification/metabox/settings/class-content-cookie.php:79, includes/pro/bartypes/countdown/class-bar-type.php:251, includes/pro/bartypes/freeshipping/class-bar-type.php:189, includes/pro/bartypes/signup/class-bar-type.php:484, includes/pro/bartypes/tweet/class-bar-type.php:182
+msgid "The text to display for the link."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:90
+msgid "Read More"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:97, includes/admin/notification/metabox/settings/class-content-call-to-action.php:90, includes/admin/notification/metabox/settings/class-content-call-to-action.php:127, includes/admin/notification/metabox/settings/class-content-cookie.php:88, includes/admin/notification/metabox/settings/class-content-cookie.php:181, includes/pro/bartypes/countdown/class-bar-type.php:259, includes/pro/bartypes/countdown/class-bar-type.php:296, includes/pro/bartypes/freeshipping/class-bar-type.php:197, includes/pro/bartypes/freeshipping/class-bar-type.php:363, includes/pro/bartypes/freeshipping/class-bar-type.php:416, includes/pro/bartypes/signup/class-bar-type.php:492, includes/pro/bartypes/tweet/class-bar-type.php:191
+msgid "URL"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:98, includes/admin/notification/metabox/settings/class-content-call-to-action.php:91, includes/admin/notification/metabox/settings/class-content-cookie.php:89, includes/pro/bartypes/countdown/class-bar-type.php:260, includes/pro/bartypes/freeshipping/class-bar-type.php:198, includes/pro/bartypes/signup/class-bar-type.php:493, includes/pro/bartypes/tweet/class-bar-type.php:192
+msgid "The URL the link will navigate to when clicked."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:104, includes/admin/notification/metabox/settings/class-content-call-to-action.php:96, includes/admin/notification/metabox/settings/class-content-call-to-action.php:134, includes/admin/notification/metabox/settings/class-content-cookie.php:95, includes/admin/notification/metabox/settings/class-content-cookie.php:188, includes/pro/bartypes/countdown/class-bar-type.php:265, includes/pro/bartypes/countdown/class-bar-type.php:304, includes/pro/bartypes/freeshipping/class-bar-type.php:203, includes/pro/bartypes/freeshipping/class-bar-type.php:381, includes/pro/bartypes/freeshipping/class-bar-type.php:434, includes/pro/bartypes/signup/class-bar-type.php:498, includes/pro/bartypes/tweet/class-bar-type.php:197, includes/pro/bartypes/tweet/class-bar-type.php:252
+msgid "Target"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:105, includes/admin/notification/metabox/settings/class-content-call-to-action.php:97, includes/admin/notification/metabox/settings/class-content-call-to-action.php:135, includes/admin/notification/metabox/settings/class-content-cookie.php:96, includes/admin/notification/metabox/settings/class-content-cookie.php:189, includes/pro/bartypes/countdown/class-bar-type.php:266, includes/pro/bartypes/countdown/class-bar-type.php:305, includes/pro/bartypes/freeshipping/class-bar-type.php:204, includes/pro/bartypes/freeshipping/class-bar-type.php:382, includes/pro/bartypes/freeshipping/class-bar-type.php:435, includes/pro/bartypes/signup/class-bar-type.php:499, includes/pro/bartypes/tweet/class-bar-type.php:198, includes/pro/bartypes/tweet/class-bar-type.php:253
+msgid "How to open the URL?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:110, includes/admin/notification/metabox/settings/class-content-call-to-action.php:101, includes/admin/notification/metabox/settings/class-content-call-to-action.php:139, includes/admin/notification/metabox/settings/class-content-cookie.php:100, includes/admin/notification/metabox/settings/class-content-cookie.php:193, includes/pro/bartypes/countdown/class-bar-type.php:270, includes/pro/bartypes/countdown/class-bar-type.php:309, includes/pro/bartypes/freeshipping/class-bar-type.php:208, includes/pro/bartypes/freeshipping/class-bar-type.php:386, includes/pro/bartypes/freeshipping/class-bar-type.php:439, includes/pro/bartypes/signup/class-bar-type.php:503, includes/pro/bartypes/tweet/class-bar-type.php:202, includes/pro/bartypes/tweet/class-bar-type.php:257
+msgid "Same Window"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-announcement.php:111, includes/admin/notification/metabox/settings/class-content-call-to-action.php:102, includes/admin/notification/metabox/settings/class-content-call-to-action.php:140, includes/admin/notification/metabox/settings/class-content-cookie.php:101, includes/admin/notification/metabox/settings/class-content-cookie.php:194, includes/pro/bartypes/countdown/class-bar-type.php:271, includes/pro/bartypes/countdown/class-bar-type.php:310, includes/pro/bartypes/freeshipping/class-bar-type.php:209, includes/pro/bartypes/freeshipping/class-bar-type.php:387, includes/pro/bartypes/freeshipping/class-bar-type.php:440, includes/pro/bartypes/signup/class-bar-type.php:504, includes/pro/bartypes/tweet/class-bar-type.php:203, includes/pro/bartypes/tweet/class-bar-type.php:258
+msgid "New Tab"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:37, includes/admin/notification/metabox/settings/class-content-cookie.php:37
+msgid "Set the message displayed for the Call-To-Action."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:45, includes/pro/bartypes/tweet/class-bar-type.php:122
+msgid "Get a 15% discount before our sale ends!"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:110, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:347, includes/pro/bartypes/countdown/class-bar-type.php:282, includes/pro/bartypes/tweet/class-bar-type.php:211
+msgid "Button"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:111, includes/pro/bartypes/tweet/class-bar-type.php:212
+msgid "Set the options for the button displayed next to the message."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:118, includes/admin/notification/metabox/settings/class-content-cookie.php:115, includes/admin/notification/metabox/settings/class-content-cookie.php:172, includes/pro/bartypes/freeshipping/class-bar-type.php:354, includes/pro/bartypes/freeshipping/class-bar-type.php:407, includes/pro/bartypes/tweet/class-bar-type.php:219
+msgid "The text to display for the button."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:119
+msgid "Shop Now"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:128, includes/admin/notification/metabox/settings/class-content-cookie.php:182, includes/pro/bartypes/freeshipping/class-bar-type.php:364, includes/pro/bartypes/freeshipping/class-bar-type.php:417
+msgid "The URL the button will navigate to when clicked."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:147, includes/admin/notification/metabox/settings/class-content-cookie.php:124, includes/pro/bartypes/countdown/class-bar-type.php:316, includes/pro/bartypes/tweet/class-bar-type.php:265
+msgid "You can override the position of the button."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:153, includes/admin/notification/metabox/settings/class-content-cookie.php:130, includes/pro/bartypes/countdown/class-bar-type.php:323, includes/pro/bartypes/tweet/class-bar-type.php:271
+msgid "The default button position, depending on the RTL orientation."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:156, includes/admin/notification/metabox/settings/class-content-cookie.php:133, includes/pro/bartypes/countdown/class-bar-type.php:326, includes/pro/bartypes/tweet/class-bar-type.php:274
+msgid "Before Message"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:157, includes/admin/notification/metabox/settings/class-content-cookie.php:134, includes/pro/bartypes/countdown/class-bar-type.php:327, includes/pro/bartypes/tweet/class-bar-type.php:275
+msgid "Display the button before the message."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:160, includes/admin/notification/metabox/settings/class-content-cookie.php:137, includes/pro/bartypes/countdown/class-bar-type.php:330, includes/pro/bartypes/tweet/class-bar-type.php:278
+msgid "After Message"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-call-to-action.php:161, includes/admin/notification/metabox/settings/class-content-cookie.php:138, includes/pro/bartypes/countdown/class-bar-type.php:331, includes/pro/bartypes/tweet/class-bar-type.php:279
+msgid "Display the button after the message."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:44
+msgid "%s uses cookies to personalise and improve your user experience. If you continue to use this website, you will be providing consent to our use of cookies."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:51
+msgid "Show Policy Link?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:52
+msgid "Do you want to show an anchor link to your privacy policy page?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:65
+msgid "Policy Link"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:66
+msgid "Set the options for the policy link displayed next to the message."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:81
+msgid "Privacy Policy"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:109
+msgid "Accept Button"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:110
+msgid "Set the options for the accept button. When clicked the notification will be dismissed."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:116, includes/renderers/items/class-cookie.php:38
+msgid "Accept"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:144
+msgid "Allow Decline?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:145
+msgid "Do you want to show a button allowing the user to decline?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:158
+msgid "Decline Button"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:159
+msgid "Set the options for the decline button. When clicked the user will be sent to the provided URL."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-content-cookie.php:174, includes/renderers/items/class-cookie.php:47
+msgid "Decline"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:18
+msgid "Layout"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:19
+msgid "Set how the notification is displayed within your page."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:26
+msgid "Where do you want the notification to show?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:35
+msgid "Inline notifications will show where you have included the shortcode on the page."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:65
+msgid "The notification pushes the page by changing the margin of the &lt;HTML/&gt; element. This is the same way WordPress displays the admin bar however it may not be supported by all themes."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:80
+msgid "State"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:81
+msgid "The \"state\" of the notification can be opened or closed. These settings allow you to control the state of the notification and when it changes from opened to closed."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:87
+msgid "Initial State"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:88
+msgid "Is the notification opened or closed when the page loads?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:97
+msgid "Remember State"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:98
+msgid "Remember the state of the notification across page refreshes. If a visitor collapses or dismisses the bar, when they refresh the page again, it will stay in the previous state."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:107
+msgid "State Expires?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:108
+msgid "Should the remembered state expire? Once expired the bars initial state will be applied."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:124
+msgid "State Duration"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:125
+msgid "How long should the state be remembered?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:143, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:152
+msgid "Toggle Button"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:144
+msgid "The toggle is the small button on the side of the notification with an icon, that collapses or dismisses the notification. To disable the toggle button, select a Toggle Shape of \"None\"."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:150
+msgid "Shape"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:151
+msgid "What do you want the toggle button shape to look like?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:161
+msgid "Where do you want the toggle button to show?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:177, includes/pro/bartypes/signup/class-bar-type.php:100
+msgid "Action"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:178
+msgid "What happens when the toggle button is clicked? "
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:210
+msgid "The notification will push the page to try avoid hiding content"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:214
+msgid "The notification is simply positioned within the page and may overlap content"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:222
+msgid "Square"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:223
+msgid "The default toggle button shape, which is square"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:226
+msgid "Circle"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:227
+msgid "A circular toggle button"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:230
+msgid "Overlap"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:231
+msgid "A square toggle button which overlaps the bar"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:235
+msgid "Do not show a toggle button"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:244
+msgid "The default toggle button position, which could change based on the type and position."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:247
+msgid "Force Left"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:248, includes/admin/notification/metabox/settings/class-general.php:252
+msgid "Forces the toggle to be displayed on the left"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:251
+msgid "Force Right"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:260
+msgid "Toggle"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:261
+msgid "The toggle button will expand or collapse the bar."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:264, includes/pro/admin/notification/metabox/settings/class-appearance.php:147
+msgid "Dismiss"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:265
+msgid "Dismissing the bar will remove it from the page completely."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:277
+msgid "Opened"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:278
+msgid "Open the bar when the page loads"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:281
+msgid "Closed"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:282
+msgid "The bar will be closed/collapsed when the page loads"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:291
+msgid "The bar state will be remembered when the page is refreshed."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:295
+msgid "The state of the bar will not be remembered when the page is refreshed."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:304
+msgid "The bar state will expire after the selected duration."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-general.php:308
+msgid "The state of the bar will be persisted indefinitely."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:24
+msgid "Select where you want the notification to be shown on your site."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:30
+msgid "Show Where?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:46
+msgid "Show When?"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:52, includes/admin/notification/metabox/settings/class-visibility.php:118
+msgid "Only show the notification when the shortcode has been included in the page content."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:66
+msgid "The notification will only show on pages where you have included the shortcode."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:79
+msgid "The notification will NEVER be shown on the site. This will override all other conditions, even if the shortcode for the notification is included in a page."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:92
+msgid "The notification will be shown on every page of the site."
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:113, includes/functions.php:645
+msgid "Nowhere"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:114
+msgid "Force the notification to never be shown. This overrides everything else!"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:117
+msgid "By Shortcode"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:121, includes/functions.php:642
+msgid "Everywhere"
+msgstr ""
+
+#: includes/admin/notification/metabox/settings/class-visibility.php:122
+msgid "Display the notification on every page of the website"
+msgstr ""
+
+#: includes/admin/views/help.php:6, includes/posttypes/class-notification.php:33
+msgid "FooBar"
+msgstr ""
+
+#: includes/admin/views/help.php:7
+msgid "Thank you for choosing FooBar, the WordPress Notification Plugin that helps your business grow!"
+msgstr ""
+
+#: includes/admin/views/help.php:8
+msgid "Made with ❤️ by %s"
+msgstr ""
+
+#: includes/admin/views/help.php:9
+msgid "FooPlugins"
+msgstr ""
+
+#: includes/admin/views/help.php:10
+msgid "Visit the FooBar Homepage"
+msgstr ""
+
+#: includes/admin/views/help.php:21
+msgid "PRO Features"
+msgstr ""
+
+#: includes/admin/views/help.php:365
+msgid "Getting Started"
+msgstr ""
+
+#: includes/admin/views/help.php:371
+msgid "Demos"
+msgstr ""
+
+#: includes/admin/views/help.php:374
+msgid "Support"
+msgstr ""
+
+#: includes/admin/views/help.php:381
+msgid "Create Demo Notifications"
+msgstr ""
+
+#: includes/admin/views/help.php:382
+msgid "It's always best to see what is possible by looking at the real thing. If you want to get started really quickly without any hassle, then we can import some demo notification bars for you. This will create a number of pre-defined notification bars which you can easily edit and make your own."
+msgstr ""
+
+#: includes/admin/views/help.php:383
+msgid "Create Notifications"
+msgstr ""
+
+#: includes/admin/views/help.php:387
+msgid "Preview Your Notifications"
+msgstr ""
+
+#: includes/admin/views/help.php:392
+msgid "You can easily preview all your notifications from one place : %s"
+msgstr ""
+
+#: includes/admin/views/help.php:392
+msgid "FooBar &rarr; Notifications"
+msgstr ""
+
+#: includes/admin/views/help.php:395
+msgid "1. Hover over a notification"
+msgstr ""
+
+#: includes/admin/views/help.php:397
+msgid "2. Click Preview"
+msgstr ""
+
+#: includes/admin/views/help.php:399
+msgid "A preview will load in the WordPress admin, to show you exactly how it will look."
+msgstr ""
+
+#: includes/admin/views/help.php:401
+msgid "TIP : Want to see how it will look on your actual site? Edit a notification, and click \"Launch Frontend Preview\"."
+msgstr ""
+
+#: includes/admin/views/help.php:410
+msgid "How To Create Your First Notification"
+msgstr ""
+
+#: includes/admin/views/help.php:413
+msgid "FooBar &rarr; Add Notification"
+msgstr ""
+
+#: includes/admin/views/help.php:414
+msgid "To create your first notification, simply click the Add New button or click the Add Notification link in the main menu under FooBar."
+msgstr ""
+
+#: includes/admin/views/help.php:416
+msgid "1. Enter a Title"
+msgstr ""
+
+#: includes/admin/views/help.php:418
+msgid "2. Choose Notification Type"
+msgstr ""
+
+#: includes/admin/views/help.php:420
+msgid "3. Customize Settings"
+msgstr ""
+
+#: includes/admin/views/help.php:430
+msgid "Make Your Notification Visible"
+msgstr ""
+
+#: includes/admin/views/help.php:433
+msgid "By default, your notification will not be visible. You decide when and where to make it visible."
+msgstr ""
+
+#: includes/admin/views/help.php:435
+msgid "Show Everywhere"
+msgstr ""
+
+#: includes/admin/views/help.php:436
+msgid "If you want to show on all pages, under Visibility, set the Show When setting to \"Always\"."
+msgstr ""
+
+#: includes/admin/views/help.php:438
+msgid "The <em>[%s]</em> Short Code"
+msgstr ""
+
+#: includes/admin/views/help.php:439
+msgid "Simply copy the shortcode code from the notifications listing and paste it into your posts or pages."
+msgstr ""
+
+#: includes/admin/views/help.php:462
+msgid "Thanks for trying out PRO 😍"
+msgstr ""
+
+#: includes/admin/views/help.php:463
+msgid "See below for the PRO features you can try out immediately..."
+msgstr ""
+
+#: includes/admin/views/help.php:457
+msgid "Thanks for your support by purchasing a PRO license 😍"
+msgstr ""
+
+#: includes/admin/views/help.php:458
+msgid "See below for the PRO features you can start using immediately..."
+msgstr ""
+
+#: includes/admin/views/help.php:451
+msgid "FooBar PRO Free Trial 🤩"
+msgstr ""
+
+#: includes/admin/views/help.php:452
+msgid "Want to test out all the PRO features below? No problem! You can start a 7-day free trial immediately!"
+msgstr ""
+
+#: includes/admin/views/help.php:453
+msgid "Start Your 7-day Free Trial"
+msgstr ""
+
+#: includes/admin/views/help.php:467
+msgid "Sign Up Bars"
+msgstr ""
+
+#: includes/admin/views/help.php:468
+msgid "Create an email sign up bar to capture leads and emails for your newsletter list. Comes with Mailchimp integration."
+msgstr ""
+
+#: includes/admin/views/help.php:472
+msgid "Countdown Bars"
+msgstr ""
+
+#: includes/admin/views/help.php:473
+msgid "Show a countdown bar to create a fear of missing out for your visitors. FOMO has been proven to increase conversion rates."
+msgstr ""
+
+#: includes/admin/views/help.php:477
+msgid "Free Shipping Bars"
+msgstr ""
+
+#: includes/admin/views/help.php:478
+msgid "Show a bar to your shoppers to entice them with free shipping if they buy more. Integrates with your WooCommerce store settings."
+msgstr ""
+
+#: includes/admin/views/help.php:482
+msgid "Scheduling"
+msgstr ""
+
+#: includes/admin/views/help.php:483
+msgid "Decide when your bar shows, by selecting a start and end date/time."
+msgstr ""
+
+#: includes/admin/views/help.php:487
+msgid "Attention-grabbing Effects"
+msgstr ""
+
+#: includes/admin/views/help.php:488
+msgid "Increase your conversions by grabbing the attention of visitors, to make them click on your buttons or open the bar."
+msgstr ""
+
+#: includes/admin/views/help.php:492
+msgid "Left & Right Bar Positions"
+msgstr ""
+
+#: includes/admin/views/help.php:493
+msgid "Why only have top or bottom bars? You can now have right or left-positioned bars. There are now 12 bar positions for you to choose from!"
+msgstr ""
+
+#: includes/admin/views/help.php:497
+msgid "Full Customization"
+msgstr ""
+
+#: includes/admin/views/help.php:498
+msgid "You have full control over how your notifications will look, including gradient backgrounds, custom icons, custom colors and font sizes."
+msgstr ""
+
+#: includes/admin/views/help.php:502
+msgid "Visibility Conditions"
+msgstr ""
+
+#: includes/admin/views/help.php:503
+msgid "Choose where your notifications will show with conditions of your choosing. Show for a specific post type, or on specific pages only, or for certain categories."
+msgstr ""
+
+#: includes/admin/views/help.php:507
+msgid "Open / Close Triggers"
+msgstr ""
+
+#: includes/admin/views/help.php:508
+msgid "Open or close your notifications depending on specific events or triggers e.g. Exit Intent, scroll, time delay & more!"
+msgstr ""
+
+#: includes/admin/views/help.php:512, includes/pro/admin/notification/class-metabox-custom-css.php:17
+msgid "Custom CSS"
+msgstr ""
+
+#: includes/admin/views/help.php:513
+msgid "Take customization to the next level with the ability to add custom CSS for your notifications."
+msgstr ""
+
+#: includes/admin/views/help.php:519
+msgid "FooBar Demos 😎"
+msgstr ""
+
+#: includes/admin/views/help.php:520
+msgid "Try the demos below by clicking on the buttons:"
+msgstr ""
+
+#: includes/admin/views/help.php:534
+msgid "🚑 Need help? We're here for you..."
+msgstr ""
+
+#: includes/admin/views/help.php:536
+msgid "FooBar Documentation"
+msgstr ""
+
+#: includes/admin/views/help.php:536
+msgid "Our documentation covers everything you need to know from how to install the plugin and use it, to troubleshooting common issues."
+msgstr ""
+
+#: includes/admin/views/help.php:538
+msgid "Foobar WordPress.org Support"
+msgstr ""
+
+#: includes/admin/views/help.php:538
+msgid "We actively monitor and answer all questions posted on WordPress.org for FooBar."
+msgstr ""
+
+#: includes/admin/views/help.php:541
+msgid "Still stuck? Please open a support ticket and we will help:"
+msgstr ""
+
+#: includes/functions.php:311, includes/functions.php:314
+msgid "Announcement"
+msgstr ""
+
+#: includes/functions.php:312
+msgid "Shows a simple announcement message with an optional link"
+msgstr ""
+
+#: includes/functions.php:315
+msgid "This notification shows a simple message to your visitors."
+msgstr ""
+
+#: includes/functions.php:319
+msgid "Simple message to visitors."
+msgstr ""
+
+#: includes/functions.php:326, includes/functions.php:332
+msgid "Call To Action"
+msgstr ""
+
+#: includes/functions.php:327
+msgid "Shows a message with a call-to-action button"
+msgstr ""
+
+#: includes/functions.php:333
+msgid "This notification shows a message to your visitors accompanied by a customisable call-to-action button."
+msgstr ""
+
+#: includes/functions.php:337
+msgid "Simple message to visitors with an actionable button."
+msgstr ""
+
+#: includes/functions.php:344, includes/functions.php:350
+msgid "Cookie Notice"
+msgstr ""
+
+#: includes/functions.php:345
+msgid "Shows a cookie notice with an accept button"
+msgstr ""
+
+#: includes/functions.php:351
+msgid "This notification shows a simple cookie notice to your visitors accompanied by an accept and/or decline button."
+msgstr ""
+
+#: includes/functions.php:355
+msgid "A simple cookie notice with only an accept button."
+msgstr ""
+
+#: includes/functions.php:907
+msgid "Top"
+msgstr ""
+
+#: includes/functions.php:908
+msgid "Shows a sticky bar at the top of the page"
+msgstr ""
+
+#: includes/functions.php:911
+msgid "Top (Scrolls)"
+msgstr ""
+
+#: includes/functions.php:912
+msgid "Shows a top bar that will scroll with the page"
+msgstr ""
+
+#: includes/functions.php:915
+msgid "Bottom"
+msgstr ""
+
+#: includes/functions.php:916
+msgid "Shows a sticky bar along the bottom of the page"
+msgstr ""
+
+#: includes/functions.php:919
+msgid "Inline"
+msgstr ""
+
+#: includes/functions.php:920
+msgid "Shows the bar inline in the page where the shortcode was placed"
+msgstr ""
+
+#: includes/posttypes/class-notification.php:23, includes/posttypes/class-notification.php:34
+msgid "Notifications"
+msgstr ""
+
+#: includes/posttypes/class-notification.php:24
+msgid "Notification"
+msgstr ""
+
+#: includes/posttypes/class-notification.php:25
+msgid "Add Notification"
+msgstr ""
+
+#: includes/posttypes/class-notification.php:26
+msgid "Add New Notification"
+msgstr ""
+
+#: includes/posttypes/class-notification.php:27
+msgid "Edit Notification"
+msgstr ""
+
+#: includes/posttypes/class-notification.php:28
+msgid "New Notification"
+msgstr ""
+
+#: includes/posttypes/class-notification.php:29
+msgid "View Notifications"
+msgstr ""
+
+#: includes/posttypes/class-notification.php:30
+msgid "Search Notifications"
+msgstr ""
+
+#: includes/posttypes/class-notification.php:31
+msgid "No Notifications found"
+msgstr ""
+
+#: includes/posttypes/class-notification.php:32
+msgid "No Notifications found in Trash"
+msgstr ""
+
+#: includes/pro/admin/notification/class-metabox-custom-css.php:55
+msgid "Add any custom CSS to target this specific notification. For example %s"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:21
+msgid "Text & Links"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:22
+msgid "Set the default text and link colors."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:26, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:379, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:435, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:476, includes/pro/bartypes/freeshipping/class-bar-type.php:555
+msgid "Text Color"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:37
+msgid "Link Color"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:44, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:176, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:198, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:256, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:278, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:309, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:331, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:365, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:387, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:421, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:443
+msgid "Hovered"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:57
+msgid "Background"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:58
+msgid "Choose the background to display for the notification."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:69
+msgid "What type of background do you want to use?"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:74
+msgid "Solid Color"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:75
+msgid "Use a single solid color as the background color"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:78
+msgid "Gradient"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:79
+msgid "Use a gradient background"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:85, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:218
+msgid "Color"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:109
+msgid "Color #1"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:116
+msgid "Color #2"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:123
+msgid "Gradient Type"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:127
+msgid "Linear"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:128
+msgid "Radial"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:133
+msgid "Gradient Angle"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:153
+msgid "Set the colors for the toggle button."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:168, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:248, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:301, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:357, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:413, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:464, includes/pro/bartypes/freeshipping/class-bar-type.php:548
+msgid "Background Color"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:190, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:270, includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:323, includes/pro/bartypes/freeshipping/class-bar-type.php:576
+msgid "Icon Color"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:213
+msgid "Border"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:214
+msgid "Set the color for the border."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:232
+msgid "Previous Button"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:233
+msgid "Set the colors for the previous button."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:291
+msgid "Next Button"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:292
+msgid "Set the colors for the next button."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:348
+msgid "Set the colors for the primary button."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:403
+msgid "Secondary Buttons"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:404
+msgid "Set the colors for secondary buttons."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:459
+msgid "Text Input"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:460
+msgid "Set the colors for the text input."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:483
+msgid "Placeholder"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance-customizer.php:497
+msgid "Customizer"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:27
+msgid "Choose from one of the pre-defined color schemes available for your notification, or customize all the colors by choosing the Custom option."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:36
+msgid "Font Size"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:37
+msgid "Select a font size to match your theme."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:41
+msgid "14px"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:42
+msgid "16px"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:43
+msgid "18px"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:44
+msgid "20px"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:45
+msgid "22px"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:46
+msgid "24px"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:65
+msgid "Effects"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:67
+msgid "You can add attention grabbing effects to your notifications, which helps to increase conversions."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:72
+msgid "Toggle Effect"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:73
+msgid "What attention grabbing effect would you like to show on the toggle button when the notification is closed."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:83
+msgid "Button Effect"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:84
+msgid "What attention grabbing effect would you like to show on the button within the notification."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:86
+msgid "Input Effect"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:87
+msgid "What attention grabbing effect would you like to show on the input within the notification."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:104
+msgid "Enable Effects"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:105
+msgid "Choose when the effects are turned off."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:111
+msgid "Always Enabled"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:112
+msgid "The effects are always on."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:115
+msgid "Disable After Interaction"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:116
+msgid "The effects are disabled after the visitor interacts with the notification."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:126
+msgid "Icons"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:128
+msgid "You can override the icons that are displayed within the notification."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:133
+msgid "Expand"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:134
+msgid "The icon displayed by the toggle button when the notification is closed."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:140
+msgid "Collapse"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:141
+msgid "The icon displayed by the toggle button when the notification is expanded."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:148
+msgid "The icon displayed by the toggle button when the notification is expanded and its action is set to \"Close\"."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:162
+msgid "Previous"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:163
+msgid "The icon displayed by the previous button when the notification has more than one item."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:169
+msgid "Next"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:170
+msgid "The icon displayed by the next button when the notification has more than one item."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:198
+msgid "Custom"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:213
+msgid "Pulse"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:214
+msgid "Ripple"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:215
+msgid "Wiggle"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:216
+msgid "Bounce"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-appearance.php:217
+msgid "Heartbeat"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:28
+msgid "Left Position"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:29
+msgid "You can set different positions for left-positioned bars."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:35
+msgid "Left (Full)"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:36
+msgid "Shows a left bar that covers the full height of the page"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:39
+msgid "Left Top"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:40
+msgid "Shows a bar in the top left corner of the page"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:43
+msgid "Left Center"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:44
+msgid "Shows a left bar in the center of the page"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:47
+msgid "Left Bottom"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:48
+msgid "Shows a bar in the bottom left corner of the page"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:61
+msgid "Right Position"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:62
+msgid "You can set different positions for right-positioned bars."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:68
+msgid "Right (Full)"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:69
+msgid "Shows a right bar that covers the full height of the page"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:72
+msgid "Right Top"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:73
+msgid "Shows a bar in the top right corner of the page"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:76
+msgid "Right Center"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:77
+msgid "Shows a right bar in the center of the page"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:80
+msgid "Right Bottom"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:81
+msgid "Shows a bar in the bottom right corner of the page"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:96
+msgid "Close When"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:97
+msgid "You can choose when the bar is closed, based on certain criteria."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:104
+msgid "Do not close - visitor will have to manually close."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:107, includes/pro/admin/notification/metabox/settings/class-general.php:210
+msgid "After a time delay."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:108
+msgid "Closes the bar after a certain amount of seconds."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:111, includes/pro/admin/notification/metabox/settings/class-general.php:214
+msgid "Visitor scrolls down (distance measured from top)."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:112
+msgid "Closes the bar when the page is scrolled down a certain amount."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:115, includes/pro/admin/notification/metabox/settings/class-general.php:218
+msgid "Visitor scrolls down (distance measured from bottom)."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:116
+msgid "Closes the bar when the page is scrolled a certain amount to the bottom."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:119
+msgid "Visitor intends to leave the page (exit intent)."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:120
+msgid "Closes the bar when the visitor is intending to leave the page."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:123, includes/pro/admin/notification/metabox/settings/class-general.php:226
+msgid "Element on page becomes visible."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:124
+msgid "Closes the bar when a specific element on the page is scrolled into view, or is made visible by code."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:127, includes/pro/admin/notification/metabox/settings/class-general.php:230
+msgid "Element on page is hidden."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:128
+msgid "Closes the bar when a specific element is scrolled out of view, or is hidden by code."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:140
+msgid "Scroll Distance (pixels)"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:154, includes/pro/admin/notification/metabox/settings/class-general.php:257
+msgid "Delay (in seconds)"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:167, includes/pro/admin/notification/metabox/settings/class-general.php:270
+msgid "Exit Intent Delay"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:168
+msgid "The exit intent will only trigger after the user has been on the page for this long in seconds."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:181, includes/pro/admin/notification/metabox/settings/class-general.php:284
+msgid "Element Selector"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:182, includes/pro/admin/notification/metabox/settings/class-general.php:285
+msgid "The selector for the element to watch. This should be either <code>#id_of_element</code> or <code>.class_of_element</code>."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:199
+msgid "Open When"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:200
+msgid "You can choose when the bar is opened, based on certain criteria."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:207
+msgid "Do not open - visitor will have to manually open."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:211
+msgid "Opens the bar after a certain amount of seconds."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:215
+msgid "Opens the bar when the page is scrolled down a certain amount."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:219
+msgid "Opens the bar when the page is scrolled a certain amount to the bottom."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:222
+msgid "Visitor leaves the site (exit intent)."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:223
+msgid "Opens the bar when the visitor is intending to leave the page."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:227
+msgid "Opens the bar when a specific element on the page is scrolled into view, or is made visible by code."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:231
+msgid "Opens the bar when a specific element is scrolled out of view, or is hidden by code."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:243
+msgid "Scroll Distance"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:271
+msgid "The exit intent will only trigger after the user has been on the page for this long."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:309
+msgid "Left"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:310, includes/pro/admin/notification/metabox/settings/class-general.php:315
+msgid "Shows a sticky bar on the left side of the page"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-general.php:314
+msgid "Right"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:22
+msgid "Scheduled"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:36, includes/pro/class-visibility.php:154
+msgid "Conditional"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:37
+msgid "Display the bar depending on different conditions."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:52
+msgid "Select where and when you want the notification to be shown on your site."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:69
+msgid "Schedule"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:70
+msgid "You can choose to only show the notification between a certain date range"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:76, includes/pro/bartypes/signup/class-bar-type.php:61, includes/pro/bartypes/signup/class-bar-type.php:671
+msgid "Disabled"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:77
+msgid "No scheduling will be used."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:80, includes/pro/bartypes/signup/class-bar-type.php:62, includes/pro/bartypes/signup/class-bar-type.php:672
+msgid "Enabled"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:81
+msgid "The notification will only show between the date range below."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:88
+msgid "From Date"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:89
+msgid "The notification will only be shown after this date."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:104
+msgid "To Date"
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:105
+msgid "The notification will only be shown before this date."
+msgstr ""
+
+#: includes/pro/admin/notification/metabox/settings/class-visibility.php:121
+msgid "Scheduling is disabled in admin previews. To test it out, launch a frontend preview."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:32, includes/pro/bartypes/countdown/class-bar-type.php:42, includes/pro/bartypes/countdown/class-bar-type.php:119
+msgid "Countdown"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:33
+msgid "Shows a message with a call-to-action button and a countdown"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:43
+msgid "This notification can help generate awareness of upcoming events to your visitors in a clear and visible way. It can also help during those events by displaying limited time offers."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:45
+msgid "Countdown to a fixed date time. e.g. Show a countdown to 15 May 2023 at 10:30 pm."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:46
+msgid "Countdown to a relative date time. e.g. 5 minutes from when the notification is first seen it expires."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:47
+msgid "Customizable styles for the countdown."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:48
+msgid "Customizable expiry message."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:53
+msgid "Announce upcoming or ongoing sales!"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:57
+msgid "Expiry message displayed to visitors who see the countdown expire."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:123
+msgid "Mode"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:124
+msgid "What countdown mode do you want to use?"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:129
+msgid "Fixed"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:130
+msgid "Count down to a specific date and time in the future."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:133
+msgid "Relative"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:134
+msgid "Count down to a relative time in the future."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:140
+msgid "Fixed Date Time"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:141
+msgid "Set a fixed date and time in the future."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:155
+msgid "Relative Time"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:156
+msgid "Set a relative time, by selecting days, hours, minutes and seconds into the future."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:168
+msgid "Style"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:169
+msgid "Choose how the count down is displayed."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:178
+msgid "Boxed"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:181
+msgid "Digital"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:196
+msgid "Black Friday Sale!"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:204
+msgid "You can override the position of the message."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:211
+msgid "The default message position, depending on the RTL orientation."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:214
+msgid "Before Countdown"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:215
+msgid "Display the message before the countdown."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:218
+msgid "After Countdown"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:219
+msgid "Display the message after the countdown."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:238, includes/pro/bartypes/freeshipping/class-bar-type.php:176, includes/pro/bartypes/signup/class-bar-type.php:471
+msgid "The link displayed next to the message."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:288
+msgid "The text displayed in the button."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:289
+msgid "Save 50%"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:297
+msgid "The URL to open when the button is clicked."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:341, includes/pro/bartypes/countdown/class-bar-type.php:346
+msgid "Expired Message"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:347
+msgid "This message is only briefly displayed to users if they are on the page as the countdown expires. Once the duration expires the notification will be dismissed."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:353
+msgid "Aww snap! You just missed this offer."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:360, includes/pro/bartypes/signup/class-bar-type.php:567, includes/pro/bartypes/signup/class-bar-type.php:610
+msgid "Duration"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-bar-type.php:361
+msgid "The amount of time, in seconds, to display the expired message."
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-item-renderer.php:76
+msgid "Days"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-item-renderer.php:77
+msgid "Hours"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-item-renderer.php:78
+msgid "Minutes"
+msgstr ""
+
+#: includes/pro/bartypes/countdown/class-item-renderer.php:79
+msgid "Seconds"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/admin/class-metabox-help.php:43
+msgid "We were unable to locate WooCommerce. Please make sure it is <a href=\"%s\">installed and activated</a> to be able to use this notification."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/admin/class-metabox-help.php:71
+msgid "We were unable to find a compatible free shipping method in WooCommerce."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/admin/class-metabox-help.php:73
+msgid "Please follow the below steps or take a look at our <a href=\"%s\">documentation</a> to see how to configure a WooCommerce free shipping method to work with FooBar."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/admin/class-metabox-help.php:77
+msgid "Go to your <a href=\"%s\">WooCommerce &rsaquo; Settings &rsaquo; Shipping</a> page."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/admin/class-metabox-help.php:78
+msgid "Create or edit the shipping zone(s) that you want to display this notification to."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/admin/class-metabox-help.php:79
+msgid "Edit or add a free shipping method to the shipping zone(s) from step #2 and make sure the value of <b><i>Free shipping requires...</i></b> is set to <b><i>A minimum order amount</i></b>. A value must also be supplied for the <b><i>Minimum order amount</i></b> input."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/admin/class-metabox-help.php:80
+msgid "Ensure the shipping method from step #3 is enabled."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/admin/class-metabox-help.php:82
+msgid "Once configured any visitors from eligible shipping zones will be able to see this notification based on its visibility settings."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:53, includes/pro/bartypes/freeshipping/class-bar-type.php:64
+msgid "Free Shipping"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:54
+msgid "Shows a message with the amount required to get free shipping."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:65
+msgid "This notification can help boost minimum sales by offering free shipping once a certain cart total has been reached."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:67
+msgid "Easy integration with WooCommerce."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:68
+msgid "Customizable messages for new customers, those with items in their cart, and those who have qualified for free shipping."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:69
+msgid "Customizable progress bar."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:74, includes/pro/bartypes/signup/class-bar-type.php:379
+msgid "The initial message displayed to visitors."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:78
+msgid "The message displayed to visitors with items in their cart."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:82
+msgid "The message displayed to visitors who qualify for free shipping."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:148
+msgid "Set the initial message displayed to visitors."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:155
+msgid "You can use $target to represent the target free shipping value set in WooCommerce, as well as %s in this field 😀"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:156
+msgid "Free shipping for billing over $target!"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:220
+msgid "Progress Content"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:226
+msgid "Set the message displayed to customers as they progress towards the free shipping amount."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:233, includes/pro/bartypes/freeshipping/class-bar-type.php:309
+msgid "You can use $current and $target to represent the current cart total and the target free shipping value set in WooCommerce, as well as %s in this field 😀"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:234
+msgid "You have purchased $current of $target!"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:241
+msgid "Progress Bar?"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:242
+msgid "Show a progress bar below the message?"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:255, includes/pro/bartypes/freeshipping/class-bar-type.php:537, includes/pro/bartypes/freeshipping/class-bar-type.php:661
+msgid "Progress Bar"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:256
+msgid "Change how the progress bar's content is displayed to visitors."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:268
+msgid "Choose how the progress bar's icon and text is displayed."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:272
+msgid "Icon and text"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:273
+msgid "Icon only"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:274
+msgid "Text only"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:275
+msgid "No icon or text"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:280
+msgid "Size"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:281
+msgid "Choose the overall width of the progress bar."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:286
+msgid "Medium"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:287
+msgid "Small"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:296
+msgid "Qualified Content"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:301
+msgid "Qualified Message"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:302
+msgid "Set the message displayed to customers who qualify for free shipping."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:310
+msgid "You have qualified for free shipping! 🎉"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:317
+msgid "Cart Button?"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:318
+msgid "Do you want to show a view cart button?"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:328
+msgid "Checkout Button?"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:329
+msgid "Do you want to show a checkout button?"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:342
+msgid "Cart Button"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:343
+msgid "Set the options for the view cart button."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:355, includes/pro/bartypes/freeshipping/class-bar-type.php:675, includes/pro/bartypes/freeshipping/class-item-qualified-renderer.php:37
+msgid "Cart"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:370, includes/pro/bartypes/freeshipping/class-bar-type.php:423, includes/pro/bartypes/tweet/class-bar-type.php:228
+msgid "Show Icon?"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:371, includes/pro/bartypes/freeshipping/class-bar-type.php:424
+msgid "Do you want to show an icon in the button?"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:395
+msgid "Checkout Button"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:396
+msgid "Set the options for the checkout button."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:408, includes/pro/bartypes/freeshipping/class-bar-type.php:688, includes/pro/bartypes/freeshipping/class-item-qualified-renderer.php:49
+msgid "Checkout"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:493
+msgid "Invalid request"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:493, includes/pro/bartypes/freeshipping/class-bar-type.php:461, includes/pro/bartypes/signup/class-bar-type.php:264
+msgid "Something went wrong."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:482
+msgid "Error encoding response!"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:474
+msgid "No free shipping data found!"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:470, includes/pro/bartypes/signup/class-bar-type.php:211
+msgid "No bar was found!"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:466, includes/pro/bartypes/signup/class-bar-type.php:205
+msgid "No bar_id was set!"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:538
+msgid "Set the colors for the progress bar."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:569
+msgid "Fill Color"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:590
+msgid "Border Size"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:599
+msgid "Border Radius"
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:662
+msgid "The icon displayed within the progress bar."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:676
+msgid "The icon displayed by the cart button."
+msgstr ""
+
+#: includes/pro/bartypes/freeshipping/class-bar-type.php:689
+msgid "The icon displayed by the checkout button."
+msgstr ""
+
+#: includes/pro/bartypes/signup/admin/class-metabox-stats.php:18, includes/pro/bartypes/signup/class-bar-type.php:51, includes/pro/bartypes/signup/class-bar-type.php:83
+msgid "Subscribers"
+msgstr ""
+
+#: includes/pro/bartypes/signup/admin/class-metabox-stats.php:82, includes/pro/bartypes/signup/class-bar-type.php:751
+msgid "Total signup attempts : %s"
+msgstr ""
+
+#: includes/pro/bartypes/signup/admin/class-metabox-stats.php:83, includes/pro/bartypes/signup/class-bar-type.php:752
+msgid "Successful signups : %s"
+msgstr ""
+
+#: includes/pro/bartypes/signup/admin/class-metabox-stats.php:84, includes/pro/bartypes/signup/class-bar-type.php:753
+msgid "Spam signups : %s"
+msgstr ""
+
+#: includes/pro/bartypes/signup/admin/class-metabox-stats.php:85, includes/pro/bartypes/signup/class-bar-type.php:754
+msgid "Failed signups : %s"
+msgstr ""
+
+#: includes/pro/bartypes/signup/admin/class-metabox-stats.php:87, includes/pro/bartypes/signup/class-bar-type.php:756
+msgid "Last failure reason : %s"
+msgstr ""
+
+#: includes/pro/bartypes/signup/admin/class-metabox-stats.php:92
+msgid "No stats available yet!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:52
+msgid "Choose how to handle subscribers for this notification."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:56
+msgid "Save"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:57
+msgid "You can choose to save each email subscriber to the database. If enabled, a list of all subscribers will be shown in the Subscribers metabox below."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:70, includes/pro/bartypes/signup/mailchimp/class-init.php:227
+msgid "settings page"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:74
+msgid "You have no integration setup! You can integrate with services like Mailchimp. Visit the %s, then under the Email Signup tab, setup your integration."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:90, includes/pro/bartypes/signup/class-bar-type.php:95, includes/pro/bartypes/signup/class-bar-type.php:667
+msgid "reCAPTCHA"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:96
+msgid "Here you can configure the reCAPTCHA action and score specifically for this sign up form."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:101
+msgid "The reCAPTCHA action this form reports as in the management interface."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:107
+msgid "Score"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:108
+msgid "The minimum allowed reCAPTCHA score for this form."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:264
+msgid "Invalid signup request"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:241
+msgid "Successfully subscribed!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:238
+msgid "Failed to add subscriber!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:223
+msgid "Spam error occurred!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:220
+msgid "Spam detected!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:203
+msgid "Invalid email address!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:358, includes/pro/bartypes/signup/class-bar-type.php:370, includes/pro/bartypes/signup/class-bar-type.php:528, includes/pro/bartypes/signup/class-item-renderer.php:70
+msgid "Sign Up"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:359
+msgid "Shows an email sign up form"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:371
+msgid "This notification can increase your mailing list subscribers count by displaying a simple sign up form."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:373
+msgid "Easy integration with reCAPTCHA v3."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:374
+msgid "Customizable success and error messages."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:383
+msgid "The message displayed to visitors who successfully sign up."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:387
+msgid "The message displayed when an error occurs."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:444
+msgid "Sign Up Message"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:445
+msgid "Set the message displayed for the notification."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:451
+msgid "Sign up for our newsletter!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:514
+msgid "Form"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:515
+msgid "The email input and submit button."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:519
+msgid "Placeholder Text"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:520
+msgid "The placeholder text for the email input."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:521
+msgid "Enter email..."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:526, includes/pro/bartypes/signup/class-bar-type.php:600
+msgid "Button Text"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:527
+msgid "The text for the submit button."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:547, includes/pro/bartypes/signup/class-bar-type.php:552
+msgid "Success Message"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:553
+msgid "The message shown briefly after a successful sign up. Once the duration expires the notification will be dismissed."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:559
+msgid "Thank you for signing up! A confirmation email has been sent to your email address."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:568, includes/pro/bartypes/signup/class-bar-type.php:611
+msgid "The amount of time, in seconds, to display the message."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:579, includes/pro/bartypes/signup/class-bar-type.php:585
+msgid "Error Message"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:586
+msgid "The message shown after a signup error occurs. Once the duration expires or the user clicks the button the sign up form will be shown again."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:593
+msgid "An error has occurred trying to sign you up."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:601
+msgid "The text for the retry button."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:602
+msgid "Try Again"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:639
+msgid "These settings are only used by the Signup notification bar type, if you want to capture email addresses from your visitors."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:644
+msgid "Signup Statistics"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:652
+msgid "Integration"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:653
+msgid "More integrations coming soon! Contact us for any requests"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:660
+msgid "reCAPTCHA v3"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:661
+msgid "register a reCAPTCHA v3 key"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:668
+msgid "Enable %s on all signup bars, in order to prevent spam and abuse. You will need to %s."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:678
+msgid "Site Key"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:690
+msgid "Secret Key"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:708
+msgid "Please enter a reCAPTCHA site key and secret key!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:721
+msgid "Spam Protection"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-bar-type.php:727
+msgid "Email Signups"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-item-error-renderer.php:25
+msgid "An error occurred during the sign up process."
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-item-error-renderer.php:30
+msgid "Try again"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-recaptcha-v3.php:33
+msgid "ReCAPTCHA Error : %s"
+msgstr ""
+
+#: includes/pro/bartypes/signup/class-recaptcha-v3.php:49
+msgid "Invalid site configuration."
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:26
+msgid "Mailchimp"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:38
+msgid "follow this link"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:43
+msgid "Mailchimp API key"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:44
+msgid "To create a Mailchimp API key, %s. Alternatively, once logged in to Mailchimp, go to Account > Extras > API Keys."
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:75
+msgid "Mailchimp List Sync"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:76
+msgid "Synchronize all lists from your Mailchimp account. You have to synchronize before you can select a list for an email signup bar."
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:93, includes/pro/bartypes/signup/mailchimp/class-init.php:86
+msgid "Mailchimp Lists"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:94
+msgid "Please make sure you have run the Mailchimp list synchronisation!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:63
+msgid "Please enter a Mailchimp API key!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:145
+msgid "Successfully synchronised with MailChimp. %s lists were found. Refresh the page to see the lists below."
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:134
+msgid "No API key found. Please enter a Mailchimp API key and save your settings!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:166
+msgid "Name"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:166
+msgid "ID"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:194
+msgid "Could not do mailchimp signup. No Mailchimp list selected!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:210
+msgid "Could not do mailchimp signup. Error from API : "
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:256
+msgid "No Mailchimp lists have been synchronised! Please visit the %s and configure your Mailchimp settings under the Email Signups tab."
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:230
+msgid "-- select a list -- "
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:234
+msgid "Mailchimp List"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:235
+msgid "Select the Mailchimp list that new subscribers will be added to when they submit their email."
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:243
+msgid "Mailchimp Signup Status"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:244
+msgid "Set the initial status that a new signup will be set to, when they are added to the Mailchimp list."
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:248
+msgid "Pending"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:248
+msgid "New members will be set to a status of pending, and sent a confirmation email to subscribe."
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:249
+msgid "Subscribed"
+msgstr ""
+
+#: includes/pro/bartypes/signup/mailchimp/class-init.php:249
+msgid "New members will be set to a status of subscribed."
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:25
+msgid "Webhook (like Zapier)"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:37
+msgid "Zapier"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:38
+msgid "Integrately"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:39
+msgid "Integromat"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:40
+msgid "Automate.io"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:42
+msgid "What are webhooks?"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:43
+msgid "Webhooks enable automation with other email systems (like Mailchimp), without needing to know how that email system works."
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:45
+msgid "There are dozens of automation tools that work with webhooks, for example %s, %s, %s or %s."
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:62
+msgid "Webhook URL"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:63
+msgid "Enter the webhook URL from the automation system of your choice. Webhooks can be used from a number of systems like Zapier, Integrately, Integromat and more!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:94
+msgid "Webhook Test"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:95
+msgid "You will need to send a test payload to your Webhook URL, so that you can successfully get it setup and activated in your automation tool of choice."
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:82
+msgid "Please enter a Webhook URL!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:122
+msgid "Successfully sent a test payload to the Webhook URL."
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:115
+msgid "No Webhook URL found. Please enter one and save your settings!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:178
+msgid "Could not do Webhook signup. No Webhook URL specified!"
+msgstr ""
+
+#: includes/pro/bartypes/signup/webhook/class-init.php:184
+msgid "Could not do mailchimp signup. Error from Webhook : "
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:33, includes/pro/bartypes/tweet/class-bar-type.php:43, includes/pro/bartypes/tweet/class-bar-type.php:220
+msgid "Tweet"
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:34
+msgid "Shows a message with a Tweet button"
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:44
+msgid "This notification lets your visitors easily tweet out predefined messages."
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:48
+msgid "A tweet notification displayed at the top of your page."
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:52
+msgid "A tweet notification displayed inline."
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:114
+msgid "Set the message to be Tweeted."
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:121
+msgid "You can use Twitter @mentions and %s in this field 😀"
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:130
+msgid "Drop Cap?"
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:131
+msgid "Use a dropped capital for the first character of this message?"
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:142
+msgid "Side Border?"
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:143
+msgid "Display a border to the side of this message?"
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:229
+msgid "Do you want to display the Twitter icon in the button?"
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:240
+msgid "Twitter Colors?"
+msgstr ""
+
+#: includes/pro/bartypes/tweet/class-bar-type.php:241
+msgid "Force the button to use the Twitter colors?"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-archive-post-type.php:11
+msgid "Archive Post Type"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-page-type.php:12
+msgid "Page Type"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-page-type.php:24
+msgid "Front Page"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-page-type.php:25
+msgid "Posts Page"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-page-type.php:26
+msgid "Search Page"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-page-type.php:27
+msgid "404 Page (not found)"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-page-type.php:28
+msgid "Date Page"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-page-type.php:29
+msgid "Author Page"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-page-type.php:30
+msgid "Top Level Page (no parent)"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-page-type.php:31
+msgid "Parent Page (has children)"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-page-type.php:32
+msgid "Child Page (has parent)"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-post-category.php:11
+msgid "Post Category"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-post-type.php:11
+msgid "Post Type"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-user-logged-in.php:11
+msgid "User Logged In"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-woocommerce-page-type.php:12
+msgid "Woo Page Type"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-woocommerce-page-type.php:24
+msgid "Shop Page"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-woocommerce-page-type.php:25
+msgid "Cart Page"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-woocommerce-page-type.php:26
+msgid "Checkout Page"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-woocommerce-page-type.php:27
+msgid "My Account Page"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-woocommerce-page-type.php:28
+msgid "Any Product"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-woocommerce-page-type.php:29
+msgid "Any Product Tag"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-woocommerce-page-type.php:30
+msgid "Any Product Category"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-woocommerce-page-type.php:31
+msgid "Any Page With WooCommerce Template"
+msgstr ""
+
+#: includes/pro/visibility/conditions/class-woocommerce-page-type.php:32
+msgid "Any WooCommerce Page"
+msgstr ""
+
+#: includes/pro/visibility/groups/class-archives.php:10
+msgid "Archives"
+msgstr ""
+
+#: includes/pro/visibility/groups/class-pages.php:10
+msgid "Pages"
+msgstr ""
+
+#: includes/pro/visibility/groups/class-posts.php:10
+msgid "Posts"
+msgstr ""
+
+#: includes/pro/visibility/groups/class-users.php:10
+msgid "Users"
+msgstr ""
+
+#: includes/pro/visibility/groups/class-woocommerce.php:10
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/pro/visibility/operators/class-equals.php:8
+msgid "Is equal to"
+msgstr ""
+
+#: includes/pro/visibility/operators/class-not-equals.php:10
+msgid "Is not equal to"
+msgstr ""
+
+#: includes/startup-checks.php:16
+msgid "%s could not be initialized because you need to be running at least PHP version %s, and you are running version %s"
+msgstr ""
+
+#: includes/startup-checks.php:31
+msgid "%s could not be initialized because you need WordPress to be at least version %s, and you are running version %s"
+msgstr ""
+
+#: includes/startup-checks.php:32
+msgid "Update WordPress now."
+msgstr ""
