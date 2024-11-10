@@ -166,9 +166,11 @@ if ( ! class_exists( __NAMESPACE__ . '\SettingsPage' ) ) {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 
 				$referrer = wp_get_referer();
-				parse_str( parse_url( $referrer, PHP_URL_QUERY), $query );
-				return isset( $query['page'] ) && $this->container_id() === $query['page'];
-
+				$url = parse_url( $referrer, PHP_URL_QUERY);
+				if ( !empty( $url ) ) {
+					parse_str($url, $query);
+					return isset($query['page']) && $this->container_id() === $query['page'];
+				}
 			}
 			return false;
 		}

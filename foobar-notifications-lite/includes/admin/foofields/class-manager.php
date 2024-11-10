@@ -165,14 +165,17 @@ if ( ! class_exists( __NAMESPACE__ . '\Manager' ) ) {
 			}
 
 			$referrer = wp_get_raw_referer();
-			parse_str( parse_url( $referrer, PHP_URL_QUERY), $query );
+			$url = parse_url( $referrer, PHP_URL_QUERY);
+			if ( !empty( $url ) ) {
+				parse_str($url, $query);
 
-			//we know we came from an edit post page
-			if ( isset( $query['post'] ) && isset( $query['action'] ) && $query['action'] === 'edit') {
-				$post_id = intval( $query['post'] );
+				//we know we came from an edit post page
+				if (isset($query['post']) && isset($query['action']) && $query['action'] === 'edit') {
+					$post_id = intval($query['post']);
 
-				if ( $post_id > 0 ) {
-					return $foofields_post_type_from_ajax_request = get_post_type( $post_id );
+					if ($post_id > 0) {
+						return $foofields_post_type_from_ajax_request = get_post_type($post_id);
+					}
 				}
 			}
 

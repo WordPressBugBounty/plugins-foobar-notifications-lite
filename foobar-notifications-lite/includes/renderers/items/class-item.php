@@ -250,7 +250,7 @@ if ( !class_exists( 'FooPlugins\FooBar\Renderers\Items\Item' ) ) {
 				}
 				$this->render_html_tag( 'button', $args, null, false );
 				$this->render_html_tag( 'span', array( 'class' => 'fbr-button-text' ), urldecode( $button_text ) );
-				echo '</a>';
+				echo '</button>';
 			}
 		}
 	}

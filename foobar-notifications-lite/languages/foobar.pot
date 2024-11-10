@@ -152,6 +152,14 @@ msgstr ""
 msgid "Shortcode copied to clipboard :)"
 msgstr ""
 
+#: includes/admin/notification/class-duplicate.php:52
+msgid "Duplicate"
+msgstr ""
+
+#: includes/admin/notification/class-duplicate.php:77
+msgid "%s - Copy"
+msgstr ""
+
 #: includes/admin/notification/class-preview.php:73
 msgid "Preview"
 msgstr ""
@@ -1048,35 +1056,35 @@ msgstr ""
 msgid "A simple cookie notice with only an accept button."
 msgstr ""
 
-#: includes/functions.php:907
+#: includes/functions.php:908
 msgid "Top"
 msgstr ""
 
-#: includes/functions.php:908
+#: includes/functions.php:909
 msgid "Shows a sticky bar at the top of the page"
 msgstr ""
 
-#: includes/functions.php:911
+#: includes/functions.php:912
 msgid "Top (Scrolls)"
 msgstr ""
 
-#: includes/functions.php:912
+#: includes/functions.php:913
 msgid "Shows a top bar that will scroll with the page"
 msgstr ""
 
-#: includes/functions.php:915
+#: includes/functions.php:916
 msgid "Bottom"
 msgstr ""
 
-#: includes/functions.php:916
+#: includes/functions.php:917
 msgid "Shows a sticky bar along the bottom of the page"
 msgstr ""
 
-#: includes/functions.php:919
+#: includes/functions.php:920
 msgid "Inline"
 msgstr ""
 
-#: includes/functions.php:920
+#: includes/functions.php:921
 msgid "Shows the bar inline in the page where the shortcode was placed"
 msgstr ""
 

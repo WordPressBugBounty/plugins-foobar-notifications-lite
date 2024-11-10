@@ -3,13 +3,10 @@
 /**
  * Runs all the Freemius initialization code for FooBar
  */
-
 if ( !function_exists( 'foobar_fs' ) ) {
     // Create a helper function for easy SDK access.
-    function foobar_fs()
-    {
-        global  $foobar_fs ;
-        
+    function foobar_fs() {
+        global $foobar_fs;
         if ( !isset( $foobar_fs ) ) {
             // Activate multisite network integration.
             if ( !defined( 'WP_FS__PRODUCT_6696_MULTISITE' ) ) {
@@ -35,23 +32,22 @@ if ( !function_exists( 'foobar_fs' ) ) {
                 'has_addons'     => $has_addons,
                 'has_paid_plans' => $pro_available,
                 'trial'          => array(
-                'days'               => 7,
-                'is_require_payment' => true,
-            ),
+                    'days'               => 7,
+                    'is_require_payment' => true,
+                ),
                 'menu'           => array(
-                'slug'       => 'edit.php?post_type=' . FOOBAR_CPT_NOTIFICATION,
-                'first-path' => 'edit.php?post_type=' . FOOBAR_CPT_NOTIFICATION . '&page=' . FOOBAR_ADMIN_MENU_HELP_SLUG,
-                'account'    => $pro_available || $has_addons,
-                'contact'    => false,
-                'support'    => false,
-            ),
+                    'slug'       => 'edit.php?post_type=' . FOOBAR_CPT_NOTIFICATION,
+                    'first-path' => 'edit.php?post_type=' . FOOBAR_CPT_NOTIFICATION . '&page=' . FOOBAR_ADMIN_MENU_HELP_SLUG,
+                    'account'    => $pro_available || $has_addons,
+                    'contact'    => false,
+                    'support'    => false,
+                ),
                 'is_live'        => true,
             ) );
         }
-        
         return $foobar_fs;
     }
-    
+
     // Init Freemius.
     foobar_fs();
     // Signal that SDK was initiated.
@@ -59,8 +55,8 @@ if ( !function_exists( 'foobar_fs' ) ) {
     foobar_fs()->add_filter(
         'plugin_icon',
         function ( $icon ) {
-        return FOOBAR_PATH . 'assets/img/foobar.jpg';
-    },
+            return FOOBAR_PATH . 'assets/img/foobar.jpg';
+        },
         10,
         1
     );

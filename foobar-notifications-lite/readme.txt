@@ -2,9 +2,9 @@
 Contributors: bradvin, steveush, fooplugins
 Tags: announcement,bar,notice,notice bar,notification bar,top bar
 Requires at least: 5.0
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 5.6
-Stable tag: 2.1.32
+Stable tag: 2.1.34
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -171,6 +171,15 @@ Create a [new ticket](https://wordpress.org/support/plugin/foobar-notifications-
 
 == Changelog ==
 
+= 2.1.34 =
+* Updated 10 Nov 2024
+* Update : Freemius SDK to 2.9.0
+
+= 2.1.33 =
+* Updated 16 Dec 2023
+* Fix : Fixed button rendering issue
+* Update : Freemius SDK to 2.6.1
+
 = 2.1.32 =
 * Updated 5 July 2023
 * Update : Freemius SDK to 2.5.10
@@ -252,7 +261,6 @@ Create a [new ticket](https://wordpress.org/support/plugin/foobar-notifications-
 * update : renamed some settings and fixed spellings
 * update : updated help page to include new logo and pro feature
 
-
 = 2.1.13 =
 * Updated : 9 Aug 2021
 * Fix : fixed load_plugin_textdomain path causing warnings in error logs
@@ -266,18 +274,15 @@ Create a [new ticket](https://wordpress.org/support/plugin/foobar-notifications-
 * Updated : 14 Jan 2021
 * Fix : fixed issue where collapsed bars that used faded transition were still overlapping page content
 
-
 = 2.1.10 =
 * Updated : 7 Jan 2021
 * New : Updated PRO feature listing on help page to include scheduling and effects
-
 
 = 2.1.9 =
 * Updated : 30 Dec 2020
 * New : Realtime live previews when editing notifications in admin!
 * New : Added Advanced settings tab which has a custom settings field to alter the bar
 * New : Added new setting to force the FooBox trial notice admin banner to never show
-
 
 = 2.1.6 =
 * Updated : 19 Nov 2020
