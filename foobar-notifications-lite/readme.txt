@@ -4,7 +4,7 @@ Tags: announcement,bar,notice,notice bar,notification bar,top bar
 Requires at least: 5.0
 Tested up to: 6.7
 Requires PHP: 5.6
-Stable tag: 2.1.34
+Stable tag: 2.1.35
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -170,6 +170,10 @@ Yes. When editing a notification, click on the Visibility settings tab, and then
 Create a [new ticket](https://wordpress.org/support/plugin/foobar-notifications-lite/#new-post) on the support forum, or [contact us](https://fooplugins.com/support/?utm_source=foobar_wordpress_org)
 
 == Changelog ==
+
+= 2.1.35 =
+* Updated 27 Jan 2025
+* Update : Freemius SDK to 2.11.0
 
 = 2.1.34 =
 * Updated 10 Nov 2024
