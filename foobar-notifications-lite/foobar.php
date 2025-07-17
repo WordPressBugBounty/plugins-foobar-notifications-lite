@@ -2,7 +2,7 @@
 /*
 Plugin Name: FooBar WordPress Notifications
 Description: WordPress notifications to help you grow your business
-Version:     2.1.35
+Version:     2.1.36
 Author:      FooPlugins
 Plugin URI:  https://fooplugins.com/foobar-wordpress-notification-bars/
 Author URI:  https://fooplugins.com/
@@ -26,7 +26,7 @@ if ( ! defined( 'FOOBAR_SLUG' ) ) {
 	define( 'FOOBAR_URL', plugin_dir_url( __FILE__ ) );
 	define( 'FOOBAR_ASSETS_URL', FOOBAR_URL . 'assets/' );
 	define( 'FOOBAR_FILE', __FILE__ );
-	define( 'FOOBAR_VERSION', '2.1.35' );
+	define( 'FOOBAR_VERSION', '2.1.36' );
 	define( 'FOOBAR_MIN_PHP', '5.6.0' ); // Minimum of PHP 5.4 required for autoloading, namespaces, etc.
 	define( 'FOOBAR_MIN_WP', '4.4.0' );  // Minimum of WordPress 4.4 required.
 }

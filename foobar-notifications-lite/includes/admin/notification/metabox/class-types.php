@@ -28,17 +28,18 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 			$this->add_filter( 'must_add_meta_boxes', array( $this, 'must_add_meta_boxes' ) );
 			$this->add_action( 'enqueue_assets', array( $this, 'enqueue' ) );
 			$this->add_filter( 'get_posted_data', array( $this, 'get_type' ), 10, 2 );
+			$this->add_filter( 'can_save', array( $this, 'can_save_pro_bar' ), 10, 2 );
 		}
 
 		function must_add_meta_boxes(){
 			$foobar = foobar_get_instance_admin();
-
 			return $foobar === false;
 		}
 
 		function get_fields() {
 			$types = foobar_registered_bar_types();
 			$choices = $this->get_bar_type_choices( $types );
+			
 			$fields = array(
 				array(
 					'id'      => 'type',
@@ -67,10 +68,17 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 							'size' => 'hero',
 							'primary' => true,
 							'submit' => true,
+							'attributes' => array(
+								'data-is-pro' => 'false'
+							),
 						),
 					),
 				),
 			);
+		}
+
+		function get_metabox_title() {
+			return __( 'What type of notification do you want to create?', 'foobar' );
 		}
 
 		function get_bar_type_choices( $types ){
@@ -92,6 +100,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 				} else {
 					$choice[ 'attributes' ][ 'class' ] = 'foobar-type-tab';
 				}
+				// Always set data-value to the bar type key
+				$choice['attributes']['data-value'] = $name;
 				if ( !empty( $choice ) ) {
 					if ( array_key_exists( 'attributes', $config ) && is_array( $config[ 'attributes' ] )
 						&& array_key_exists( 'class', $config[ 'attributes' ] ) && is_string( $config[ 'attributes' ][ 'class' ] )
@@ -108,7 +118,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 		}
 
 		function get_bar_type_content_fields( $types, $fields = array() ) {
-
 			$content_fields = array();
 			foreach ( $types as $name => $config ){
 				if ( isset( $config[ 'blurb' ] ) && is_array( $config[ 'blurb' ] ) ) {
@@ -152,7 +161,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 			foreach ( $array as $key => $row ) {
 				$sort_array[ $key ] = $row[ $subfield ];
 			}
-
 			array_multisort( $sort_array, SORT_ASC, $array );
 		}
 
@@ -167,7 +175,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 		 */
 		function get_hidden_meta_boxes( $hidden, $screen, $use_defaults ) {
 			if ( $this->is_admin_edit_mode() && $this->is_current_post_type() ) {
-
 				$ensure_not_hidden = array(
 					'foobar_notification-types',
 					'foobar_notification-settings'
@@ -180,8 +187,40 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 					}
 				}
 			}
-
 			return $hidden;
+		}
+
+		/**
+		 * Check if a bar type is PRO
+		 *
+		 * @param string $type
+		 * @return bool
+		 */
+		function is_pro_bar_type( $type ) {
+			$pro_types = array(
+				FOOBAR_BAR_TYPE_SIGNUP,
+				FOOBAR_BAR_TYPE_COUNTDOWN,
+				FOOBAR_BAR_TYPE_TWEET,
+				FOOBAR_BAR_TYPE_FREE_SHIPPING
+			);
+			return in_array( $type, $pro_types );
+		}
+
+		/**
+		 * Prevent saving PRO bar types in free version
+		 *
+		 * @param bool $can_save
+		 * @param object $metabox
+		 * @return bool
+		 */
+		function can_save_pro_bar( $can_save, $metabox ) {
+			if ( ! foobar_is_pro() ) {
+				$posted_data = $metabox->get_posted_data();
+				if ( isset( $posted_data['type'] ) && $this->is_pro_bar_type( $posted_data['type'] ) ) {
+					return false;
+				}
+			}
+			return $can_save;
 		}
 
 		/**
@@ -196,15 +235,19 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 			global $foobar_admin_current_type;
 
 			if ( array_key_exists( 'type', $posted_data ) ) {
+				$type = $posted_data['type'];
+				
+				// Prevent PRO bar creation in free version
+				if ( ! foobar_is_pro() && $this->is_pro_bar_type( $type ) ) {
+					// Build admin URL for pricing page
+					wp_redirect( foobar_admin_pricing_url() );
+					exit;
+				}
 
-				//the type has been set from the metabox
-				$foobar_admin_current_type = $posted_data['type'];
-
+				$foobar_admin_current_type = $type;
 			} else {
-
-				//dealing with an existing bar, so get the type from post_meta, and ignore the metabox
+				// Get the type from post_meta for existing bars
 				$foobar_admin_current_type = get_post_meta( $metabox->post_id, FOOBAR_NOTIFICATION_META_TYPE, true );
-
 			}
 
 			return $foobar_admin_current_type;
@@ -214,12 +257,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 		 * Render the FooBar to the footer
 		 */
 		function admin_footer() {
-			global $post;
-
 			if ( $this->is_admin_edit_mode() && $this->is_current_post_type() ) {
-
 				$foobar = foobar_get_instance_admin();
-
 				if ( $foobar !== false ) {
 					if ( $foobar->get_meta( 'layout', '' ) !== 'fbr-layout-inline' ) {
 						foobar_render_bar( $foobar, array( 'preview' => true ) );
@@ -236,7 +275,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 			$selected_type = foobar_get_instance_admin_type();
 			$types_config = array();
 
-			// TODO: find a better way to handle this but the ID values from the various configs need to be updated
 			$metaboxes = array(
 				array(
 					'post_type' => FOOBAR_CPT_NOTIFICATION,
@@ -245,7 +283,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 			);
 
 			foreach ( $metaboxes as $metabox ){
-				$metabox_id = $metabox['post_type'] . '-' . $metabox['id']; // $metabox->container_id();
+				$metabox_id = $metabox['post_type'] . '-' . $metabox['id'];
 				$metabox_config = array();
 				foreach ( $types as $type ) {
 					$field_config = apply_filters( 'foobar_admin_notification_settings_fields_config-' . $type, false, $selected_type === $type );
@@ -272,7 +310,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 
 			foobar_enqueue_script();
 			foobar_enqueue_stylesheet();
-
 			wp_localize_script( 'foobar-core', 'FOOBAR_TYPES', $types_config );
 		}
 
@@ -283,8 +320,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 			$foobar = foobar_get_instance_admin();
 
 			if ( $foobar === false ) {
-				//we need to hide the settings metabox
-
 				echo "
     <style type='text/css'>
     	#submitdiv,
@@ -295,12 +330,98 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 	    }
     </style>";
 
+			$button_text_create = __( 'Create Notification', 'foobar' );
+			$button_text_purchase = __( 'Upgrade to PRO to unlock this feature!', 'foobar' );
+
 				echo "
     <script type='text/javascript'>
 	    document.addEventListener( 'DOMContentLoaded', function() {
             const postBody = document.getElementById( 'post-body' );
             if ( postBody ) {
                 postBody.classList.remove( 'columns-2' );
+            }
+            
+            // Handle PRO bar type button behavior
+            const typeTabs = document.querySelectorAll('.foobar-type-tab');
+            const createButton = document.querySelector('#foobar_notification-types_create-field button, #foobar_notification-types_create-field a, #foobar_notification-types_create-field input[type=\"submit\"], .foobar-type-footer button');
+            
+            if (createButton && typeTabs.length > 0) {
+                const proTypes = ['sign-up', 'countdown', 'tweet', 'free-shipping'];
+                
+                // Build the admin URL for pricing page
+                const adminUrl = window.location.protocol + '//' + window.location.host + window.location.pathname.replace(/\/wp-admin\/.*$/, '/wp-admin/');
+                const purchaseUrl = adminUrl + 'edit.php?post_type=foobar_notification&page=foobar-notifications-lite-pricing';
+                
+                function updateButton(selectedType) {
+                    const isPro = proTypes.includes(selectedType);
+                    
+                    if (isPro) {
+                        // Update button text
+                        const buttonSpan = createButton.querySelector('span');
+                        if (buttonSpan) {
+                            buttonSpan.textContent = '$button_text_purchase';
+                        } else if (createButton.tagName === 'BUTTON' || createButton.tagName === 'A') {
+                            createButton.textContent = '$button_text_purchase';
+                        } else if (createButton.tagName === 'INPUT') {
+                            createButton.value = '$button_text_purchase';
+                        }
+                        
+                        // Update button styling and behavior
+                        //createButton.classList.remove('button-primary');
+                        //createButton.classList.add('button-secondary');
+                        createButton.setAttribute('data-is-pro', 'true');
+                        
+                        // Remove submit behavior and add click handler
+                        if (createButton.tagName === 'INPUT') {
+                            createButton.type = 'button';
+                        } else {
+                            createButton.removeAttribute('type');
+                        }
+                        
+                        createButton.onclick = function(e) {
+                            e.preventDefault();
+                            window.location.href = purchaseUrl;
+                        };
+                    } else {
+                        // Update button text
+                        const buttonSpan = createButton.querySelector('span');
+                        if (buttonSpan) {
+                            buttonSpan.textContent = '$button_text_create';
+                        } else if (createButton.tagName === 'BUTTON' || createButton.tagName === 'A') {
+                            createButton.textContent = '$button_text_create';
+                        } else if (createButton.tagName === 'INPUT') {
+                            createButton.value = '$button_text_create';
+                        }
+                        
+                        // Update button styling and behavior
+                        //createButton.classList.remove('button-secondary');
+                        //createButton.classList.add('button-primary');
+                        createButton.setAttribute('data-is-pro', 'false');
+                        
+                        if (createButton.tagName === 'INPUT') {
+                            createButton.type = 'submit';
+                        } else {
+                            createButton.setAttribute('type', 'submit');
+                        }
+                        
+                        createButton.onclick = null;
+                    }
+                }
+                
+                // Set initial button state
+                const selectedTab = document.querySelector('.foobar-type-tab.foofields-selected');
+                if (selectedTab) {
+                    const selectedType = selectedTab.getAttribute('data-value');
+                    updateButton(selectedType);
+                }
+                
+                // Listen for tab changes
+                typeTabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        const type = this.getAttribute('data-value');
+                        updateButton(type);
+                    });
+                });
             }
 	    } );
     </script>";

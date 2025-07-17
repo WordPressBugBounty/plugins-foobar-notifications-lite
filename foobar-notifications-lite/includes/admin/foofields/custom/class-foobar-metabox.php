@@ -7,7 +7,7 @@ use FooPlugins\FooBar\Admin\FooFields\Custom\Conditions\Field as Conditions;
 
 if ( ! class_exists( __NAMESPACE__ . '\FoobarMetabox' ) ) {
 
-	class FoobarMetabox extends Metabox {
+	abstract class FoobarMetabox extends Metabox {
 		function __construct( $config ) {
 			parent::__construct( $config );
 
@@ -25,5 +25,7 @@ if ( ! class_exists( __NAMESPACE__ . '\FoobarMetabox' ) ) {
 
 			return $mappings;
 		}
+
+		abstract function get_metabox_title();
 	}
 }

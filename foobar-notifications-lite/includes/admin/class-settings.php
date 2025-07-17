@@ -17,12 +17,18 @@ if ( ! class_exists( 'FooPlugins\FooBar\Admin\Settings' ) ) {
 					array(
 							'manager'          => FOOBAR_SLUG,
 							'settings_id'      => FOOBAR_SLUG,
-							'page_title'       => __( 'FooBar Settings', 'foobar' ),
-							'menu_title'       => __( 'Settings', 'foobar' ),
 							'menu_parent_slug' => foobar_get_menu_parent_slug(),
 							'layout'           => 'foofields-tabs-horizontal'
 					)
 			);
+		}
+
+		function get_page_title() {
+			return __( 'FooBar Settings', 'foobar' );
+		}
+
+		function get_menu_title() {
+			return __( 'Settings', 'foobar' );
 		}
 
 		function get_tabs() {

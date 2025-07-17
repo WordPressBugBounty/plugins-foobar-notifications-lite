@@ -17,7 +17,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Settings' ) ) {
 					'manager'        => FOOBAR_SLUG,
 					'post_type'      => FOOBAR_CPT_NOTIFICATION,
 					'metabox_id'     => 'settings',
-					'metabox_title'  => __( 'Notification Settings', 'foobar' ),
 					'priority'       => 'high',
 					'meta_key'       => FOOBAR_NOTIFICATION_META_SETTINGS,
 					'disable_close'  => true,
@@ -52,6 +51,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Settings' ) ) {
 			new Settings\ContentAnnouncement();
 			new Settings\ContentCallToAction();
 			new Settings\ContentCookie();
+		}
+
+		function get_metabox_title() {
+			return __( 'Notification Settings', 'foobar' );
 		}
 
 		function get_tabs() {

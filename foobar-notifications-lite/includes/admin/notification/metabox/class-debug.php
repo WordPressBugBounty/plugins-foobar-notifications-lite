@@ -15,25 +15,31 @@ if ( ! class_exists( __NAMESPACE__ . '\Debug' ) ) {
 					'manager'        => FOOBAR_SLUG,
 					'post_type'      => FOOBAR_CPT_NOTIFICATION,
 					'metabox_id'     => 'debug',
-					'metabox_title'  => __( 'Debug Information', 'foobar' ),
 					'priority'       => 'low',
-					'suppress_meta_key_error' => true,
-					'fields'         => array(
-						array(
-							'id'     => 'debug_help',
-							'type'   => 'help',
-							'text'   => __( 'Debug information is showing here because the enabled debug mode on the settings page. To hide this, disable debug mode.', 'foobar' )
-						),
-						array(
-							'id'     => 'debug',
-							'type'   => 'debug',
-							'render' => array( $this, 'render_debug' )
-						)
-					)
+					'suppress_meta_key_error' => true
 				)
 			);
 
 			$this->add_filter( 'must_add_meta_boxes', array( $this, 'must_add_meta_boxes' ) );
+		}
+
+		function get_metabox_title() {
+			return __( 'Debug Information', 'foobar' );
+		}
+
+		function get_fields() {
+			return array(
+				array(
+					'id'     => 'debug_help',
+					'type'   => 'help',
+					'text'   => __( 'Debug information is showing here because the enabled debug mode on the settings page. To hide this, disable debug mode.', 'foobar' )
+				),
+				array(
+					'id'     => 'debug',
+					'type'   => 'debug',
+					'render' => array( $this, 'render_debug' )
+				)
+			);
 		}
 
 		/**

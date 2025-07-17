@@ -15,20 +15,26 @@ if ( ! class_exists( __NAMESPACE__ . '\InlinePreview' ) ) {
 					'manager'        => FOOBAR_SLUG,
 					'post_type'      => FOOBAR_CPT_NOTIFICATION,
 					'metabox_id'     => 'inline_preview',
-					'metabox_title'  => __( 'Inline Preview', 'foobar' ),
 					'priority'       => 'high',
-					'suppress_meta_key_error' => true,
-					'fields'         => array(
-						array(
-							'id'     => 'preview',
-							'type'   => 'preview',
-							'render' => array( $this, 'render_inline_preview' )
-						)
-					)
+					'suppress_meta_key_error' => true
 				)
 			);
 
 			$this->add_filter( 'must_add_meta_boxes', array( $this, 'must_add_meta_boxes' ) );
+		}
+
+		function get_metabox_title() {
+			return __( 'Inline Preview', 'foobar' );
+		}
+
+		function get_fields() {
+			return array(
+				array(
+					'id'     => 'preview',
+					'type'   => 'preview',
+					'render' => array( $this, 'render_inline_preview' )
+				)
+			);
 		}
 
 		/**

@@ -30,6 +30,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Metabox' ) ) {
 			add_action( 'admin_init', array( $this, 'init_fields_for_ajax' ) );
 		}
 
+		abstract function get_metabox_title();
+
 		/**
 		 * Validate the config to ensure we have everything for a metabox
 		 */
@@ -75,7 +77,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Metabox' ) ) {
 			if ( $this->apply_filters( 'must_add_meta_boxes', true ) ) {
 				add_meta_box(
 						$this->container_id(),
-						$this->config['metabox_title'],
+						$this->get_metabox_title(),
 						$this->config['metabox_render_function'],
 						$this->config['post_type'],
 						isset( $this->config['context'] ) ? $this->config['context'] : 'normal',

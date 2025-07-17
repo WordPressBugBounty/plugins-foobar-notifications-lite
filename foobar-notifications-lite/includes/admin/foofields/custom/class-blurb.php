@@ -13,6 +13,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Blurb' ) ) {
 		public $features;
 		public $summary;
 		public $images;
+		public $upgrade_notice;
 
 		public function __construct( $container, $type, $field_config ) {
 			parent::__construct( $container, $type, $field_config );
@@ -23,6 +24,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Blurb' ) ) {
 			$this->features = Utils::get_array( 'features', $field_config );
 			$this->summary = Utils::get_string( 'summary', $field_config );
 			$this->images = Utils::get_array( 'images', $field_config );
+			$this->upgrade_notice = Utils::get_string( 'upgrade_notice', $field_config );
 		}
 
 		function pre_render() {
@@ -58,6 +60,11 @@ if ( ! class_exists( __NAMESPACE__ . '\Blurb' ) ) {
 			}
 			if ( isset( $this->summary ) ) {
 				self::render_html_tag( 'p', array( 'class' => 'foofields-blurb-text__summary' ), $this->summary );
+			}
+			if ( isset( $this->upgrade_notice ) ) {
+				self::render_html_tag( 'div', array( 'class' => 'foofields-blurb-text__upgrade-notice' ), null, false, false );
+				self::render_html_tag( 'p', array( 'class' => 'foofields-blurb-text__upgrade-text' ), $this->upgrade_notice, true, false );
+				echo '</div>';
 			}
 			echo '</div>';
 		}

@@ -155,6 +155,6 @@
             "install-path": "./installers"
         }
     ],
-    "dev": false,
+    "dev": true,
     "dev-package-names": []
 }

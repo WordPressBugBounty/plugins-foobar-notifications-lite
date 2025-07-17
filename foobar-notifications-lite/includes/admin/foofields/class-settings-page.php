@@ -11,9 +11,7 @@ if ( ! class_exists( __NAMESPACE__ . '\SettingsPage' ) ) {
 	abstract class SettingsPage extends Container {
 
 		protected $settings_id;
-		protected $page_title;
 		protected $menu_parent_slug;
-		protected $menu_title;
 		protected $capability;
 		protected $menu_position;
 
@@ -21,9 +19,7 @@ if ( ! class_exists( __NAMESPACE__ . '\SettingsPage' ) ) {
 			parent::__construct( $config );
 
 			$this->settings_id = $this->config['settings_id'];
-			$this->page_title = isset( $this->config['page_title'] ) ? $this->config['page_title'] : __( 'Settings', $this->manager->text_domain );
 			$this->menu_parent_slug = isset( $this->config['menu_parent_slug'] ) ? $this->config['menu_parent_slug'] : 'options-general.php';
-			$this->menu_title = isset( $this->config['menu_title'] ) ? $this->config['menu_title'] : __( 'Settings', $this->manager->text_domain );
 			$this->capability = isset( $this->config['capability'] ) ? $this->config['capability'] : 'manage_options';
 			$this->menu_position = isset( $this->config['position'] ) ? $this->config['capability'] : null;
 
@@ -35,6 +31,14 @@ if ( ! class_exists( __NAMESPACE__ . '\SettingsPage' ) ) {
 
 			//enqueue assets needed for the settings page
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		}
+
+		function get_page_title() {
+			return __( 'Settings', $this->manager->text_domain );
+		}
+
+		function get_menu_title() {
+			return __( 'Settings', $this->manager->text_domain );
 		}
 
 		/**
@@ -85,8 +89,8 @@ if ( ! class_exists( __NAMESPACE__ . '\SettingsPage' ) ) {
 		public function add_menu() {
 			add_submenu_page(
 				$this->menu_parent_slug,
-				$this->page_title,
-				$this->menu_title,
+				$this->get_page_title(),
+				$this->get_menu_title(),
 				$this->capability,
 				$this->container_id(),
 				array( $this, 'render_settings_page' ),
@@ -109,7 +113,7 @@ if ( ! class_exists( __NAMESPACE__ . '\SettingsPage' ) ) {
 		public function render_settings_page() {
 			?>
 			<div class="wrap">
-				<h2><?php echo esc_html( $this->page_title ); ?></h2>
+				<h2><?php echo esc_html( $this->get_page_title() ); ?></h2>
 				<?php if ( function_exists( 'settings_errors' ) ) {
 					settings_errors();
 				} ?>

@@ -15,21 +15,27 @@ if ( ! class_exists( __NAMESPACE__ . '\Preview' ) ) {
 					'manager'        => FOOBAR_SLUG,
 					'post_type'      => FOOBAR_CPT_NOTIFICATION,
 					'metabox_id'     => 'preview',
-					'metabox_title'  => __( 'Frontend Preview', 'foobar' ),
 					'priority'       => 'low',
 					'context'        => 'side',
-					'suppress_meta_key_error' => true,
-					'fields'         => array(
-						array(
-							'id'     => 'preview',
-							'type'   => 'preview',
-							'render' => array( $this, 'render_preview_contents' )
-						)
-					)
+					'suppress_meta_key_error' => true
 				)
 			);
 
 			$this->add_filter( 'must_add_meta_boxes', array( $this, 'must_add_meta_boxes' ) );
+		}
+
+		function get_metabox_title() {
+			return __( 'Frontend Preview', 'foobar' );
+		}
+
+		function get_fields() {
+			return array(
+				array(
+					'id'     => 'preview',
+					'type'   => 'preview',
+					'render' => array( $this, 'render_preview_contents' )
+				)
+			);
 		}
 
 		/**

@@ -1,10 +1,10 @@
 === Notification Bar, Announcement and Cookie Notice WordPress Plugin - FooBar ===
 Contributors: bradvin, steveush, fooplugins
-Tags: announcement,bar,notice,notice bar,notification bar,top bar
+Tags: announcement,bar,notice bar,notification bar,top bar
 Requires at least: 5.0
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 5.6
-Stable tag: 2.1.35
+Stable tag: 2.1.36
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,7 +37,7 @@ FooBar has been completely rewritten from the ground up to give you fresh and mo
 *   See previews within the admin, or on the frontend
 *	SEO friendly
 *   Supports Emojis 😀
-*	Compatible with PHP 7.4
+*	Compatible with PHP 8.2
 
 **Usage Examples**
 
@@ -170,6 +170,12 @@ Yes. When editing a notification, click on the Visibility settings tab, and then
 Create a [new ticket](https://wordpress.org/support/plugin/foobar-notifications-lite/#new-post) on the support forum, or [contact us](https://fooplugins.com/support/?utm_source=foobar_wordpress_org)
 
 == Changelog ==
+
+= 2.1.36 =
+* Updated 17 July 2025
+* Update : Freemius SDK to 2.12.1
+* Fix : fixed issue with early translations causing PHP warnings.
+* New : showcase PRO bar types when creating a new notification.
 
 = 2.1.35 =
 * Updated 27 Jan 2025
