@@ -2,9 +2,9 @@
 Contributors: bradvin, steveush, fooplugins
 Tags: announcement,bar,notice bar,notification bar,top bar
 Requires at least: 5.0
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 5.6
-Stable tag: 2.1.36
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -170,6 +170,20 @@ Yes. When editing a notification, click on the Visibility settings tab, and then
 Create a [new ticket](https://wordpress.org/support/plugin/foobar-notifications-lite/#new-post) on the support forum, or [contact us](https://fooplugins.com/support/?utm_source=foobar_wordpress_org)
 
 == Changelog ==
+
+= 2.2.1 =
+* Updated 17 Feb 2026
+* Added : Added a new setting for Toggle Button Size, to change the size of the toggle button.
+* Added : Added a new setting for Toggle Button Full Height, to choose if the toggle button should take up the full height of the bar.
+* Added : Added a new setting for Toggle Button Balanced, to balance out the spacing to match the spacing of the toggle button.
+* Added : Added a new setting for Max Content Width, to limit the width of the bar contents.
+* Update : Updated the default toggle button settings for new bars (circle shape, small size, not full height, balanced spacing)
+* Update : Freemius SDK to 2.13.0
+* Fix : fixed multiple minor styling issues in admin when managing bars.
+
+= 2.1.37 =
+* Updated 18 July 2025
+* Fix : fixed issue with creating a new notification. (PRO only)
 
 = 2.1.36 =
 * Updated 17 July 2025

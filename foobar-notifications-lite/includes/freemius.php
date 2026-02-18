@@ -60,4 +60,5 @@ if ( !function_exists( 'foobar_fs' ) ) {
         10,
         1
     );
+    foobar_fs()->add_filter( 'pricing/show_annual_in_monthly', '__return_false' );
 }

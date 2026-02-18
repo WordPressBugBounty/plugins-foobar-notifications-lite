@@ -45,6 +45,8 @@ if ( !class_exists( 'FooPlugins\FooBar\Renderers\Bars\Bar' ) ) {
 				}
 			}
 
+			$has_nav = $this->has_capability( 'has_nav');
+
 			$unique_id = $this->bar->unique_id();
 			//render container div
 			$this->render_html_tag( 'div', array(
@@ -56,15 +58,21 @@ if ( !class_exists( 'FooPlugins\FooBar\Renderers\Bars\Bar' ) ) {
 
 			//render content div
 			echo '<div class="fbr-content">';
+			if ( $has_nav ) {
+				echo '<button class="fbr-prev" type="button"></button>';
+			}
 
 			//render items
 			$this->render_items();
 
+			if ( $has_nav ) {
+				echo '<button class="fbr-next" type="button"></button>';
+			}
 			echo '</div>'; //close content div
 
 			$toggle_class = apply_filters( 'foobar_render_toggle_class', 'fbr-toggle', $this->bar );
 
-			echo '<button class="' . esc_attr( $toggle_class ) . '"></button>';
+			echo '<button class="' . esc_attr( $toggle_class ) . '" type="button"></button>';
 
 			echo '</div>'; //close container div
 
@@ -79,7 +87,15 @@ if ( !class_exists( 'FooPlugins\FooBar\Renderers\Bars\Bar' ) ) {
 		}
 
 		function build_custom_css() {
-			return apply_filters( 'foobar_notification_custom_css', $this->bar->custom_css, $this );
+			$custom_css = $this->bar->custom_css;
+
+			// handle the max content width
+			$max_content_width = $this->get_meta( 'max_content_width', '' );
+			if ( !empty( $max_content_width ) ) {
+				$custom_css .= "#{$this->bar->unique_id()} { --foobar-items-max-width: {$max_content_width}; }";
+			}
+
+			return apply_filters( 'foobar_notification_custom_css', $custom_css, $this );
 		}
 
 		function build_classes(){
@@ -95,21 +111,36 @@ if ( !class_exists( 'FooPlugins\FooBar\Renderers\Bars\Bar' ) ) {
 
 			$layout = $this->get_meta( 'layout', 'fbr-layout-top' );
 			$color = $this->get_meta( 'color', 'fbr-blue' );
-			$toggle = $this->get_meta( 'toggle', 'fbr-toggle-default' );
+			$toggle = $this->get_meta( 'toggle', 'fbr-toggle-circle' );
 			$transition = $this->get_meta( 'transition', 'fbr-transition-slide' );
 			$toggle_position = $this->get_meta( 'toggle_position', '' );
+			$toggle_full_height = $this->get_meta( 'toggle_full_height', 'fbr-toggle-static' );
+			$toggle_balance = $this->get_meta( 'toggle_balance', 'fbr-toggle-balance' );
+			$toggle_size = $this->get_meta( 'toggle_size', 'fbr-toggle-size-sm' );
 
 			$classes['layout'] = $layout;
 			$classes['color'] = $color;
 			$classes['toggle'] = $toggle;
 			$classes['transition'] = $transition;
 			$classes['toggle_position'] = $toggle_position;
+			$classes['toggle_full_height'] = $toggle_full_height;
+			$classes['toggle_balance'] = $toggle_balance;
+			$classes['toggle_size'] = $toggle_size;
 
 			if ( $this->has_capability( 'has_items') ) {
 				$item_transition = $this->determine_item_transition_class();
 				if ( $item_transition !== false ){
 					$classes['item-transition'] = $item_transition;
 				}
+			}
+
+			if ( $this->has_capability( 'has_nav') ) {
+				$nav = $this->get_meta( 'nav', 'fbr-nav-circle' );
+				$nav_full_height = $this->get_meta( 'nav_full_height', 'fbr-nav-static' );
+				$nav_size = $this->get_meta( 'nav_size', 'fbr-nav-size-sm' );
+				$classes['nav'] = $nav;
+				$classes['nav_size'] = $nav_size;
+				$classes['nav_full_height'] = $nav_full_height;
 			}
 
 			//check for RTL support

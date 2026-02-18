@@ -181,7 +181,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Repeater' ) ) {
 				$field_config['value'] = $row_state[ $field_config['id'] ];
 			}
 			$field_id = $field_config['id'];
-			$field_config['id'] = $this->id . '_' . $field_id . '_' . $row_index;
+//			$field_config['id'] = $this->id . '_' . $field_id . '_' . $row_index;
+			$field_config['id'] = $this->id . '_' . $row_index . '_' . $field_id;
 			$field_config['row_index'] = $row_index;
 			$field_config['original_id'] = $field_config['data']['original_id'] = $field_id;
 			$field_config['override_id_for_action_name'] = $this->container->get_unique_id( array( 'id' => $this->id . '_' . $field_id ) );
@@ -223,6 +224,19 @@ if ( ! class_exists( __NAMESPACE__ . '\Repeater' ) ) {
 		}
 
 		/**
+		 * Override process_posted_value to return raw array without cleaning
+		 * This allows Repeater to process each field individually with their own sanitization
+		 *
+		 * @param $unsanitized_value
+		 *
+		 * @return mixed
+		 */
+		function process_posted_value( $unsanitized_value ) {
+			// Return raw array without cleaning - we'll process each field individually
+			return $unsanitized_value;
+		}
+
+		/**
 		 * Gets the data posted for the repeater
 		 *
 		 * @param $sanitized_data
@@ -230,6 +244,7 @@ if ( ! class_exists( __NAMESPACE__ . '\Repeater' ) ) {
 		 * @return array
 		 */
 		function get_posted_value( $sanitized_data ) {
+			// Call parent to get the array structure
 			$results = parent::get_posted_value( $sanitized_data );
 
 			$current_username = 'unknown';
@@ -238,16 +253,37 @@ if ( ! class_exists( __NAMESPACE__ . '\Repeater' ) ) {
 				$current_username = $current_user->user_login;
 			}
 
-			if ( is_array( $results ) ) {
-
-				// stored some extra info for each row
-				// check if each row has an __id field,
-				//   if not then add one, so we can figure out which row to delete later.
-				//   Also add a __created_by field and set to currently logged on user.
-				//   And also a __created field which is the UTC timestamp of when the field was created
-				// if the __id field exists, then we doing an update.
-				//   update the __updated_by field and __updated timestamp fields
+			if ( is_array( $results ) && is_array( $this->fields ) ) {
+				// Process each field in each row using the field's own sanitization logic
 				foreach ( $results as &$result ) {
+					foreach ( $this->fields as $child_field_config ) {
+						$field_id = isset( $child_field_config['id'] ) ? $child_field_config['id'] : null;
+						$field_type = isset( $child_field_config['type'] ) ? $child_field_config['type'] : null;
+
+						// Skip repeater-delete field type as it doesn't have a value to process
+						if ( $field_type === 'repeater-delete' ) {
+							continue;
+						}
+
+						if ( $field_id && isset( $result[ $field_id ] ) ) {
+							// Create field instance to use its own sanitization logic
+							// Each field type (e.g., Textarea) handles its own sanitization via process_posted_value()
+							// Copy config array to preserve sanitize_callback and avoid reference issues
+							$field_config_copy = array_merge( array(), $child_field_config );
+							// Add unique suffix to field ID to avoid duplicate detection issues when processing multiple rows
+							$field_config_copy['id'] = $field_config_copy['id'] . '_temp_' . uniqid();
+							$temp_field = $this->container->create_field_instance( $field_config_copy['type'], $field_config_copy );
+							$result[ $field_id ] = $temp_field->process_posted_value( $result[ $field_id ] );
+						}
+					}
+
+					// stored some extra info for each row
+					// check if each row has an __id field,
+					//   if not then add one, so we can figure out which row to delete later.
+					//   Also add a __created_by field and set to currently logged on user.
+					//   And also a __created field which is the UTC timestamp of when the field was created
+					// if the __id field exists, then we doing an update.
+					//   update the __updated_by field and __updated timestamp fields
 					if ( ! isset( $result['__id'] ) ) {
 						$result['__id']         = wp_generate_password( 10, false, false );
 						$result['__created']    = time();

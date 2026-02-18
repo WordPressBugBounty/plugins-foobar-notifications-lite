@@ -1,7 +1,6 @@
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 /**!
  * wp-color-picker-alpha
  *
@@ -12,47 +11,48 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
  * https://github.com/kallookoo/wp-color-picker-alpha
  * Licensed under the GPLv2 license or later.
  */
+
 (function ($, undef) {
   var wpColorPickerAlpha = {
     'version': 300
-  }; // Always try to use the last version of this script.
+  };
 
+  // Always try to use the last version of this script.
   if ('wpColorPickerAlpha' in window && 'version' in window.wpColorPickerAlpha) {
     var version = parseInt(window.wpColorPickerAlpha.version, 10);
-
     if (!isNaN(version) && version >= wpColorPickerAlpha.version) {
       return;
     }
-  } // Prevent multiple initiations
+  }
 
-
+  // Prevent multiple initiations
   if (Color.fn.hasOwnProperty('to_s')) {
     return;
-  } // Create new method to replace the `Color.toString()` inside the scripts.
+  }
 
-
+  // Create new method to replace the `Color.toString()` inside the scripts.
   Color.fn.to_s = function (type) {
-    type = type || 'rgb'; // Change hex to rgba to return the correct color.
-
+    type = type || 'rgb';
+    // Change hex to rgba to return the correct color.
     if ('hex' === type && this._alpha < 1) {
       type = 'rgb';
     }
+
     /**
      * Possible types: rgb, hsl or hex
      */
-
-
     return this.toCSS(type).replace(/\s+/g, '');
-  }; // Register the global variable.
+  };
 
+  // Register the global variable.
+  window.wpColorPickerAlpha = wpColorPickerAlpha;
 
-  window.wpColorPickerAlpha = wpColorPickerAlpha; // Background image encoded
-
+  // Background image encoded
   var backgroundImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAAHnlligAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHJJREFUeNpi+P///4EDBxiAGMgCCCAGFB5AADGCRBgYDh48CCRZIJS9vT2QBAggFBkmBiSAogxFBiCAoHogAKIKAlBUYTELAiAmEtABEECk20G6BOmuIl0CIMBQ/IEMkO0myiSSraaaBhZcbkUOs0HuBwDplz5uFJ3Z4gAAAABJRU5ErkJggg==';
+
   /**
    * Iris
    */
-
   $.widget('a8c.iris', $.a8c.iris, {
     /**
      * Alpha options
@@ -65,7 +65,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       alphaReset: false,
       isDeprecated: false
     },
-
     /**
      * Get the current color or the new color.
      *
@@ -80,22 +79,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       if (color === undef) {
         color = this._color;
       }
-
       var result = color.toString();
-
       if (this.alphaOptions.alphaEnabled) {
         var type = 'hex';
-
         if (result && result.match(/^(rgb|hsl)/)) {
           type = color.substring(0, 3);
         }
-
         return color.to_s(type);
       }
-
       return result;
     },
-
     /**
      * Binds event listeners to the Iris.
      *
@@ -106,39 +99,38 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
      */
     _addInputListeners: function _addInputListeners(input) {
       var self = this,
-          debounceTimeout = 100,
-          callback = function callback(event) {
-        var val = input.val(),
-            color = new Color(val); // strip excess chars
+        debounceTimeout = 100,
+        callback = function callback(event) {
+          var val = input.val(),
+            color = new Color(val);
 
-        val = val.replace(/^(#|(rgb|hsl)a?)/, '');
-        input.removeClass('iris-error'); // we gave a bad color
-
-        if (color.error) {
-          // don't error on an empty input - we want those allowed
-          if (val !== '') {
-            input.addClass('iris-error');
-          }
-        } else {
-          if (!(color.toString() === self._color.toString() && color._alpha === self.color._alpha)) {
-            if (event.type === 'keyup' && val.match(/^[0-9a-fA-F]{3}$/)) {
-              return;
+          // strip excess chars
+          val = val.replace(/^(#|(rgb|hsl)a?)/, '');
+          input.removeClass('iris-error');
+          // we gave a bad color
+          if (color.error) {
+            // don't error on an empty input - we want those allowed
+            if (val !== '') {
+              input.addClass('iris-error');
             }
-
-            self._setOption('color', self._getCurrentColor(color));
+          } else {
+            if (!(color.toString() === self._color.toString() && color._alpha === self.color._alpha)) {
+              if (event.type === 'keyup' && val.match(/^[0-9a-fA-F]{3}$/)) {
+                return;
+              }
+              self._setOption('color', self._getCurrentColor(color));
+            }
           }
-        }
-      };
+        };
+      input.on('change', callback).on('keyup', self._debounce(callback, debounceTimeout));
 
-      input.on('change', callback).on('keyup', self._debounce(callback, debounceTimeout)); // If we initialized hidden, show on first focus. The rest is up to you.
-
+      // If we initialized hidden, show on first focus. The rest is up to you.
       if (self.options.hide) {
         input.one('focus', function () {
           self.show();
         });
       }
     },
-
     /**
      * Create the controls sizes
      *
@@ -151,18 +143,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
      */
     _dimensions: function _dimensions(reset) {
       this._super(reset);
-
       if (this.alphaOptions.alphaEnabled) {
         var self = this,
-            opts = self.options,
-            controls = self.controls,
-            square = controls.square,
-            strip = self.picker.find('.iris-strip'),
-            innerWidth,
-            squareWidth,
-            stripWidth,
-            stripMargin,
-            totalWidth;
+          opts = self.options,
+          controls = self.controls,
+          square = controls.square,
+          strip = self.picker.find('.iris-strip'),
+          innerWidth,
+          squareWidth,
+          stripWidth,
+          stripMargin,
+          totalWidth;
+
         /**
          * I use Math.round() to avoid possible size errors,
          * this function returns the value of a number rounded
@@ -173,28 +165,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
          * 20 for css left and right property
          * 2 for css border
          */
+        innerWidth = Math.round(self.picker.outerWidth(true) - (opts.border ? 22 : 0));
+        // The width of the draggable, aka square.
+        squareWidth = Math.round(square.outerWidth());
+        // The width for the sliders
+        stripWidth = Math.round((innerWidth - squareWidth) / 2);
+        // The margin for the sliders
+        stripMargin = Math.round(stripWidth / 2);
+        // The total width of the elements.
+        totalWidth = Math.round(squareWidth + stripWidth * 2 + stripMargin * 2);
 
-        innerWidth = Math.round(self.picker.outerWidth(true) - (opts.border ? 22 : 0)); // The width of the draggable, aka square.
-
-        squareWidth = Math.round(square.outerWidth()); // The width for the sliders
-
-        stripWidth = Math.round((innerWidth - squareWidth) / 2); // The margin for the sliders
-
-        stripMargin = Math.round(stripWidth / 2); // The total width of the elements.
-
-        totalWidth = Math.round(squareWidth + stripWidth * 2 + stripMargin * 2); // Check and change if necessary.
-
+        // Check and change if necessary.
         while (totalWidth > innerWidth) {
           stripWidth = Math.round(stripWidth - 2.5);
           stripMargin = Math.round(stripMargin - 1);
           totalWidth = Math.round(squareWidth + stripWidth * 2 + stripMargin * 2);
         }
-
         square.css('margin', '0');
         strip.width(stripWidth).css('margin-left', stripMargin + 'px');
       }
     },
-
     /**
      * Callback to update the controls and the current color.
      *
@@ -205,43 +195,35 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
      */
     _change: function _change() {
       var self = this,
-          active = self.active;
-
+        active = self.active;
       self._super();
-
       if (self.alphaOptions.alphaEnabled) {
         var controls = self.controls,
-            alpha = parseInt(self._color._alpha * 100),
-            color = self._color.toRgb(),
-            gradient = ['rgb(' + color.r + ',' + color.g + ',' + color.b + ') 0%', 'rgba(' + color.r + ',' + color.g + ',' + color.b + ', 0) 100%'];
-
-        self.options.color = self._getCurrentColor(); // Generate background slider alpha, only for CSS3 old browser fuck!! :)
-
+          alpha = parseInt(self._color._alpha * 100),
+          color = self._color.toRgb(),
+          gradient = ['rgb(' + color.r + ',' + color.g + ',' + color.b + ') 0%', 'rgba(' + color.r + ',' + color.g + ',' + color.b + ', 0) 100%'];
+        self.options.color = self._getCurrentColor();
+        // Generate background slider alpha, only for CSS3 old browser fuck!! :)
         controls.stripAlpha.css({
           'background': 'linear-gradient(to bottom, ' + gradient.join(', ') + '), url(' + backgroundImage + ')'
-        }); // Update alpha value
-
+        });
+        // Update alpha value
         if (active) {
           controls.stripAlphaSlider.slider('value', alpha);
         }
-
         if (!self._color.error) {
           self.element.removeClass('iris-error').val(self._getCurrentColor());
         }
-
         self.picker.find('.iris-palette-container').off('.palette').on('click.palette', '.iris-palette', function () {
           var color = $(this).data('color');
-
           if (self.alphaOptions.alphaReset) {
             self._color._alpha = 1;
             color = self._getCurrentColor();
           }
-
           self._setOption('color', color);
         });
       }
     },
-
     /**
      * Paint dimensions.
      *
@@ -255,22 +237,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
      */
     _paintDimension: function _paintDimension(origin, control) {
       var self = this,
-          color = false; // Fix for slider hue opacity.
+        color = false;
 
+      // Fix for slider hue opacity.
       if (self.alphaOptions.alphaEnabled && 'strip' === control) {
         color = self._color;
         self._color = new Color(color.toString()).setHSpace(self.options.mode);
         self.hue = self._color.h();
       }
+      self._super(origin, control);
 
-      self._super(origin, control); // Restore the color after paint.
-
-
+      // Restore the color after paint.
       if (color) {
         self._color = color;
       }
     },
-
     /**
      * To update the options, see original source to view the available options.
      *
@@ -283,35 +264,35 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
      */
     _setOption: function _setOption(key, value) {
       var self = this,
-          el = self.element;
-
+        el = self.element;
       if ('alphaOptions' === key) {
         if (_typeof(value) === 'object') {
           self.alphaOptions = $.extend({}, self.alphaOptions, value);
         }
-
         if (!self.alphaOptions.alphaEnabled) {
           return;
-        } // Update the width element
+        }
 
-
+        // Update the width element
         if (self.alphaOptions.alphaCustomWidth) {
           el.width(parseInt(el.width() + self.alphaOptions.alphaCustomWidth, 10));
-        } // Create Alpha controls
+        }
 
-
+        // Create Alpha controls
         var stripAlpha = self.controls.strip.clone(false, false),
-            stripAlphaSlider = stripAlpha.find('.iris-slider-offset'),
-            controls = {
-          stripAlpha: stripAlpha,
-          stripAlphaSlider: stripAlphaSlider
-        };
+          stripAlphaSlider = stripAlpha.find('.iris-slider-offset'),
+          controls = {
+            stripAlpha: stripAlpha,
+            stripAlphaSlider: stripAlphaSlider
+          };
         stripAlpha.addClass('iris-strip-alpha');
         stripAlphaSlider.addClass('iris-slider-offset-alpha');
-        stripAlpha.appendTo(self.picker.find('.iris-picker-inner')); // Push new controls
+        stripAlpha.appendTo(self.picker.find('.iris-picker-inner'));
 
-        self.controls = $.extend(true, self.controls, controls); // Create slider
+        // Push new controls
+        self.controls = $.extend(true, self.controls, controls);
 
+        // Create slider
         self.controls.stripAlphaSlider.slider({
           orientation: 'vertical',
           min: 0,
@@ -319,36 +300,34 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           step: 1,
           value: parseInt(self._color._alpha * 100),
           slide: function slide(event, ui) {
-            self.active = 'strip'; // Update alpha value
-
+            self.active = 'strip';
+            // Update alpha value
             self._color._alpha = parseFloat(ui.value / 100);
-
             self._change.apply(self, arguments);
           }
-        }); // Update dimensions
+        });
 
-        self._dimensions(true); // Update with valid format of the current color
+        // Update dimensions
+        self._dimensions(true);
 
+        // Update with valid format of the current color
+        self._setOption('color', self._getCurrentColor());
 
-        self._setOption('color', self._getCurrentColor()); // Set the valid color in Alpha Mode.
-
+        // Set the valid color in Alpha Mode.
       } else if (self.alphaOptions.alphaEnabled && 'color' === key) {
         // cast to string in case we have a number
         value = '' + value;
         var newColor = new Color(value).setHSpace(self.options.mode);
-
         if (!newColor.error) {
           self._color = newColor;
           self.options.color = self._getCurrentColor();
           self.active = 'external';
-
           self._change();
         }
       } else {
         self._super(key, value);
       }
     },
-
     /**
      * Returns the iris object if no new color is provided. If a new color is provided, it sets the new color.
      *
@@ -362,18 +341,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       if (newColor === true) {
         return this._color.clone();
       }
-
       if (newColor === undef) {
         return this._getCurrentColor();
       }
-
       this.option('color', newColor);
     }
   });
+
   /**
    * wpColorPicker
    */
-
   $.widget('wp.wpColorPicker', $.wp.wpColorPicker, {
     /**
      * Creates the color picker.
@@ -399,10 +376,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         alphaReset: false,
         isDeprecated: false
       };
-
       this._super();
     },
-
     /**
      * Binds event listeners to the color picker and create options, etc...
      *
@@ -413,21 +388,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
      */
     _addListeners: function _addListeners() {
       var self = this,
-          el = self.element;
-
+        el = self.element;
       if (!('alphaEnabled' in self.options && self.options.alphaEnabled)) {
         self._super();
-
-        return;
-      } // Check if valid to prevent errors.
-
-
-      if (!(self.options.alphaEnabled && el.is('input') && self.options.type === 'full')) {
-        self._super();
-
         return;
       }
 
+      // Check if valid to prevent errors.
+      if (!(self.options.alphaEnabled && el.is('input') && self.options.type === 'full')) {
+        self._super();
+        return;
+      }
       var options = {
         alphaEnabled: true,
         isDeprecated: self.toggler.is('a')
@@ -436,28 +407,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         if ('alphaEnabled' === k || 'isDeprecated' === k) {
           return true;
         }
-
         var value = k in self.options ? self.options[k] : undef;
-
         switch (k) {
           case 'alphaCustomWidth':
             value = value === undef ? v : value;
             value = value ? parseInt(value, 10) : 0;
             value = isNaN(value) ? v : value;
             break;
-
           default:
             value = value === undef ? v : !!value;
             break;
         }
-
         options[k] = value;
       });
       self._alphaOptions = $.extend(self._alphaOptions, options);
       self.toggler.css({
         'background-image': 'url(' + backgroundImage + ')'
       });
-
       if (self._alphaOptions.isDeprecated) {
         self.toggler.html('<span class="color-alpha" />');
       } else {
@@ -465,14 +431,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           'position': 'relative'
         }).append('<span class="color-alpha" />');
       }
-
       self.colorAlpha = self.toggler.find('span.color-alpha');
       self.colorAlpha.css({
         'background-color': el.val()
       });
       el.iris({
         alphaOptions: self._alphaOptions,
-
         /**
          * @summary Handles the onChange event if one has been defined in the options.
          *
@@ -492,22 +456,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
               'background-image': 'url(' + backgroundImage + ')'
             });
           }
-
           var color = el.iris('instance').color();
           /**
            * Call the Iris instance to get the CSS color.
            * Not use the ui.color because no if defined the type
            */
-
           self.colorAlpha.css({
             'background-color': color
           });
-
           if (typeof self.options.change === 'function') {
             self.options.change.call(this, event, ui, color);
           }
         }
       });
+
       /**
        * Prevent any clicks inside this widget from leaking to the top and closing it.
        *
@@ -517,16 +479,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
        *
        * @return {void}
        */
-
       self.wrap.on('click.wpcolorpicker', function (event) {
         event.stopPropagation();
       });
+
       /**
        * Open or close the color picker depending on the class.
        *
        * @since 3.0.0
        */
-
       self.toggler.on('click.wpcolorpicker', function () {
         if (self.toggler.hasClass('wp-picker-open')) {
           self.close();
@@ -534,6 +495,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           self.open();
         }
       });
+
       /**
        * Checks if value is empty when changing the color in the color picker.
        * If so, the background color is cleared.
@@ -544,22 +506,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
        *
        * @return {void}
        */
-
       el.on('change', function (event) {
         var val = $(this).val();
-
         if (el.hasClass('iris-error') || val === '' || val.match(/^(#|(rgb|hsl)a?)$/)) {
           if (self._alphaOptions.isDeprecated) {
             self.toggler.removeAttr('style');
           }
+          self.colorAlpha.css('background-color', '');
 
-          self.colorAlpha.css('background-color', ''); // fire clear callback if we have one
-
+          // fire clear callback if we have one
           if (typeof self.options.clear === 'function') {
             self.options.clear.call(this, event);
           }
         }
       });
+
       /**
        * Enables the user to either clear the color in the color picker or revert back to the default color.
        *
@@ -569,27 +530,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
        *
        * @return {void}
        */
-
       self.button.on('click', function (event) {
         if ($(this).hasClass('wp-picker-clear')) {
           if (self._alphaOptions.isDeprecated) {
             self.toggler.removeAttr('style');
           }
-
           self.colorAlpha.css('background-color', '');
           el.val('');
-
           if (typeof self.options.clear === 'function') {
             self.options.clear.call(this, event);
           }
-
           el.trigger('change');
         } else if ($(this).hasClass('wp-picker-default')) {
           el.val(self.options.defaultColor).change();
         }
       });
     },
-
     /**
      * Returns the iris object if no new color is provided. If a new color is provided, it sets the new color.
      *
@@ -604,10 +560,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         if (this._alphaOptions.alphaEnabled) {
           return this.element.iris('instance').color();
         }
-
         return this.element.iris('option', 'color');
       }
-
       this.element.iris('option', 'color', newColor);
     }
   });
@@ -636,6 +590,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       last: "foofields-last",
       hidden: "foofields-hidden",
       selected: "foofields-selected",
+      loading: "foofields-loading",
       container: {
         el: "foofields-container",
         content: {
@@ -672,6 +627,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       fields: {}
     }
   };
+
   /**
    * @summary The global configuration object that can be included in the page.
    * @memberof window.
@@ -759,9 +715,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * 	});
    * </script>
    */
-
   _.$ = $;
-})( // dependencies
+})(
+// dependencies
 jQuery,
 /**
  * @summary The core namespace for the plugin containing all its code.
@@ -786,140 +742,22 @@ jQuery,
 window.FooFields = window.FooFields || {});
 "use strict";
 
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 /*!
 * FooFields.utils - Contains common utility methods and classes used in our plugins.
-* @version 0.1.9
+* @version 0.2.2
 * @link https://github.com/steveush/foo-utils#readme
 * @copyright Steve Usher 2020
 * @license Released under the GPL-3.0 license.
 */
-
 /**
- * @file This creates the global FooFields.utils namespace ensuring it only registers itself if the namespace doesn't already exist or if the current version is lower than this one.
+ * @file This creates the global FooFields.utils namespace
  */
 (function ($) {
   if (!$) {
     console.warn('jQuery must be included in the page prior to the FooFields.utils library.');
     return;
   }
-  /**
-   * @summary This namespace contains common utility methods and code shared between our plugins.
-   * @namespace FooFields.utils
-   * @description This namespace relies on jQuery being included in the page prior to it being loaded.
-   */
-
-
-  var utils = {
-    /**
-     * @summary A reference to the jQuery object the library is registered with.
-     * @memberof FooFields.utils
-     * @name $
-     * @type {jQuery}
-     * @description This is used internally for all jQuery operations to help work around issues where multiple jQuery libraries have been included in a single page.
-     * @example {@caption The following shows the issue when multiple jQuery's are included in a single page.}{@lang html}
-     * <script src="jquery-1.12.4.js"></script>
-     * <script src="my-plugin.js"></script>
-     * <script src="jquery-2.2.4.js"></script>
-     * <script>
-     * 	jQuery(function($){
-    	 * 		$(".selector").myPlugin(); // => This would throw a TypeError: $(...).myPlugin is not a function
-    	 * 	});
-     * </script>
-     * @example {@caption The reason the above throws an error is that the `$.fn.myPlugin` function is registered to the first instance of jQuery in the page however the instance used to create the ready callback and actually try to execute `$(...).myPlugin()` is the second. To resolve this issue ideally you would remove the second instance of jQuery however you can use the `FooFields.utils.$` member to ensure you are always working with the instance of jQuery the library was registered with.}{@lang html}
-     * <script src="jquery-1.12.4.js"></script>
-     * <script src="my-plugin.js"></script>
-     * <script src="jquery-2.2.4.js"></script>
-     * <script>
-     * 	FooFields.utils.$(function($){
-    	 * 		$(".selector").myPlugin(); // => It works!
-    	 * 	});
-     * </script>
-     */
-    $: $,
-
-    /**
-     * @summary The version of this library.
-     * @memberof FooFields.utils
-     * @name version
-     * @type {string}
-     */
-    version: '0.1.9'
-  };
-  /**
-   * @summary Compares two version numbers.
-   * @memberof FooFields.utils
-   * @function versionCompare
-   * @param {string} version1 - The first version to use in the comparison.
-   * @param {string} version2 - The second version to compare to the first.
-   * @returns {number} `0` if the version are equal.
-   * `-1` if `version1` is less than `version2`.
-   * `1` if `version1` is greater than `version2`.
-   * `NaN` if either of the supplied versions do not conform to MAJOR.MINOR.PATCH format.
-   * @description This method will compare two version numbers that conform to the basic MAJOR.MINOR.PATCH format returning the result as a simple number. This method will handle short version string comparisons e.g. `1.0` versus `1.0.1`.
-   * @example {@caption The following shows the results of comparing various version strings.}
-   * console.log( FooFields.utils.versionCompare( "0", "0" ) ); // => 0
-   * console.log( FooFields.utils.versionCompare( "0.0", "0" ) ); // => 0
-   * console.log( FooFields.utils.versionCompare( "0.0", "0.0.0" ) ); // => 0
-   * console.log( FooFields.utils.versionCompare( "0.1", "0.0.0" ) ); // => 1
-   * console.log( FooFields.utils.versionCompare( "0.1", "0.0.1" ) ); // => 1
-   * console.log( FooFields.utils.versionCompare( "1", "0.1" ) ); // => 1
-   * console.log( FooFields.utils.versionCompare( "1.10", "1.9" ) ); // => 1
-   * console.log( FooFields.utils.versionCompare( "1.9", "1.10" ) ); // => -1
-   * console.log( FooFields.utils.versionCompare( "1", "1.1" ) ); // => -1
-   * console.log( FooFields.utils.versionCompare( "1.0.9", "1.1" ) ); // => -1
-   * @example {@caption If either of the supplied version strings does not match the MAJOR.MINOR.PATCH format then `NaN` is returned.}
-   * console.log( FooFields.utils.versionCompare( "not-a-version", "1.1" ) ); // => NaN
-   * console.log( FooFields.utils.versionCompare( "1.1", "not-a-version" ) ); // => NaN
-   * console.log( FooFields.utils.versionCompare( "not-a-version", "not-a-version" ) ); // => NaN
-   */
-
-  utils.versionCompare = function (version1, version2) {
-    // if either of the versions do not match the expected format return NaN
-    if (!(/[\d.]/.test(version1) && /[\d.]/.test(version2))) return NaN;
-    /**
-     * @summary Splits and parses the given version string into a numeric array.
-     * @param {string} version - The version string to split and parse.
-     * @returns {Array.<number>}
-     * @ignore
-     */
-
-    function split(version) {
-      var parts = version.split('.'),
-          result = [];
-
-      for (var i = 0, len = parts.length; i < len; i++) {
-        result[i] = parseInt(parts[i]);
-        if (isNaN(result[i])) result[i] = 0;
-      }
-
-      return result;
-    } // get the base numeric arrays for each version
-
-
-    var v1parts = split(version1),
-        v2parts = split(version2); // ensure both arrays are the same length by padding the shorter with 0
-
-    while (v1parts.length < v2parts.length) {
-      v1parts.push(0);
-    }
-
-    while (v2parts.length < v1parts.length) {
-      v2parts.push(0);
-    } // perform the actual comparison
-
-
-    for (var i = 0; i < v1parts.length; ++i) {
-      if (v2parts.length === i) return 1;
-      if (v1parts[i] === v2parts[i]) continue;
-      if (v1parts[i] > v2parts[i]) return 1;else return -1;
-    }
-
-    if (v1parts.length !== v2parts.length) return -1;
-    return 0;
-  };
-
   function __exists() {
     try {
       return !!window.FooFields.utils; // does the namespace already exist?
@@ -927,37 +765,66 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       return false;
     }
   }
+  if (!__exists()) {
+    /**
+     * @summary This namespace contains common utility methods and code shared between our plugins.
+     * @global
+     * @namespace FooFields.utils
+     * @description This namespace relies on jQuery being included in the page prior to it being loaded.
+     */
+    window.FooFields.utils = {
+      /**
+       * @summary A reference to the jQuery object the library is registered with.
+       * @memberof FooFields.utils.
+       * @name $
+       * @type {jQuery}
+       * @description This is used internally for all jQuery operations to help work around issues where multiple jQuery libraries have been included in a single page.
+       * @example {@caption The following shows the issue when multiple jQuery's are included in a single page.}{@lang html}
+       * <script src="jquery-1.12.4.js"></script>
+       * <script src="my-plugin.js"></script>
+       * <script src="jquery-2.2.4.js"></script>
+       * <script>
+       * 	jQuery(function($){
+       * 		$(".selector").myPlugin(); // => This would throw a TypeError: $(...).myPlugin is not a function
+       * 	});
+       * </script>
+       * @example {@caption The reason the above throws an error is that the `$.fn.myPlugin` function is registered to the first instance of jQuery in the page however the instance used to create the ready callback and actually try to execute `$(...).myPlugin()` is the second. To resolve this issue ideally you would remove the second instance of jQuery however you can use the `FooFields.utils.$` member to ensure you are always working with the instance of jQuery the library was registered with.}{@lang html}
+       * <script src="jquery-1.12.4.js"></script>
+       * <script src="my-plugin.js"></script>
+       * <script src="jquery-2.2.4.js"></script>
+       * <script>
+       * 	FooFields.utils.$(function($){
+       * 		$(".selector").myPlugin(); // => It works!
+       * 	});
+       * </script>
+       */
+      $: $,
+      /**
+       * @summary The version of this library.
+       * @memberof FooFields.utils.
+       * @name version
+       * @type {string}
+       */
+      version: '0.2.2'
+    };
+  }
 
-  if (__exists()) {
-    // if it already exists always log a warning as there may be version conflicts as the following code always ensures the latest version is loaded
-    if (utils.versionCompare(utils.version, window.FooFields.utils.version) > 0) {
-      // if it exists but it's an old version replace it
-      console.warn("An older version of FooFields.utils (" + window.FooFields.utils.version + ") already exists in the page, version " + utils.version + " will override it.");
-      window.FooFields.utils = utils;
-    } else {
-      // otherwise its a newer version so do nothing
-      console.warn("A newer version of FooFields.utils (" + window.FooFields.utils.version + ") already exists in the page, version " + utils.version + " will not register itself.");
-    }
-  } else {
-    // if it doesn't exist register it
-    window.FooFields.utils = utils;
-  } // at this point there will always be a FooFields.utils namespace registered to the global scope.
-
+  // at this point there will always be a FooFields.utils namespace registered to the global scope.
 })(jQuery);
-
 (function ($, _) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
+  if (_.version !== '0.2.2') return;
+
   /**
    * @summary Contains common type checking utility methods.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @namespace is
    */
-
   _.is = {};
+
   /**
    * @summary Checks if the `value` is an array.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function array
    * @param {*} value - The value to check.
    * @returns {boolean} `true` if the supplied `value` is an array.
@@ -970,13 +837,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.array( 123 ) ); // => false
    * console.log( _is.array( "" ) ); // => false
    */
-
   _.is.array = function (value) {
     return '[object Array]' === Object.prototype.toString.call(value);
   };
+
   /**
    * @summary Checks if the `value` is a boolean.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function boolean
    * @param {*} value - The value to check.
    * @returns {boolean} `true` if the supplied `value` is a boolean.
@@ -991,14 +858,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.boolean( 1 ) ); // => false
    * console.log( _is.boolean( 0 ) ); // => false
    */
-
-
   _.is.boolean = function (value) {
     return '[object Boolean]' === Object.prototype.toString.call(value);
   };
+
   /**
    * @summary Checks if the `value` is an element.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function element
    * @param {*} value - The value to check.
    * @returns {boolean} `true` if the supplied `value` is an element.
@@ -1013,14 +879,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.element( null ) ); // => false
    * console.log( _is.element( {} ) ); // => false
    */
-
-
   _.is.element = function (value) {
     return (typeof HTMLElement === "undefined" ? "undefined" : _typeof(HTMLElement)) === 'object' ? value instanceof HTMLElement : !!value && _typeof(value) === 'object' && value.nodeType === 1 && typeof value.nodeName === 'string';
   };
+
   /**
    * @summary Checks if the `value` is empty.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function empty
    * @param {*} value - The value to check.
    * @returns {boolean} `true` if the supplied `value` is empty.
@@ -1054,8 +919,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.empty( ["one"] ) ); // => false
    * console.log( _is.empty( { "name": "My Object" } ) ); // => false
    */
-
-
   _.is.empty = function (value) {
     if (_.is.undef(value) || value === null) return true;
     if (_.is.number(value) && value === 0) return true;
@@ -1063,20 +926,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     if (_.is.string(value) && value.length === 0) return true;
     if (_.is.array(value) && value.length === 0) return true;
     if (_.is.jq(value) && value.length === 0) return true;
-
     if (_.is.hash(value)) {
       for (var prop in value) {
         if (value.hasOwnProperty(prop)) return false;
       }
-
       return true;
     }
-
     return false;
   };
+
   /**
    * @summary Checks if the `value` is an error.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function error
    * @param {*} value - The value to check.
    * @returns {boolean} `true` if the supplied `value` is an error.
@@ -1095,14 +956,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.error( {} ) ); // => false
    * console.log( _is.error( [] ) ); // => false
    */
-
-
   _.is.error = function (value) {
     return '[object Error]' === Object.prototype.toString.call(value);
   };
+
   /**
    * @summary Checks if the `value` is a function.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function fn
    * @param {*} value - The value to check.
    * @returns {boolean} `true` if the supplied `value` is a function.
@@ -1117,14 +977,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.fn( 123 ) ); // => false
    * console.log( _is.fn( "" ) ); // => false
    */
-
-
   _.is.fn = function (value) {
     return value === window.alert || '[object Function]' === Object.prototype.toString.call(value);
   };
+
   /**
    * @summary Checks if the `value` is a hash.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function hash
    * @param {*} value - The value to check.
    * @returns {boolean} `true` if the supplied `value` is a hash.
@@ -1139,14 +998,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.hash( "" ) ); // => false
    * console.log( _is.hash( 123 ) ); // => false
    */
-
-
   _.is.hash = function (value) {
     return _.is.object(value) && value.constructor === Object && !value.nodeType && !value.setInterval;
   };
+
   /**
    * @summary Checks if the `value` is a jQuery object.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function jq
    * @param {*} value - The value to check.
    * @returns {boolean} `true` if the supplied `value` is a jQuery object.
@@ -1164,14 +1022,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.jq( 123 ) ); // => false
    * console.log( _is.jq( "" ) ); // => false
    */
-
-
   _.is.jq = function (value) {
     return !_.is.undef($) && value instanceof $;
   };
+
   /**
    * @summary Checks if the `value` is a number.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function number
    * @param {*} value - The value to check.
    * @returns {boolean}
@@ -1184,14 +1041,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.number( null ) ); // => false
    * console.log( _is.number( "" ) ); // => false
    */
-
-
   _.is.number = function (value) {
     return '[object Number]' === Object.prototype.toString.call(value) && !isNaN(value);
   };
+
   /**
    * @summary Checks if the `value` is an object.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function object
    * @param {*} value - The value to check.
    * @returns {boolean} `true` if the supplied `value` is an object.
@@ -1208,14 +1064,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.object( "" ) ); // => false
    * console.log( _is.object( 123 ) ); // => false
    */
-
-
   _.is.object = function (value) {
     return '[object Object]' === Object.prototype.toString.call(value) && !_.is.undef(value) && value !== null;
   };
+
   /**
    * @summary Checks if the `value` is a promise.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function promise
    * @param {*} value - The object to check.
    * @returns {boolean} `true` if the supplied `value` is an object.
@@ -1235,14 +1090,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.promise( "" ) ); // => false
    * console.log( _is.promise( 123 ) ); // => false
    */
-
-
   _.is.promise = function (value) {
     return _.is.object(value) && _.is.fn(value.then) && _.is.fn(value.promise);
   };
+
   /**
    * @summary Checks if the `value` is a valid CSS length.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function size
    * @param {*} value - The value to check.
    * @returns {boolean} `true` if the `value` is a number or CSS length.
@@ -1260,15 +1114,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.size( "" ) ); // => false
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/length|&lt;length&gt; - CSS | MDN} for more information on CSS length values.
    */
-
-
   _.is.size = function (value) {
     if (!(_.is.string(value) && !_.is.empty(value)) && !_.is.number(value)) return false;
     return /^(auto|none|(?:[\d.]*)+?(?:%|px|mm|q|cm|in|pt|pc|em|ex|ch|rem|vh|vw|vmin|vmax)?)$/.test(value);
   };
+
   /**
    * @summary Checks if the `value` is a string.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function string
    * @param {*} value - The value to check.
    * @returns {boolean} `true` if the `value` is a string.
@@ -1281,14 +1134,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.string( null ) ); // => false
    * console.log( _is.string( 123 ) ); // => false
    */
-
-
   _.is.string = function (value) {
     return '[object String]' === Object.prototype.toString.call(value);
   };
+
   /**
    * @summary Checks if the `value` is `undefined`.
-   * @memberof FooFields.utils.is
+   * @memberof FooFields.utils.is.
    * @function undef
    * @param {*} value - The value to check is undefined.
    * @returns {boolean} `true` if the supplied `value` is `undefined`.
@@ -1301,28 +1153,27 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
    * console.log( _is.undef( 123 ) ); // => false
    * console.log( _is.undef( "" ) ); // => false
    */
-
-
   _.is.undef = function (value) {
     return typeof value === 'undefined';
   };
-})( // dependencies
+})(
+// dependencies
 FooFields.utils.$, FooFields.utils);
-
 (function ($, _, _is) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
+  if (_.version !== '0.2.2') return;
+
   /**
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @namespace fn
    * @summary Contains common function utility methods.
    */
-
   _.fn = {};
   var fnStr = Function.prototype.toString;
+
   /**
    * @summary The regular expression to test if a function uses the `this._super` method applied by the {@link FooFields.utils.fn.add} method.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @name CONTAINS_SUPER
    * @type {RegExp}
    * @default /\b_super\b/
@@ -1343,14 +1194,14 @@ FooFields.utils.$, FooFields.utils);
    *
    * // NOTE: in browsers that don't support functional decompilation both tests will return `true`
    */
-
   _.fn.CONTAINS_SUPER = /xyz/.test(fnStr.call(function () {
     //noinspection JSUnresolvedVariable,BadExpressionStatementJS
     xyz;
   })) ? /\b_super\b/ : /.*/;
+
   /**
    * @summary Adds or overrides the given method `name` on the `proto` using the supplied `fn`.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @function addOrOverride
    * @param {Object} proto - The prototype to add the method to.
    * @param {string} name - The name of the method to add, if this already exists the original will be exposed within the scope of the supplied `fn` as `this._super`.
@@ -1396,14 +1247,11 @@ FooFields.utils.$, FooFields.utils);
    *
    * proto.write( "My message" ); // => "Original#write: Override#write: My message"
    */
-
   _.fn.addOrOverride = function (proto, name, fn) {
     if (!_is.object(proto) || !_is.string(name) || _is.empty(name) || !_is.fn(fn)) return;
-
     var _super = proto[name],
-        wrap = _is.fn(_super) && _.fn.CONTAINS_SUPER.test(fnStr.call(fn)); // only wrap the function if it overrides a method and makes use of `_super` within it's body.
-
-
+      wrap = _is.fn(_super) && _.fn.CONTAINS_SUPER.test(fnStr.call(fn));
+    // only wrap the function if it overrides a method and makes use of `_super` within it's body.
     proto[name] = wrap ? function (_super, fn) {
       // create a new wrapped that exposes the original method as `_super`
       return function () {
@@ -1415,13 +1263,14 @@ FooFields.utils.$, FooFields.utils);
       };
     }(_super, fn) : fn;
   };
+
   /**
    * @summary Use the `Function.prototype.apply` method on a class constructor using the `new` keyword.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @function apply
    * @param {Object} klass - The class to create.
    * @param {Array} [args=[]] - The arguments to pass to the constructor.
-   * @returns {function} The new instance of the `klass` created with the supplied `args`.
+   * @returns {Object} The new instance of the `klass` created with the supplied `args`.
    * @description When using the default `Function.prototype.apply` you can't use it on class constructors requiring the `new` keyword, this method allows us to do that.
    * @example {@run true}
    * // alias the FooFields.utils.fn namespace
@@ -1439,24 +1288,20 @@ FooFields.utils.$, FooFields.utils);
    * Test.apply( Test, ["My name", "My value"] ); // => "Test instantiated without the `new` keyword."
    * _fn.apply( Test, ["My name", "My value"] ); // => "Test: name = My name, value = My value"
    */
-
-
   _.fn.apply = function (klass, args) {
     args = _is.array(args) ? args : [];
-
     function Class() {
       return klass.apply(this, args);
     }
-
-    Class.prototype = klass.prototype; //noinspection JSValidateTypes
-
+    Class.prototype = klass.prototype;
     return new Class();
   };
+
   /**
    * @summary Converts the default `arguments` object into a proper array.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @function arg2arr
-   * @param {Arguments} args - The arguments object to create an array from.
+   * @param {IArguments} args - The arguments object to create an array from.
    * @returns {Array}
    * @description This method is simply a replacement for calling `Array.prototype.slice.call()` to create an array from an `arguments` object.
    * @example {@run true}
@@ -1472,51 +1317,45 @@ FooFields.utils.$, FooFields.utils);
    *
    * callMe("arg1", "arg2");
    */
-
-
   _.fn.arg2arr = function (args) {
     return Array.prototype.slice.call(args);
   };
+
   /**
    * @summary Debounces the `fn` by the supplied `time`.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @function debounce
    * @param {function} fn - The function to debounce.
    * @param {number} time - The time in milliseconds to delay execution.
    * @returns {function}
    * @description This returns a wrapped version of the `fn` which delays its' execution by the supplied `time`. Additional calls to the function will extend the delay until the `time` expires.
    */
-
-
   _.fn.debounce = function (fn, time) {
     var timeout;
     return function () {
       var ctx = this,
-          args = _.fn.arg2arr(arguments);
-
+        args = _.fn.arg2arr(arguments);
       clearTimeout(timeout);
       timeout = setTimeout(function () {
         fn.apply(ctx, args);
       }, time);
     };
   };
+
   /**
    * @summary Throttles the `fn` by the supplied `time`.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @function throttle
    * @param {function} fn - The function to throttle.
    * @param {number} time - The time in milliseconds to delay execution.
    * @returns {function}
    * @description This returns a wrapped version of the `fn` which ensures it's executed only once every `time` milliseconds. The first call to the function will be executed, after that only the last of any additional calls will be executed once the `time` expires.
    */
-
-
   _.fn.throttle = function (fn, time) {
     var last, timeout;
     return function () {
       var ctx = this,
-          args = _.fn.arg2arr(arguments);
-
+        args = _.fn.arg2arr(arguments);
       if (!last) {
         fn.apply(ctx, args);
         last = Date.now();
@@ -1531,9 +1370,10 @@ FooFields.utils.$, FooFields.utils);
       }
     };
   };
+
   /**
    * @summary Checks the given `value` and ensures a function is returned.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @function check
    * @param {?Object} thisArg=window - The `this` keyword within the returned function, if the supplied value is not an object this defaults to the `window`.
    * @param {*} value - The value to check, if not a function or the name of one then the `def` value is automatically returned.
@@ -1591,24 +1431,21 @@ FooFields.utils.$, FooFields.utils);
    * fn = _fn.check( thisArg, "api.sendMessage", def, window.api.child );
    * fn(); // => "window.api.child.api.sendMessage"
    */
-
-
   _.fn.check = function (thisArg, value, def, ctx) {
     def = _is.fn(def) ? def : $.noop;
     thisArg = _is.object(thisArg) ? thisArg : window;
-
     function wrap(fn) {
       return function () {
         return fn.apply(thisArg, arguments);
       };
     }
-
     value = _is.string(value) ? _.fn.fetch(value, ctx) : value;
     return _is.fn(value) ? wrap(value) : wrap(def);
   };
+
   /**
    * @summary Fetches a function given its `name`.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @function fetch
    * @param {string} name - The name of the function to fetch. This can be a `.` notated name.
    * @param {Object} [ctx=window] - The context to retrieve the function from, defaults to the `window` object.
@@ -1637,8 +1474,6 @@ FooFields.utils.$, FooFields.utils);
    * 	send1( "My message" ); // => "api.sendMessage: My message"
    * }
    */
-
-
   _.fn.fetch = function (name, ctx) {
     if (!_is.string(name) || _is.empty(name)) return null;
     ctx = _is.object(ctx) ? ctx : window;
@@ -1647,9 +1482,10 @@ FooFields.utils.$, FooFields.utils);
     });
     return _is.fn(ctx) ? ctx : null;
   };
+
   /**
    * @summary Enqueues methods using the given `name` from all supplied `objects` and executes each in order with the given arguments.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @function enqueue
    * @param {Array.<Object>} objects - The objects to call the method on.
    * @param {string} name - The name of the method to execute.
@@ -1767,28 +1603,26 @@ FooFields.utils.$, FooFields.utils);
    * 	});
    * });
    */
-
-
   _.fn.enqueue = function (objects, name, arg1, argN) {
     var args = _.fn.arg2arr(arguments),
-        // get an array of all supplied arguments
-    def = $.Deferred(),
-        // the main deferred object for the function
-    queue = $.Deferred(),
-        // the deferred object to use as an queue
-    promise = queue.promise(),
-        // used to register component methods for execution
-    results = [],
-        // stores the results of each method to be returned by the main deferred
-    run = [],
-        // stores each object once its' method has been run
-    first = true; // whether or not this is the first resolve callback
+      // get an array of all supplied arguments
+      def = $.Deferred(),
+      // the main deferred object for the function
+      queue = $.Deferred(),
+      // the deferred object to use as an queue
+      promise = queue.promise(),
+      // used to register component methods for execution
+      results = [],
+      // stores the results of each method to be returned by the main deferred
+      run = [],
+      // stores each object once its' method has been run
+      first = true; // whether or not this is the first resolve callback
+
     // take the objects and name parameters out of the args array
-
-
     objects = args.shift();
-    name = args.shift(); // safely execute a function, catch any errors and reject the deferred if required.
+    name = args.shift();
 
+    // safely execute a function, catch any errors and reject the deferred if required.
     function safe(obj, method) {
       try {
         run.push(obj);
@@ -1797,9 +1631,9 @@ FooFields.utils.$, FooFields.utils);
         def.reject(err, run);
         return def;
       }
-    } // loop through all the supplied objects
+    }
 
-
+    // loop through all the supplied objects
     $.each(objects, function (i, obj) {
       // if the obj has a function with the supplied name
       if (_is.fn(obj[name])) {
@@ -1808,135 +1642,131 @@ FooFields.utils.$, FooFields.utils);
           // only register the result if this is not the first resolve callback, the first is triggered by this function kicking off the queue
           if (!first) {
             var resolveArgs = _.fn.arg2arr(arguments);
-
             results.push(resolveArgs);
           }
-
-          first = false; // execute the method and return it's result, if the result is a promise
+          first = false;
+          // execute the method and return it's result, if the result is a promise
           // the next method will only be executed once it's resolved
-
           return safe(obj, obj[name]);
         });
       }
-    }); // add one last callback to catch the final result
+    });
 
+    // add one last callback to catch the final result
     promise.then(function () {
       // only register the result if this is not the first resolve callback
       if (!first) {
         var resolveArgs = _.fn.arg2arr(arguments);
-
         results.push(resolveArgs);
       }
-
-      first = false; // resolve the main deferred with the array of all the method results
-
+      first = false;
+      // resolve the main deferred with the array of all the method results
       def.resolve(results);
-    }); // hook into failures and ensure the run array is appended to the args
+    });
 
+    // hook into failures and ensure the run array is appended to the args
     promise.fail(function () {
       var rejectArgs = _.fn.arg2arr(arguments);
-
       rejectArgs.push(run);
       def.reject.apply(def, rejectArgs);
-    }); // kick off the queue
+    });
 
+    // kick off the queue
     queue.resolve();
     return def.promise();
   };
+
   /**
    * @summary Waits for the outcome of all promises regardless of failure and resolves supplying the results of just those that succeeded.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @function when
    * @param {Promise[]} promises - The array of promises to wait for.
    * @returns {Promise}
    */
-
-
   _.fn.when = function (promises) {
     if (!_is.array(promises) || _is.empty(promises)) return $.when();
     var d = $.Deferred(),
-        results = [],
-        remaining = promises.length;
-
-    for (var i = 0; i < promises.length; i++) {
-      promises[i].then(function (res) {
-        results.push(res); // on success, add to results
-      }).always(function () {
-        remaining--; // always mark as finished
-
-        if (!remaining) d.resolve(results);
-      });
+      results = [],
+      remaining = promises.length;
+    function reduceRemaining() {
+      remaining--; // always mark as finished
+      if (!remaining) d.resolve(results);
     }
-
+    for (var i = 0; i < promises.length; i++) {
+      if (_is.promise(promises[i])) {
+        promises[i].then(function (res) {
+          results.push(res); // on success, add to results
+        }).always(reduceRemaining);
+      } else {
+        reduceRemaining();
+      }
+    }
     return d.promise(); // return a promise on the remaining values
   };
+
   /**
    * @summary Return a promise rejected using the supplied args.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @function rejectWith
    * @param {*} [arg1] - The first argument to reject the promise with.
    * @param {...*} [argN] - Any additional arguments to reject the promise with.
    * @returns {Promise}
    */
-
-
   _.fn.rejectWith = function (arg1, argN) {
     var def = $.Deferred(),
-        args = _.fn.arg2arr(arguments);
-
+      args = _.fn.arg2arr(arguments);
     return def.reject.apply(def, args).promise();
   };
+
   /**
    * @summary Return a promise resolved using the supplied args.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @function resolveWith
    * @param {*} [arg1] - The first argument to resolve the promise with.
    * @param {...*} [argN] - Any additional arguments to resolve the promise with.
    * @returns {Promise}
    */
-
-
   _.fn.resolveWith = function (arg1, argN) {
     var def = $.Deferred(),
-        args = _.fn.arg2arr(arguments);
-
+      args = _.fn.arg2arr(arguments);
     return def.resolve.apply(def, args).promise();
   };
+
   /**
    * @summary A resolved promise object.
-   * @memberof FooFields.utils.fn
+   * @memberof FooFields.utils.fn.
    * @name resolved
    * @type {Promise}
    */
-
-
   _.fn.resolved = $.Deferred().resolve().promise();
+
   /**
    * @summary A rejected promise object.
-   * @memberof FooFields.utils.fn
-   * @name resolved
+   * @memberof FooFields.utils.fn.
+   * @name rejected
    * @type {Promise}
    */
-
   _.fn.rejected = $.Deferred().reject().promise();
-})( // dependencies
+})(
+// dependencies
 FooFields.utils.$, FooFields.utils, FooFields.utils.is);
-
 (function (_, _is) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
+  if (_.version !== '0.2.2') return;
+
   /**
    * @summary Contains common url utility methods.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @namespace url
    */
+  _.url = {};
 
-  _.url = {}; // used for parsing a url into it's parts.
-
+  // used for parsing a url into it's parts.
   var _a = document.createElement('a');
+
   /**
    * @summary Parses the supplied url into an object containing it's component parts.
-   * @memberof FooFields.utils.url
+   * @memberof FooFields.utils.url.
    * @function parts
    * @param {string} url - The url to parse.
    * @returns {FooFields.utils.url~Parts}
@@ -1946,14 +1776,12 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
    *
    * console.log( _url.parts( "http://example.com/path/?param=true#something" ) ); // => {"hash":"#something", ...}
    */
-
-
   _.url.parts = function (url) {
     _a.href = url;
     var port = _a.port ? _a.port : ["http:", "https:"].indexOf(_a.protocol) !== -1 ? _a.protocol === "https:" ? "443" : "80" : "",
-        host = _a.hostname + (port ? ":" + port : ""),
-        origin = _a.origin ? _a.origin : _a.protocol + "//" + host,
-        pathname = _a.pathname.slice(0, 1) === "/" ? _a.pathname : "/" + _a.pathname;
+      host = _a.hostname + (port ? ":" + port : ""),
+      origin = _a.origin ? _a.origin : _a.protocol + "//" + host,
+      pathname = _a.pathname.slice(0, 1) === "/" ? _a.pathname : "/" + _a.pathname;
     return {
       hash: _a.hash,
       host: host,
@@ -1966,9 +1794,10 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
       search: _a.search
     };
   };
+
   /**
    * @summary Given a <code>url</code> that could be relative or full this ensures a full url is returned.
-   * @memberof FooFields.utils.url
+   * @memberof FooFields.utils.url.
    * @function full
    * @param {string} url - The url to ensure is full.
    * @returns {?string} `null` if the given `path` is not a string or empty.
@@ -1984,16 +1813,15 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
    * console.log( _url.full() ); // => null
    * console.log( _url.full( 123 ) ); // => null
    */
-
-
   _.url.full = function (url) {
     if (!_is.string(url) || _is.empty(url)) return null;
     _a.href = url;
     return _a.href;
   };
+
   /**
    * @summary Gets or sets a parameter in the given <code>search</code> string.
-   * @memberof FooFields.utils.url
+   * @memberof FooFields.utils.url.
    * @function param
    * @param {string} search - The search string to use (usually `location.search`).
    * @param {string} key - The key of the parameter.
@@ -2019,40 +1847,32 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
    * console.log( _url.param( search, "autoplay", "0" ) ); // => "?wmode=opaque&autoplay=0"
    * console.log( _url.param( search, "v", "2" ) ); // => "?wmode=opaque&autoplay=1&v=2"
    */
-
-
   _.url.param = function (search, key, value) {
     if (!_is.string(search) || !_is.string(key) || _is.empty(key)) return search;
     var regex, match, result, param;
-
     if (_is.undef(value)) {
       regex = new RegExp('[?|&]' + key + '=([^&;]+?)(&|#|;|$)'); // regex to match the key and it's value but only capture the value
-
       match = regex.exec(search) || ["", ""]; // match the param otherwise return an empty string match
-
       result = match[1].replace(/\+/g, '%20'); // replace any + character's with spaces
-
       return _is.string(result) && !_is.empty(result) ? decodeURIComponent(result) : null; // decode the result otherwise return null
     }
-
     if (_is.empty(value)) {
       regex = new RegExp('^([^#]*\?)(([^#]*)&)?' + key + '(\=[^&#]*)?(&|#|$)');
       result = search.replace(regex, '$1$3$5').replace(/^([^#]*)((\?)&|\?(#|$))/, '$1$3$4');
     } else {
       regex = new RegExp('([?&])' + key + '[^&]*'); // regex to match the key and it's current value but only capture the preceding ? or & char
-
       param = key + '=' + encodeURIComponent(value);
       result = search.replace(regex, '$1' + param); // replace any existing instance of the key with the new value
       // If nothing was replaced, then add the new param to the end
-
       if (result === search && !regex.test(result)) {
         // if no replacement occurred and the parameter is not currently in the result then add it
         result += (result.indexOf("?") !== -1 ? '&' : '?') + param;
       }
     }
-
     return result;
-  }; //######################
+  };
+
+  //######################
   //## Type Definitions ##
   //######################
 
@@ -2070,23 +1890,23 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
    * @property {string} search - A string containing a `?` followed by the parameters of the URL. Also known as "querystring".
    * @see {@link FooFields.utils.url.parts} for example usage.
    */
-
-})( // dependencies
+})(
+// dependencies
 FooFields.utils, FooFields.utils.is);
-
 (function (_, _is, _fn) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
+  if (_.version !== '0.2.2') return;
+
   /**
    * @summary Contains common string utility methods.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @namespace str
    */
-
   _.str = {};
+
   /**
    * @summary Converts the given `target` to camel case.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function camel
    * @param {string} target - The string to camel case.
    * @returns {string}
@@ -2101,7 +1921,6 @@ FooFields.utils, FooFields.utils.is);
    * console.log( _str.camel( "MaxWidth" ) ); // => "maxWidth"
    * console.log( _str.camel( "Abbreviations like CSS are left intact" ) ); // => "abbreviationsLikeCSSAreLeftIntact"
    */
-
   _.str.camel = function (target) {
     if (_is.empty(target)) return target;
     if (target.toUpperCase() === target) return target.toLowerCase();
@@ -2110,9 +1929,10 @@ FooFields.utils, FooFields.utils.is);
       return p1.toLowerCase();
     });
   };
+
   /**
    * @summary Converts the given `target` to kebab case. Non-alphanumeric characters are converted to `-`.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function kebab
    * @param {string} target - The string to kebab case.
    * @returns {string}
@@ -2127,17 +1947,16 @@ FooFields.utils, FooFields.utils.is);
    * console.log( _str.kebab( "MaxWidth" ) ); // => "max-width"
    * console.log( _str.kebab( "Non-alphanumeric ch@racters are converted to dashes!" ) ); // => "non-alphanumeric-ch-racters-are-converted-to-dashes"
    */
-
-
   _.str.kebab = function (target) {
     if (_is.empty(target)) return target;
     return target.match(/[A-Z]{2,}(?=[A-Z][a-z0-9]*|\b)|[A-Z]?[a-z0-9]*|[A-Z]|[0-9]+/g).filter(Boolean).map(function (x) {
       return x.toLowerCase();
     }).join('-');
   };
+
   /**
    * @summary Checks if the `target` contains the given `substr`.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function contains
    * @param {string} target - The string to check.
    * @param {string} substr - The string to check for.
@@ -2156,15 +1975,14 @@ FooFields.utils, FooFields.utils.is);
    * console.log( _str.contains( target, "TO BE" ) ); // => false
    * console.log( _str.contains( target, "TO BE", true ) ); // => true
    */
-
-
   _.str.contains = function (target, substr, ignoreCase) {
     if (!_is.string(target) || _is.empty(target) || !_is.string(substr) || _is.empty(substr)) return false;
     return substr.length <= target.length && (!!ignoreCase ? target.toUpperCase().indexOf(substr.toUpperCase()) : target.indexOf(substr)) !== -1;
   };
+
   /**
    * @summary Checks if the `target` contains the given `word`.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function containsWord
    * @param {string} target - The string to check.
    * @param {string} word - The word to check for.
@@ -2183,21 +2001,18 @@ FooFields.utils, FooFields.utils.is);
    * console.log( _str.containsWord( target, "NOT", true ) ); // => true
    * console.log( _str.containsWord( target, "nonexistent" ) ); // => false
    */
-
-
   _.str.containsWord = function (target, word, ignoreCase) {
     if (!_is.string(target) || _is.empty(target) || !_is.string(word) || _is.empty(word) || target.length < word.length) return false;
     var parts = target.split(/\W/);
-
     for (var i = 0, len = parts.length; i < len; i++) {
       if (ignoreCase ? parts[i].toUpperCase() === word.toUpperCase() : parts[i] === word) return true;
     }
-
     return false;
   };
+
   /**
    * @summary Checks if the `target` ends with the given `substr`.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function endsWith
    * @param {string} target - The string to check.
    * @param {string} substr - The substr to check for.
@@ -2210,29 +2025,27 @@ FooFields.utils, FooFields.utils.is);
    * console.log( _str.endsWith( "something", "ing" ) ); // => true
    * console.log( _str.endsWith( "something", "no" ) ); // => false
    */
-
-
   _.str.endsWith = function (target, substr) {
     if (!_is.string(target) || _is.empty(target) || !_is.string(substr) || _is.empty(substr)) return target === substr;
     return target.slice(target.length - substr.length) === substr;
   };
+
   /**
    * @summary Escapes the `target` for use in a regular expression.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function escapeRegExp
    * @param {string} target - The string to escape.
    * @returns {string}
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions|Regular Expressions: Using Special Characters - JavaScript | MDN}
    */
-
-
   _.str.escapeRegExp = function (target) {
     if (_is.empty(target)) return target;
     return target.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   };
+
   /**
    * @summary Generates a 32 bit FNV-1a hash from the given `target`.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function fnv1a
    * @param {string} target - The string to generate a hash from.
    * @returns {?number} `null` if the `target` is not a string or empty otherwise a 32 bit FNV-1a hash.
@@ -2244,24 +2057,21 @@ FooFields.utils, FooFields.utils.is);
    * console.log( _str.fnv1a( "Some string to generate a hash for" ) ); // => 1350435704
    * @see {@link https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function|Fowler–Noll–Vo hash function}
    */
-
-
   _.str.fnv1a = function (target) {
     if (!_is.string(target) || _is.empty(target)) return null;
     var i,
-        l,
-        hval = 0x811c9dc5;
-
+      l,
+      hval = 0x811c9dc5;
     for (i = 0, l = target.length; i < l; i++) {
       hval ^= target.charCodeAt(i);
       hval += (hval << 1) + (hval << 4) + (hval << 7) + (hval << 8) + (hval << 24);
     }
-
     return hval >>> 0;
   };
+
   /**
    * @summary Returns the remainder of the `target` split on the first index of the given `substr`.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function from
    * @param {string} target - The string to split.
    * @param {string} substr - The substring to split on.
@@ -2277,15 +2087,13 @@ FooFields.utils, FooFields.utils.is);
    * console.log( _str.from( target, "question" ) ); // => "."
    * console.log( _str.from( target, "nonexistent" ) ); // => null
    */
-
-
   _.str.from = function (target, substr) {
-    if (!_is.string(target) || _is.empty(target) || !_is.string(substr) || _is.empty(substr)) return null;
     return _.str.contains(target, substr) ? target.substring(target.indexOf(substr) + substr.length) : null;
   };
+
   /**
    * @summary Joins any number of strings using the given `separator`.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function join
    * @param {string} separator - The separator to use to join the strings.
    * @param {string} part - The first string to join.
@@ -2302,38 +2110,30 @@ FooFields.utils, FooFields.utils.is);
    * console.log( _str.join( "/", "http://", "/example.com", "/path/to/image.png" ) ); // => "http://example.com/path/to/image.png"
    * console.log( _str.join( "/", "http://", "example.com", "path/to/image.png" ) ); // => "http://example.com/path/to/image.png"
    */
-
-
   _.str.join = function (separator, part, partN) {
     if (!_is.string(separator) || !_is.string(part)) return null;
-
     var parts = _fn.arg2arr(arguments);
-
     separator = parts.shift();
     var i,
-        l,
-        result = parts.shift();
-
+      l,
+      result = parts.shift();
     for (i = 0, l = parts.length; i < l; i++) {
       part = parts[i];
       if (_is.empty(part)) continue;
-
       if (_.str.endsWith(result, separator)) {
         result = result.slice(0, result.length - separator.length);
       }
-
       if (_.str.startsWith(part, separator)) {
         part = part.slice(separator.length);
       }
-
       result += separator + part;
     }
-
     return result;
   };
+
   /**
    * @summary Checks if the `target` starts with the given `substr`.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function startsWith
    * @param {string} target - The string to check.
    * @param {string} substr - The substr to check for.
@@ -2346,15 +2146,14 @@ FooFields.utils, FooFields.utils.is);
    * console.log( _str.startsWith( "something", "some" ) ); // => true
    * console.log( _str.startsWith( "something", "no" ) ); // => false
    */
-
-
   _.str.startsWith = function (target, substr) {
     if (_is.empty(target) || _is.empty(substr)) return false;
     return target.slice(0, substr.length) === substr;
   };
+
   /**
    * @summary Returns the first part of the `target` split on the first index of the given `substr`.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function until
    * @param {string} target - The string to split.
    * @param {string} substr - The substring to split on.
@@ -2370,15 +2169,13 @@ FooFields.utils, FooFields.utils.is);
    * console.log( _str.until( target, "question" ) ); // => "To be, or not to be, that is the "
    * console.log( _str.until( target, "nonexistent" ) ); // => "To be, or not to be, that is the question."
    */
-
-
   _.str.until = function (target, substr) {
-    if (_is.empty(target) || _is.empty(substr)) return target;
     return _.str.contains(target, substr) ? target.substring(0, target.indexOf(substr)) : target;
   };
+
   /**
    * @summary A basic string formatter that can use both index and name based placeholders but handles only string or number replacements.
-   * @memberof FooFields.utils.str
+   * @memberof FooFields.utils.str.
    * @function format
    * @param {string} target - The format string containing any placeholders to replace.
    * @param {string|number|Object|Array} arg1 - The first value to format the target with. If an object is supplied it's properties are used to match named placeholders. If an array, string or number is supplied it's values are used to match any index placeholders.
@@ -2416,50 +2213,43 @@ FooFields.utils, FooFields.utils.is);
    * // => "{1}{1}".replace( "{1}", "{0}" )
    * // => "{0}{0}"
    */
-
-
   _.str.format = function (target, arg1, argN) {
     var args = _fn.arg2arr(arguments);
-
     target = args.shift(); // remove the target from the args
-
-    if (_is.empty(target) || _is.empty(args)) return target;
-
-    if (args.length === 1 && (_is.array(args[0]) || _is.object(args[0]))) {
-      args = args[0];
+    if (_is.string(target) && args.length > 0) {
+      if (args.length === 1 && (_is.array(args[0]) || _is.object(args[0]))) {
+        args = args[0];
+      }
+      _.each(args, function (value, placeholder) {
+        target = target.replace(new RegExp("\\{" + placeholder + "\\}", "gi"), value + "");
+      });
     }
-
-    for (var arg in args) {
-      target = target.replace(new RegExp("\\{" + arg + "\\}", "gi"), args[arg]);
-    }
-
     return target;
   };
-})( // dependencies
+})(
+// dependencies
 FooFields.utils, FooFields.utils.is, FooFields.utils.fn);
-
 (function ($, _, _is, _fn, _str) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
+  if (_.version !== '0.2.2') return;
+
   /**
    * @summary Contains common object utility methods.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @namespace obj
    */
+  _.obj = {};
 
-  _.obj = {}; // used by the obj.create method
-
+  // used by the obj.create method
   var Obj = function Obj() {};
   /**
    * @summary Creates a new object with the specified prototype.
-   * @memberof FooFields.utils.obj
+   * @memberof FooFields.utils.obj.
    * @function create
-   * @param {object} proto - The object which should be the prototype of the newly-created object.
-   * @returns {object} A new object with the specified prototype.
+   * @param {Object} proto - The object which should be the prototype of the newly-created object.
+   * @returns {Object} A new object with the specified prototype.
    * @description This is a basic implementation of the {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create|Object.create} method.
    */
-
-
   _.obj.create = function (proto) {
     if (!_is.object(proto)) throw TypeError('Argument must be an object');
     Obj.prototype = proto;
@@ -2467,9 +2257,10 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.fn);
     Obj.prototype = null;
     return result;
   };
+
   /**
    * @summary Merge the contents of two or more objects together into the first `target` object.
-   * @memberof FooFields.utils.obj
+   * @memberof FooFields.utils.obj.
    * @function extend
    * @param {Object} target - The object to merge properties into.
    * @param {Object} object - An object containing properties to merge.
@@ -2492,22 +2283,19 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.fn);
    * console.log( defaults ); // => {"name": "My Object", "enabled": true, "arr": [1,2,3]}
    * console.log( options ); // => {"enabled": true, "arr": [4,5,6], "something": 123}
    */
-
-
   _.obj.extend = function (target, object, objectN) {
     target = _is.object(target) ? target : {};
-
     var objects = _fn.arg2arr(arguments);
-
     objects.shift();
     $.each(objects, function (i, object) {
       _.obj.merge(target, object);
     });
     return target;
   };
+
   /**
    * @summary Merge the contents of two objects together into the first `target` object.
-   * @memberof FooFields.utils.obj
+   * @memberof FooFields.utils.obj.
    * @function merge
    * @param {Object} target - The object to merge properties into.
    * @param {Object} object - The object containing properties to merge.
@@ -2524,17 +2312,13 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.fn);
    *
    * console.log( _obj.merge( target, object ) ); // => {"name": "My Object", "enabled": true, "arr": [4,5,6], "something": 123}
    */
-
-
   _.obj.merge = function (target, object) {
     target = _is.hash(target) ? target : {};
     object = _is.hash(object) ? object : {};
-
     for (var prop in object) {
       if (object.hasOwnProperty(prop)) {
         if (_is.hash(object[prop])) {
           target[prop] = _is.hash(target[prop]) ? target[prop] : {};
-
           _.obj.merge(target[prop], object[prop]);
         } else if (_is.array(object[prop])) {
           target[prop] = object[prop].slice();
@@ -2543,12 +2327,12 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.fn);
         }
       }
     }
-
     return target;
   };
+
   /**
    * @summary Merge the validated properties of the `object` into the `target` using the optional `mappings`.
-   * @memberof FooFields.utils.obj
+   * @memberof FooFields.utils.obj.
    * @function mergeValid
    * @param {Object} target - The object to merge properties into.
    * @param {FooFields.utils.obj~Validators} validators - An object containing validators for the `target` object properties.
@@ -2600,34 +2384,29 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.fn);
    * // merge the object into the target using the mappings, invalid properties or those with no corresponding validator are ignored.
    * console.log( _obj.mergeValid( target, validators, object, mappings ) ); // => { "name": "Chris", "location": "London" }
    */
-
-
   _.obj.mergeValid = function (target, validators, object, mappings) {
     if (!_is.hash(object) || !_is.hash(validators)) return target;
     validators = _is.hash(validators) ? validators : {};
     mappings = _is.hash(mappings) ? mappings : {};
     var prop, maps, value;
-
     for (prop in validators) {
       if (!validators.hasOwnProperty(prop) || !_is.fn(validators[prop])) continue;
       maps = _is.array(mappings[prop]) ? mappings[prop] : _is.string(mappings[prop]) ? [mappings[prop]] : [prop];
       $.each(maps, function (i, map) {
         value = _.obj.prop(object, map);
         if (_is.undef(value)) return; // continue
-
         if (validators[prop](value)) {
           _.obj.prop(target, prop, value);
-
           return false; // break
         }
       });
     }
-
     return target;
   };
+
   /**
    * @summary Get or set a property value given its `name`.
-   * @memberof FooFields.utils.obj
+   * @memberof FooFields.utils.obj.
    * @function prop
    * @param {Object} object - The object to inspect for the property.
    * @param {string} name - The name of the property to fetch. This can be a `.` notated name.
@@ -2663,12 +2442,9 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.fn);
    *
    * console.log( object ); // => { "name": "My Updated Object", "some": { "thing": 987 } }
    */
-
-
   _.obj.prop = function (object, name, value) {
     if (!_is.object(object) || _is.empty(name)) return;
     var parts, last;
-
     if (_is.undef(value)) {
       if (_str.contains(name, '.')) {
         parts = name.split('.');
@@ -2686,10 +2462,8 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.fn);
       } else if (!_is.undef(object[name])) {
         value = object[name];
       }
-
       return value;
     }
-
     if (_str.contains(name, '.')) {
       parts = name.split('.');
       last = parts.length - 1;
@@ -2703,13 +2477,15 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.fn);
     } else if (!_is.undef(object[name])) {
       object[name] = value;
     }
-  }; //######################
+  };
+
+  //######################
   //## Type Definitions ##
   //######################
 
   /**
    * @summary An object used by the {@link FooFields.utils.obj.mergeValid|mergeValid} method to map new values onto the `target` object.
-   * @typedef {Object.<string,string>|Object.<string,Array.<string>>} FooFields.utils.obj~Mappings
+   * @typedef {Object.<string,(string|Array.<string>)>} FooFields.utils.obj~Mappings
    * @description The mappings object is a single level object. If you want to map a property from/to a child object on either the source or target objects you must supply the name using `.` notation as seen in the below example with the `"name.first"` to `"Name.Short"` mapping.
    * @example {@caption The basic structure of a mappings object is the below.}
    * {
@@ -2775,13 +2551,14 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.fn);
    * 	"age": _is.number
    * };
    */
-
-})( // dependencies
+})(
+// dependencies
 FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooFields.utils.str);
-
 (function ($, _, _is) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return; // any methods that have dependencies but don't fall into a specific subset or namespace can be added here
+  if (_.version !== '0.2.2') return;
+
+  // any methods that have dependencies but don't fall into a specific subset or namespace can be added here
 
   /**
    * @summary The callback for the {@link FooFields.utils.ready} method.
@@ -2793,7 +2570,7 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooF
 
   /**
    * @summary Waits for the DOM to be accessible and then executes the supplied callback.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @function ready
    * @param {FooFields.utils~readyCallback} callback - The function to execute once the DOM is accessible.
    * @example {@caption This method can be used as a replacement for the jQuery ready callback to avoid an error in another script stopping our scripts from running.}
@@ -2801,7 +2578,6 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooF
    * 	// do something
    * });
    */
-
   _.ready = function (callback) {
     function onready() {
       try {
@@ -2810,15 +2586,168 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooF
         console.error(err);
       }
     }
-
     if (Function('/*@cc_on return true@*/')() ? document.readyState === "complete" : document.readyState !== "loading") onready();else document.addEventListener('DOMContentLoaded', onready, false);
-  }; // A variable to hold the last number used to generate an ID in the current page.
+  };
 
+  /**
+   * @summary Executed once for each array index or object property until it returns a truthy value.
+   * @callback FooFields.utils~findCallback
+   * @param {*} value - The current value being iterated over. This could be either an element in an array or the value of an object property.
+   * @param {(number|string)} [key] - The array index or property name of the `value`.
+   * @param {(Object|Array)} [object] - The array or object currently being searched.
+   * @returns {boolean} A truthy value.
+   */
 
+  /**
+   * @summary Returns the value of the first element or property in the provided target that satisfies the provided test function.
+   * @memberof FooFields.utils.
+   * @function find
+   * @param {(Object|Array)} target - The object or array to search.
+   * @param {FooFields.utils~findCallback} callback - A function to execute for each value in the target.
+   * @param {*} [thisArg] - The `this` value within the `callback`.
+   * @returns {*} The value of the first element or property in the provided target that satisfies the provided test function. Otherwise, `undefined` is returned.
+   */
+  _.find = function (target, callback, thisArg) {
+    if (!_is.fn(callback)) return;
+    thisArg = _is.undef(thisArg) ? callback : thisArg;
+    var i, l;
+    if (_is.array(target)) {
+      for (i = 0, l = target.length; i < l; i++) {
+        if (callback.call(thisArg, target[i], i, target)) {
+          return target[i];
+        }
+      }
+    } else if (_is.object(target)) {
+      var keys = Object.keys(target);
+      for (i = 0, l = keys.length; i < l; i++) {
+        if (callback.call(thisArg, target[keys[i]], keys[i], target)) {
+          return target[keys[i]];
+        }
+      }
+    }
+  };
+
+  /**
+   * @summary Executed once for each array index or object property.
+   * @callback FooFields.utils~eachCallback
+   * @param {*} value - The current value being iterated over. This could be either an element in an array or the value of an object property.
+   * @param {(number|string)} [key] - The array index or property name of the `value`.
+   * @param {(Object|Array)} [object] - The array or object currently being searched.
+   * @returns {(boolean|void)} Return `false` to break out of the loop, all other values are ignored.
+   */
+
+  /**
+   * @summary Iterate over all indexes or properties of the provided target executing the provided callback once per value.
+   * @memberof FooFields.utils.
+   * @function each
+   * @param {(Object|Array)} object - The object or array to search.
+   * @param {FooFields.utils~eachCallback} callback - A function to execute for each value in the target.
+   * @param {*} [thisArg] - The `this` value within the `callback`.
+   */
+  _.each = function (object, callback, thisArg) {
+    if (!_is.fn(callback)) return;
+    thisArg = _is.undef(thisArg) ? callback : thisArg;
+    var i, l, result;
+    if (_is.array(object)) {
+      for (i = 0, l = object.length; i < l; i++) {
+        result = callback.call(thisArg, object[i], i, object);
+        if (result === false) break;
+      }
+    } else if (_is.object(object)) {
+      var keys = Object.keys(object);
+      for (i = 0, l = keys.length; i < l; i++) {
+        result = callback.call(thisArg, object[keys[i]], keys[i], object);
+        if (result === false) break;
+      }
+    }
+  };
+
+  /**
+   * @summary Checks if a value exists within an array.
+   * @memberof FooFields.utils.
+   * @function inArray
+   * @param {*} needle - The value to search for.
+   * @param {[]} haystack - The array to search within.
+   * @returns {number} Returns the index of the value if found otherwise -1.
+   */
+  _.inArray = function (needle, haystack) {
+    if (_is.array(haystack)) {
+      return haystack.indexOf(needle);
+    }
+    return -1;
+  };
+
+  /**
+   * @summary Compares two version numbers.
+   * @memberof FooFields.utils.
+   * @function versionCompare
+   * @param {string} version1 - The first version to use in the comparison.
+   * @param {string} version2 - The second version to compare to the first.
+   * @returns {number} `0` if the version are equal.
+   * `-1` if `version1` is less than `version2`.
+   * `1` if `version1` is greater than `version2`.
+   * `NaN` if either of the supplied versions do not conform to MAJOR.MINOR.PATCH format.
+   * @description This method will compare two version numbers that conform to the basic MAJOR.MINOR.PATCH format returning the result as a simple number. This method will handle short version string comparisons e.g. `1.0` versus `1.0.1`.
+   * @example {@caption The following shows the results of comparing various version strings.}
+   * console.log( FooFields.utils.versionCompare( "0", "0" ) ); // => 0
+   * console.log( FooFields.utils.versionCompare( "0.0", "0" ) ); // => 0
+   * console.log( FooFields.utils.versionCompare( "0.0", "0.0.0" ) ); // => 0
+   * console.log( FooFields.utils.versionCompare( "0.1", "0.0.0" ) ); // => 1
+   * console.log( FooFields.utils.versionCompare( "0.1", "0.0.1" ) ); // => 1
+   * console.log( FooFields.utils.versionCompare( "1", "0.1" ) ); // => 1
+   * console.log( FooFields.utils.versionCompare( "1.10", "1.9" ) ); // => 1
+   * console.log( FooFields.utils.versionCompare( "1.9", "1.10" ) ); // => -1
+   * console.log( FooFields.utils.versionCompare( "1", "1.1" ) ); // => -1
+   * console.log( FooFields.utils.versionCompare( "1.0.9", "1.1" ) ); // => -1
+   * @example {@caption If either of the supplied version strings does not match the MAJOR.MINOR.PATCH format then `NaN` is returned.}
+   * console.log( FooFields.utils.versionCompare( "not-a-version", "1.1" ) ); // => NaN
+   * console.log( FooFields.utils.versionCompare( "1.1", "not-a-version" ) ); // => NaN
+   * console.log( FooFields.utils.versionCompare( "not-a-version", "not-a-version" ) ); // => NaN
+   */
+  _.versionCompare = function (version1, version2) {
+    // if either of the versions do not match the expected format return NaN
+    if (!(/[\d.]/.test(version1) && /[\d.]/.test(version2))) return NaN;
+
+    /**
+     * @summary Splits and parses the given version string into a numeric array.
+     * @param {string} version - The version string to split and parse.
+     * @returns {Array.<number>}
+     * @ignore
+     */
+    function split(version) {
+      var parts = version.split('.'),
+        result = [];
+      for (var i = 0, len = parts.length; i < len; i++) {
+        result[i] = parseInt(parts[i]);
+        if (isNaN(result[i])) result[i] = 0;
+      }
+      return result;
+    }
+
+    // get the base numeric arrays for each version
+    var v1parts = split(version1),
+      v2parts = split(version2);
+
+    // ensure both arrays are the same length by padding the shorter with 0
+    while (v1parts.length < v2parts.length) v1parts.push(0);
+    while (v2parts.length < v1parts.length) v2parts.push(0);
+
+    // perform the actual comparison
+    for (var i = 0; i < v1parts.length; ++i) {
+      if (v2parts.length === i) return 1;
+      if (v1parts[i] === v2parts[i]) continue;
+      if (v1parts[i] > v2parts[i]) return 1;else return -1;
+    }
+    if (v1parts.length !== v2parts.length) return -1;
+    return 0;
+  };
+
+  // A variable to hold the last number used to generate an ID in the current page.
   var uniqueId = 0;
+
   /**
    * @summary Generate and apply a unique id for the given `$element`.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @function uniqueId
    * @param {jQuery} $element - The jQuery element object to retrieve an id from or generate an id for.
    * @param {string} [prefix="uid-"] - A prefix to append to the start of any generated ids.
@@ -2839,21 +2768,19 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooF
    * console.log( _.uniqueId( $generatedPrefixedId, "plugin-" ) ); // => "plugin-2"
    * console.log( $generatedPrefixedId.attr( "id" ) ); // => "plugin-2"
    */
-
   _.uniqueId = function ($element, prefix) {
     var id = $element.attr('id');
-
     if (_is.empty(id)) {
       prefix = _is.string(prefix) && !_is.empty(prefix) ? prefix : "uid-";
       id = prefix + ++uniqueId;
       $element.attr('id', id).data('__uniqueId__', true);
     }
-
     return id;
   };
+
   /**
    * @summary Remove the id from the given `$element` if it was set using the {@link FooFields.utils.uniqueId|uniqueId} method.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @function removeUniqueId
    * @param {jQuery} $element - The jQuery element object to remove a generated id from.
    * @example {@run true}
@@ -2869,16 +2796,15 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooF
    * console.log( _.uniqueId( $generatedId ) ); // => "uid-1"
    * console.log( _.uniqueId( $generatedPrefixedId, "plugin-" ) ); // => "plugin-2"
    */
-
-
   _.removeUniqueId = function ($element) {
     if ($element.data('__uniqueId__')) {
       $element.removeAttr('id').removeData('__uniqueId__');
     }
   };
+
   /**
    * @summary Convert CSS class names into CSS selectors.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @function selectify
    * @param {(string|string[]|object)} classes - A space delimited string of CSS class names or an array of them with each item being included in the selector using the OR (`,`) syntax as a separator. If an object is supplied the result will be an object with the same property names but the values converted to selectors.
    * @returns {(object|string)}
@@ -2895,39 +2821,32 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooF
    * 	class3: ["my-class", "my-other-class"]
    * }) ); // => { class1: ".my-class", class2: ".my-class.my-other-class", class3: ".my-class,.my-other-class" }
    */
-
-
   _.selectify = function (classes) {
     if (_is.empty(classes)) return null;
-
     if (_is.hash(classes)) {
       var result = {},
-          selector;
-
+        selector;
       for (var name in classes) {
         if (!classes.hasOwnProperty(name)) continue;
         selector = _.selectify(classes[name]);
-
         if (selector) {
           result[name] = selector;
         }
       }
-
       return result;
     }
-
     if (_is.string(classes) || _is.array(classes)) {
       if (_is.string(classes)) classes = [classes];
       return classes.map(function (str) {
         return _is.string(str) ? "." + str.split(/\s/g).join(".") : null;
       }).join(",");
     }
-
     return null;
   };
+
   /**
    * @summary Parses the supplied `src` and `srcset` values and returns the best matching URL for the supplied render size.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @function src
    * @param {string} src - The default src for the image.
    * @param {string} srcset - The srcset containing additional image sizes.
@@ -2975,15 +2894,14 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooF
    * console.log( FooFields.utils.src( src, srcset, width, height, 720, 360, 1 ) ); // => "test-240x120.jpg"
    * console.log( FooFields.utils.src( src, srcset, width, height, 960, 480, 1 ) ); // => "test-240x120.jpg"
    */
-
-
   _.src = function (src, srcset, srcWidth, srcHeight, renderWidth, renderHeight, devicePixelRatio) {
-    if (!_is.string(src)) return null; // if there is no srcset just return the src
+    if (!_is.string(src)) return null;
+    // if there is no srcset just return the src
+    if (!_is.string(srcset)) return src;
 
-    if (!_is.string(srcset)) return src; // first split the srcset into its individual sources
-
-    var sources = srcset.replace(/(\s[\d.]+[whx]),/g, '$1 @,@ ').split(' @,@ '); // then parse those sources into objects containing the url, width, height and pixel density
-
+    // first split the srcset into its individual sources
+    var sources = srcset.replace(/(\s[\d.]+[whx]),/g, '$1 @,@ ').split(' @,@ ');
+    // then parse those sources into objects containing the url, width, height and pixel density
     var list = sources.map(function (val) {
       return {
         url: /^\s*(\S*)/.exec(val)[1],
@@ -2991,26 +2909,30 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooF
         h: parseFloat((/\S\s+(\d+)h/.exec(val) || [0, Infinity])[1]),
         x: parseFloat((/\S\s+([\d.]+)x/.exec(val) || [0, 1])[1])
       };
-    }); // if there is no items parsed from the srcset then just return the src
+    });
 
-    if (!list.length) return src; // add the current src into the mix by inspecting the first parsed item to figure out how to handle it
+    // if there is no items parsed from the srcset then just return the src
+    if (!list.length) return src;
 
+    // add the current src into the mix by inspecting the first parsed item to figure out how to handle it
     list.unshift({
       url: src,
       w: list[0].w !== Infinity && list[0].h === Infinity ? srcWidth : Infinity,
       h: list[0].h !== Infinity && list[0].w === Infinity ? srcHeight : Infinity,
       x: 1
-    }); // get the current viewport info and use it to determine the correct src to load
+    });
 
+    // get the current viewport info and use it to determine the correct src to load
     var dpr = _is.number(devicePixelRatio) ? devicePixelRatio : window.devicePixelRatio || 1,
-        area = {
-      w: renderWidth * dpr,
-      h: renderHeight * dpr,
-      x: dpr
-    },
-        props = ['w', 'h', 'x']; // first check each of the viewport properties against the max values of the same properties in our src array
-    // only src's with a property greater than the viewport or equal to the max are kept
+      area = {
+        w: renderWidth * dpr,
+        h: renderHeight * dpr,
+        x: dpr
+      },
+      props = ['w', 'h', 'x'];
 
+    // first check each of the viewport properties against the max values of the same properties in our src array
+    // only src's with a property greater than the viewport or equal to the max are kept
     props.forEach(function (prop) {
       var max = Math.max.apply(null, list.map(function (item) {
         return item[prop];
@@ -3018,9 +2940,10 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooF
       list = list.filter(function (item) {
         return item[prop] >= area[prop] || item[prop] === max;
       });
-    }); // next reduce our src array by comparing the viewport properties against the minimum values of the same properties of each src
-    // only src's with a property equal to the minimum are kept
+    });
 
+    // next reduce our src array by comparing the viewport properties against the minimum values of the same properties of each src
+    // only src's with a property equal to the minimum are kept
     props.forEach(function (prop) {
       var min = Math.min.apply(null, list.map(function (item) {
         return item[prop];
@@ -3028,21 +2951,21 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooF
       list = list.filter(function (item) {
         return item[prop] === min;
       });
-    }); // return the first url as it is the best match for the current viewport
+    });
 
+    // return the first url as it is the best match for the current viewport
     return list[0].url;
   };
+
   /**
    * @summary Get the scroll parent for the supplied element optionally filtering by axis.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @function scrollParent
    * @param {(string|Element|jQuery)} element - The selector, element or jQuery element to find the scroll parent of.
    * @param {string} [axis="xy"] - The axis to check. By default this method will check both the X and Y axis.
    * @param {jQuery} [def] - The default jQuery element to return if no result was found. Defaults to the supplied elements document.
    * @returns {jQuery}
    */
-
-
   _.scrollParent = function (element, axis, def) {
     element = _is.jq(element) ? element : $(element);
     axis = _is.string(axis) && /^(x|y|xy|yx)$/i.test(axis) ? axis : "xy";
@@ -3050,69 +2973,67 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooF
     def = _is.jq(def) ? def : $doc;
     if (!element.length) return def;
     var position = element.css("position"),
-        excludeStaticParent = position === "absolute",
-        scroll = /(auto|scroll)/i,
-        axisX = /x/i,
-        axisY = /y/i,
-        $parent = element.parentsUntil(def).filter(function (i, el) {
-      var $el = $(this);
-      if (excludeStaticParent && $el.css("position") === "static") return false;
-      var scrollY = axisY.test(axis) && el.scrollHeight > el.clientHeight && scroll.test($el.css("overflow-y")),
+      excludeStaticParent = position === "absolute",
+      scroll = /(auto|scroll)/i,
+      axisX = /x/i,
+      axisY = /y/i,
+      $parent = element.parentsUntil(def).filter(function (i, el) {
+        var $el = $(this);
+        if (excludeStaticParent && $el.css("position") === "static") return false;
+        var scrollY = axisY.test(axis) && el.scrollHeight > el.clientHeight && scroll.test($el.css("overflow-y")),
           scrollX = axisX.test(axis) && el.scrollWidth > el.clientWidth && scroll.test($el.css("overflow-x"));
-      return scrollY || scrollX;
-    }).eq(0);
+        return scrollY || scrollX;
+      }).eq(0);
     if ($parent.is("html")) $parent = $doc;
     return position === "fixed" || !$parent.length ? def : $parent;
   };
-})( // dependencies
+})(
+// dependencies
 FooFields.utils.$, FooFields.utils, FooFields.utils.is);
-
 (function ($, _, _is) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
+  if (_.version !== '0.2.2') return;
+
   /**
    * @summary Contains common utility methods and members for the CSS animation property.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @namespace animation
    */
-
   _.animation = {};
-
   function raf(callback) {
-    return setTimeout(callback, 1);
+    return setTimeout(callback, 1000 / 60);
   }
-
   function caf(requestID) {
     clearTimeout(requestID);
   }
+
   /**
    * @summary A cross browser wrapper for the `requestAnimationFrame` method.
-   * @memberof FooFields.utils.animation
+   * @memberof FooFields.utils.animation.
    * @function requestFrame
    * @param {function} callback - The function to call when it's time to update your animation for the next repaint.
    * @return {number} - The request id that uniquely identifies the entry in the callback list.
    */
-
-
   _.animation.requestFrame = (window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || raf).bind(window);
+
   /**
    * @summary A cross browser wrapper for the `cancelAnimationFrame` method.
-   * @memberof FooFields.utils.animation
+   * @memberof FooFields.utils.animation.
    * @function cancelFrame
    * @param {number} requestID - The ID value returned by the call to {@link FooFields.utils.animation.requestFrame|requestFrame} that requested the callback.
    */
+  _.animation.cancelFrame = (window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame || caf).bind(window);
 
-  _.animation.cancelFrame = (window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame || caf).bind(window); // create a test element to check for the existence of the various animation properties
-
+  // create a test element to check for the existence of the various animation properties
   var testElement = document.createElement('div');
+
   /**
    * @summary Whether or not animations are supported by the current browser.
-   * @memberof FooFields.utils.animation
+   * @memberof FooFields.utils.animation.
    * @name supported
    * @type {boolean}
    */
-
-  _.animation.supported =
+  _.animation.supported = (
   /**
    * @ignore
    * @summary Performs a one time test to see if animations are supported
@@ -3122,10 +3043,11 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
   function (el) {
     var style = el.style;
     return _is.string(style['animation']) || _is.string(style['WebkitAnimation']) || _is.string(style['MozAnimation']) || _is.string(style['msAnimation']) || _is.string(style['OAnimation']);
-  }(testElement);
+  })(testElement);
+
   /**
    * @summary The `animationend` event name for the current browser.
-   * @memberof FooFields.utils.animation
+   * @memberof FooFields.utils.animation.
    * @name end
    * @type {string}
    * @description Depending on the browser this returns one of the following values:
@@ -3138,9 +3060,7 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
    * --><li>`null` - If the browser doesn't support animations</li><!--
    * --></ul>
    */
-
-
-  _.animation.end =
+  _.animation.end = (
   /**
    * @ignore
    * @summary Performs a one time test to determine which `animationend` event to use for the current browser.
@@ -3155,61 +3075,67 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
     if (_is.string(style['msAnimation'])) return 'msAnimationEnd';
     if (_is.string(style['OAnimation'])) return 'oAnimationEnd';
     return null;
-  }(testElement);
+  })(testElement);
+
   /**
    * @summary Gets the `animation-duration` value for the supplied jQuery element.
-   * @memberof FooFields.utils.animation
+   * @memberof FooFields.utils.animation.
    * @function duration
    * @param {jQuery} $element - The jQuery element to retrieve the duration from.
    * @param {number} [def=0] - The default value to return if no duration is set.
    * @returns {number} The value of the `animation-duration` property converted to a millisecond value.
    */
-
-
   _.animation.duration = function ($element, def) {
     def = _is.number(def) ? def : 0;
-    if (!_is.jq($element)) return def; // we can use jQuery.css() method to retrieve the value cross browser
-
+    if (!_is.jq($element)) return def;
+    // we can use jQuery.css() method to retrieve the value cross browser
     var duration = $element.css('animation-duration');
-
-    if (/^([\d.]*)+?(ms|s)$/i.test(duration)) {
-      // if we have a valid time value
-      var match = duration.match(/^([\d.]*)+?(ms|s)$/i),
+    if (/^([\d.]*)+?(ms|s)/i.test(duration)) {
+      // if we have a valid duration value split it into it's components
+      var parts = duration.split(","),
+        max = 0;
+      parts.forEach(function (part) {
+        var match = part.match(/^\s*?([\d.]*)+?(ms|s)\s*?$/i),
           value = parseFloat(match[1]),
           unit = match[2].toLowerCase();
-
-      if (unit === 's') {
-        // convert seconds to milliseconds
-        value = value * 1000;
-      }
-
-      return value;
+        if (unit === 's') {
+          // convert seconds to milliseconds
+          value = value * 1000;
+        }
+        if (value > max) max = value;
+      });
+      return max;
     }
-
     return def;
   };
+
   /**
    * @summary Gets the `animation-iteration-count` value for the supplied jQuery element.
-   * @memberof FooFields.utils.animation
+   * @memberof FooFields.utils.animation.
    * @function iterations
    * @param {jQuery} $element - The jQuery element to retrieve the duration from.
    * @param {number} [def=1] - The default value to return if no iteration count is set.
    * @returns {number} The value of the `animation-iteration-count` property.
    */
-
-
   _.animation.iterations = function ($element, def) {
     def = _is.number(def) ? def : 1;
-    if (!_is.jq($element)) return def; // we can use jQuery.css() method to retrieve the value cross browser
-
+    if (!_is.jq($element)) return def;
+    // we can use jQuery.css() method to retrieve the value cross browser
     var iterations = $element.css('animation-iteration-count');
-
-    if (/^(\d+|infinite)$/i.test(iterations)) {
-      return iterations === "infinite" ? Infinity : parseInt(iterations);
+    if (/^(([\d.]+)|infinite)/i.test(iterations)) {
+      // if we have a valid iterations value split it into it's components
+      var parts = iterations.split(","),
+        max = 0;
+      parts.forEach(function (part) {
+        var value = parseFloat(part);
+        if (isNaN(value)) value = Infinity;
+        if (value > max) max = value;
+      });
+      return max;
     }
-
     return def;
   };
+
   /**
    * @summary The callback function to execute when starting a animation.
    * @callback FooFields.utils.animation~startCallback
@@ -3219,7 +3145,7 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
 
   /**
    * @summary Start a animation by toggling the supplied `className` on the `$element`.
-   * @memberof FooFields.utils.animation
+   * @memberof FooFields.utils.animation.
    * @function start
    * @param {jQuery} $element - The jQuery element to start the animation on.
    * @param {(string|FooFields.utils.animation~startCallback)} classNameOrFunc - One or more class names (separated by spaces) to be toggled or a function that performs the required actions to start the animation.
@@ -3233,34 +3159,26 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
    * If no `timeout` is supplied the `animation-duration` and `animation-iterations-count` must be set on the `$element` before this method is called so one can be generated.
    * @see {@link https://developer.mozilla.org/en/docs/Web/CSS/animation-duration|animation-duration - CSS | MDN} for more information on the `animation-duration` CSS property.
    */
-
-
   _.animation.start = function ($element, classNameOrFunc, state, timeout) {
     var deferred = $.Deferred(),
-        promise = deferred.promise();
+      promise = deferred.promise();
     $element = $element.first();
-
     if (_.animation.supported) {
       $element.prop('offsetTop');
       var safety = $element.data('animation_safety');
-
       if (_is.hash(safety) && _is.number(safety.timer)) {
         clearTimeout(safety.timer);
         $element.removeData('animation_safety').off(_.animation.end + '.utils');
         safety.deferred.reject();
       }
-
       if (!_is.number(timeout)) {
         var iterations = _.animation.iterations($element);
-
         if (iterations === Infinity) {
           deferred.reject("No timeout supplied with an infinite animation.");
           return promise;
         }
-
         timeout = _.animation.duration($element) * iterations + 50;
       }
-
       safety = {
         deferred: deferred,
         timer: setTimeout(function () {
@@ -3279,45 +3197,43 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
         }
       });
     }
-
     _.animation.requestFrame(function () {
       if (_is.fn(classNameOrFunc)) {
         classNameOrFunc.apply($element.get(0), [$element]);
       } else {
         $element.toggleClass(classNameOrFunc, state);
       }
-
       if (!_.animation.supported) {
         // If the browser doesn't support animations then just resolve the deferred
         deferred.resolve();
       }
     });
-
     return promise;
   };
-})( // dependencies
+})(
+// dependencies
 FooFields.utils.$, FooFields.utils, FooFields.utils.is);
-
 (function ($, _, _is, _animation) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
+  if (_.version !== '0.2.2') return;
+
   /**
    * @summary Contains common utility methods and members for the CSS transition property.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @namespace transition
    */
+  _.transition = {};
 
-  _.transition = {}; // create a test element to check for the existence of the various transition properties
-
+  // create a test element to check for the existence of the various transition properties
   var testElement = document.createElement('div');
+
   /**
    * @summary Whether or not transitions are supported by the current browser.
-   * @memberof FooFields.utils.transition
+   * @memberof FooFields.utils.transition.
    * @name supported
    * @type {boolean}
    */
-
-  _.transition.supported =
+  _.transition.supported = (
   /**
    * @ignore
    * @summary Performs a one time test to see if transitions are supported
@@ -3327,10 +3243,11 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
   function (el) {
     var style = el.style;
     return _is.string(style['transition']) || _is.string(style['WebkitTransition']) || _is.string(style['MozTransition']) || _is.string(style['msTransition']) || _is.string(style['OTransition']);
-  }(testElement);
+  })(testElement);
+
   /**
    * @summary The `transitionend` event name for the current browser.
-   * @memberof FooFields.utils.transition
+   * @memberof FooFields.utils.transition.
    * @name end
    * @type {string}
    * @description Depending on the browser this returns one of the following values:
@@ -3343,9 +3260,7 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
    * --><li>`null` - If the browser doesn't support transitions</li><!--
    * --></ul>
    */
-
-
-  _.transition.end =
+  _.transition.end = (
   /**
    * @ignore
    * @summary Performs a one time test to determine which `transitionend` event to use for the current browser.
@@ -3360,39 +3275,40 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
     if (_is.string(style['msTransition'])) return 'msTransitionEnd';
     if (_is.string(style['OTransition'])) return 'oTransitionEnd';
     return null;
-  }(testElement);
+  })(testElement);
+
   /**
    * @summary Gets the `transition-duration` value for the supplied jQuery element.
-   * @memberof FooFields.utils.transition
+   * @memberof FooFields.utils.transition.
    * @function duration
    * @param {jQuery} $element - The jQuery element to retrieve the duration from.
    * @param {number} [def=0] - The default value to return if no duration is set.
    * @returns {number} The value of the `transition-duration` property converted to a millisecond value.
    */
-
-
   _.transition.duration = function ($element, def) {
     def = _is.number(def) ? def : 0;
-    if (!_is.jq($element)) return def; // we can use jQuery.css() method to retrieve the value cross browser
-
+    if (!_is.jq($element)) return def;
+    // we can use jQuery.css() method to retrieve the value cross browser
     var duration = $element.css('transition-duration');
-
-    if (/^([\d.]*)+?(ms|s)$/i.test(duration)) {
-      // if we have a valid time value
-      var match = duration.match(/^([\d.]*)+?(ms|s)$/i),
+    if (/^([\d.]*)+?(ms|s)/i.test(duration)) {
+      // if we have a valid duration value split it into it's components
+      var parts = duration.split(","),
+        max = 0;
+      parts.forEach(function (part) {
+        var match = part.match(/^\s*?([\d.]*)+?(ms|s)\s*?$/i),
           value = parseFloat(match[1]),
           unit = match[2].toLowerCase();
-
-      if (unit === 's') {
-        // convert seconds to milliseconds
-        value = value * 1000;
-      }
-
-      return value;
+        if (unit === 's') {
+          // convert seconds to milliseconds
+          value = value * 1000;
+        }
+        if (value > max) max = value;
+      });
+      return max;
     }
-
     return def;
   };
+
   /**
    * @summary The callback function to execute when starting a transition.
    * @callback FooFields.utils.transition~startCallback
@@ -3402,7 +3318,7 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
 
   /**
    * @summary Start a transition by toggling the supplied `className` on the `$element`.
-   * @memberof FooFields.utils.transition
+   * @memberof FooFields.utils.transition.
    * @function start
    * @param {jQuery} $element - The jQuery element to start the transition on.
    * @param {(string|FooFields.utils.transition~startCallback)} classNameOrFunc - One or more class names (separated by spaces) to be toggled or a function that performs the required actions to start the transition.
@@ -3414,23 +3330,18 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
    * The last parameter `timeout` is used to create a timer that behaves as a safety net in case the `transitionend` event is never raised and ensures the deferred returned by this method is resolved or rejected within a specified time.
    * @see {@link https://developer.mozilla.org/en/docs/Web/CSS/transition-duration|transition-duration - CSS | MDN} for more information on the `transition-duration` CSS property.
    */
-
-
   _.transition.start = function ($element, classNameOrFunc, state, timeout) {
     var deferred = $.Deferred(),
-        promise = deferred.promise();
+      promise = deferred.promise();
     $element = $element.first();
-
     if (_.transition.supported) {
       $element.prop('offsetTop');
       var safety = $element.data('transition_safety');
-
       if (_is.hash(safety) && _is.number(safety.timer)) {
         clearTimeout(safety.timer);
         $element.removeData('transition_safety').off(_.transition.end + '.utils');
         safety.deferred.reject();
       }
-
       timeout = _is.number(timeout) ? timeout : _.transition.duration($element) + 50;
       safety = {
         deferred: deferred,
@@ -3450,32 +3361,30 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is);
         }
       });
     }
-
     _animation.requestFrame(function () {
       if (_is.fn(classNameOrFunc)) {
         classNameOrFunc.apply($element.get(0), [$element]);
       } else {
         $element.toggleClass(classNameOrFunc, state);
       }
-
       if (!_.transition.supported) {
         // If the browser doesn't support transitions then just resolve the deferred
         deferred.resolve();
       }
     });
-
     return promise;
   };
-})( // dependencies
+})(
+// dependencies
 FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.animation);
-
 (function ($, _, _is, _obj, _fn) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
+  if (_.version !== '0.2.2') return;
+
   /**
    * @summary A base class providing some helper methods for prototypal inheritance.
    * @memberof FooFields.utils.
-   * @constructs FooFields.utils.Class
+   * @constructs Class
    * @description This is a base class for making prototypal inheritance simpler to work with. It provides an easy way to inherit from another class and exposes a `_super` method within the scope of any overriding methods that allows a simple way to execute the overridden function.
    *
    * Have a look at the {@link FooFields.utils.Class.extend|extend} and {@link FooFields.utils.Class.override|override} method examples to see some basic usage.
@@ -3489,14 +3398,15 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.animatio
    * // use the class
    * var myClass = new MyClass( "arg1:value", "arg2:value" );
    */
-
   _.Class = function () {};
+
   /**
    * @ignore
    * @summary The original function when within the scope of an overriding method.
    * @memberof FooFields.utils.Class#
-   * @name _super
-   * @type {?function}
+   * @function _super
+   * @param {...*} [argN] - The same arguments as the base method.
+   * @returns {*} The result of the base method.
    * @description This is only available within the scope of an overriding method if it was created using the {@link FooFields.utils.Class.extend|extend}, {@link FooFields.utils.Class.override|override} or {@link FooFields.utils.fn.addOrOverride} methods.
    * @see {@link FooFields.utils.fn.addOrOverride} to see an example of how this property is used.
    */
@@ -3544,31 +3454,24 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.animatio
    * 	&& n instanceof Ninja && n.constructor === Ninja && n instanceof Person && n instanceof FooFields.utils.Class
    * ); // => true
    */
-
-
   _.Class.extend = function (definition) {
     definition = _is.hash(definition) ? definition : {};
-
     var proto = _obj.create(this.prototype); // create a new prototype to work with so we don't modify the original
     // iterate over all properties in the supplied definition and update the prototype
-
-
     for (var name in definition) {
       if (!definition.hasOwnProperty(name)) continue;
-
       _fn.addOrOverride(proto, name, definition[name]);
-    } // if no construct method is defined add a default one that does nothing
+    }
+    // if no construct method is defined add a default one that does nothing
+    proto.construct = _is.fn(proto.construct) ? proto.construct : function () {};
 
-
-    proto.construct = _is.fn(proto.construct) ? proto.construct : function () {}; // create the new class using the prototype made above
-
+    // create the new class using the prototype made above
     function Class() {
       if (!_is.fn(this.construct)) throw new SyntaxError('FooFields.utils.Class objects must be constructed with the "new" keyword.');
       this.construct.apply(this, arguments);
     }
-
-    Class.prototype = proto; //noinspection JSUnresolvedVariable
-
+    Class.prototype = proto;
+    //noinspection JSUnresolvedVariable
     Class.prototype.constructor = _is.fn(proto.__ctor__) ? proto.__ctor__ : Class;
     Class.extend = _.Class.extend;
     Class.override = _.Class.override;
@@ -3576,6 +3479,7 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.animatio
     Class.__base__ = this;
     return Class;
   };
+
   /**
    * @summary Overrides a single method on this class.
    * @memberof FooFields.utils.Class.
@@ -3603,11 +3507,10 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.animatio
    *
    * console.log( p.dance() ); // => false
    */
-
-
   _.Class.override = function (name, fn) {
     _fn.addOrOverride(this.prototype, name, fn);
   };
+
   /**
    * @summary The base class for this class.
    * @memberof FooFields.utils.Class.
@@ -3615,64 +3518,67 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.animatio
    * @type {?FooFields.utils.Class}
    * @private
    */
-
-
   _.Class.__base__ = null;
+
   /**
    * @summary Get an array of all base classes for this class.
    * @memberof FooFields.utils.Class.
    * @function bases
    * @returns {FooFields.utils.Class[]}
    */
-
   _.Class.bases = function () {
     function _get(klass, result) {
       if (!_is.array(result)) result = [];
-
       if (_is.fn(klass) && klass.__base__ !== null) {
         result.unshift(klass.__base__);
         return _get(klass.__base__, result);
       }
-
       return result;
     }
-
     var initial = [];
     return _get(this, initial);
   };
-})( // dependencies
+})(
+// dependencies
 FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.obj, FooFields.utils.fn);
-
 (function (_, _is, _str) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
-  _.Event = _.Class.extend(
-  /** @lends FooFields.utils.Event */
-  {
+  if (_.version !== '0.2.2') return;
+
+  /**
+   * @summary A base event class providing just a type and defaultPrevented properties.
+   * @memberof FooFields.utils.
+   * @class Event
+   * @param {string} type - The type for this event.
+   * @augments FooFields.utils.Class
+   * @borrows FooFields.utils.Class.extend as extend
+   * @borrows FooFields.utils.Class.override as override
+   * @description This is a very basic event class that is used internally by the {@link FooFields.utils.EventClass#trigger} method when the first parameter supplied is simply the event name.
+   *
+   * To trigger your own custom event you will need to inherit from this class and then supply the instantiated event object as the first parameter to the {@link FooFields.utils.EventClass#trigger} method.
+   * @example {@caption The following shows how to use this class to create a custom event.}
+   * var MyEvent = FooFields.utils.Event.extend({
+   * 	construct: function(type, customProp){
+   * 	    this._super(type);
+   * 	    this.myCustomProp = customProp;
+   * 	}
+   * });
+   *
+   * // to use the class you would then instantiate it and pass it as the first argument to a FooFields.utils.EventClass's trigger method
+   * var eventClass = ...; // any class inheriting from FooFields.utils.EventClass
+   * var event = new MyEvent( "my-event-type", true );
+   * eventClass.trigger(event);
+   */
+  _.Event = _.Class.extend(/** @lends FooFields.utils.Event.prototype */{
     /**
-     * @summary A base event class providing just a type and defaultPrevented properties.
+     * @ignore
      * @constructs
-     * @param {string} type - The type for this event.
-     * @description This is a very basic event class that is used internally by the {@link FooFields.utils.EventClass#trigger} method when the first parameter supplied is simply the event name.
-     *
-     * To trigger your own custom event you will need to inherit from this class and then supply the instantiated event object as the first parameter to the {@link FooFields.utils.EventClass#trigger} method.
-     * @example {@caption The following shows how to use this class to create a custom event.}
-     * var MyEvent = FooFields.utils.Event.extend({
-     * 	construct: function(type, customProp){
-     * 	    this._super(type);
-     * 	    this.myCustomProp = customProp;
-     * 	}
-     * });
-     *
-     * // to use the class you would then instantiate it and pass it as the first argument to a FooFields.utils.EventClass's trigger method
-     * var eventClass = ...; // any class inheriting from FooFields.utils.EventClass
-     * var event = new MyEvent( "my-event-type", true );
-     * eventClass.trigger(event);
-     */
+     * @param {string} type
+     **/
     construct: function construct(type) {
       if (_is.empty(type)) throw new SyntaxError('FooFields.utils.Event objects must be supplied a `type`.');
-
-      var namespaced = _str.contains(type, ".");
+      var self = this,
+        parsed = _.Event.parse(type);
       /**
        * @summary The type of event.
        * @memberof FooFields.utils.Event#
@@ -3680,9 +3586,7 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.obj, Foo
        * @type {string}
        * @readonly
        */
-
-
-      this.type = namespaced ? _str.until(type, ".") : type;
+      self.type = parsed.type;
       /**
        * @summary The namespace of the event.
        * @memberof FooFields.utils.Event#
@@ -3690,8 +3594,7 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.obj, Foo
        * @type {string}
        * @readonly
        */
-
-      this.namespace = namespaced ? _str.from(type, ".") : null;
+      self.namespace = parsed.namespace;
       /**
        * @summary Whether the default action should be taken or not.
        * @memberof FooFields.utils.Event#
@@ -3699,19 +3602,15 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.obj, Foo
        * @type {boolean}
        * @readonly
        */
-
-      this.defaultPrevented = false;
+      self.defaultPrevented = false;
       /**
-       * @summary The {@link FooFields.utils.EventClass} that triggered this event.
+       * @summary The original {@link FooFields.utils.EventClass} that triggered this event.
        * @memberof FooFields.utils.Event#
        * @name target
        * @type {FooFields.utils.EventClass}
-       * @readonly
        */
-
-      this.target = null;
+      self.target = null;
     },
-
     /**
      * @summary Informs the class that raised this event that its default action should not be taken.
      * @memberof FooFields.utils.Event#
@@ -3720,7 +3619,6 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.obj, Foo
     preventDefault: function preventDefault() {
       this.defaultPrevented = true;
     },
-
     /**
      * @summary Gets whether the default action should be taken or not.
      * @memberof FooFields.utils.Event#
@@ -3731,228 +3629,315 @@ FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.obj, Foo
       return this.defaultPrevented;
     }
   });
-  _.EventClass = _.Class.extend(
-  /** @lends FooFields.utils.EventClass */
-  {
+
+  /**
+   * @summary Parse the provided event string into a type and namespace.
+   * @memberof FooFields.utils.Event.
+   * @function parse
+   * @param {string} event - The event to parse.
+   * @returns {{namespaced: boolean, type: string, namespace: string}} Returns an object containing the type and namespace for the event.
+   */
+  _.Event.parse = function (event) {
+    event = _is.string(event) && !_is.empty(event) ? event : null;
+    var namespaced = _str.contains(event, ".");
+    return {
+      namespaced: namespaced,
+      type: namespaced ? _str.startsWith(event, ".") ? null : _str.until(event, ".") : event,
+      namespace: namespaced ? _str.from(event, ".") : null
+    };
+  };
+
+  /**
+   * @summary A base class that implements a basic events interface.
+   * @memberof FooFields.utils.
+   * @class EventClass
+   * @augments FooFields.utils.Class
+   * @borrows FooFields.utils.Class.extend as extend
+   * @borrows FooFields.utils.Class.override as override
+   * @description This is a very basic events implementation that provides just enough to cover most needs.
+   */
+  _.EventClass = _.Class.extend(/** @lends FooFields.utils.EventClass.prototype */{
     /**
-     * @summary A base class that implements a basic events interface.
+     * @ignore
      * @constructs
-     * @description This is a very basic events implementation that provides just enough to cover most needs.
-     */
+     **/
     construct: function construct() {
       /**
-       * @summary The object used internally to register event handlers.
-       * @memberof FooFields.utils.EventClass#
-       * @name __handlers
-       * @type {Object}
-       * @private
+       * @summary An object containing all the required info to execute a listener.
+       * @typedef {Object} FooFields.utils.EventClass~RegisteredListener
+       * @property {string} namespace - The namespace for the listener.
+       * @property {function} fn - The callback function for the listener.
+       * @property {*} thisArg - The `this` value to execute the callback with.
        */
-      this.__handlers = {};
-    },
 
+      /**
+       * @summary An object containing a mapping of events to listeners.
+       * @typedef {Object.<string, Array<FooFields.utils.EventClass~RegisteredListener>>} FooFields.utils.EventClass~RegisteredEvents
+       */
+
+      /**
+       * @summary The object used to register event handlers.
+       * @memberof FooFields.utils.EventClass#
+       * @name events
+       * @type {FooFields.utils.EventClass~RegisteredEvents}
+       */
+      this.events = {};
+    },
     /**
      * @summary Destroy the current instance releasing used resources.
      * @memberof FooFields.utils.EventClass#
      * @function destroy
      */
     destroy: function destroy() {
-      this.__handlers = {};
+      this.events = {};
     },
-
     /**
-     * @summary Attach multiple event handler functions for one or more events to the class.
+     * @summary Attach multiple event listeners to the class.
      * @memberof FooFields.utils.EventClass#
      * @function on
-     * @param {object} events - An object containing an event name to handler mapping.
-     * @param {*} [thisArg] - The value of `this` within the `handler` function. Defaults to the `EventClass` raising the event.
+     * @param {Object.<string, function>} events - An object containing event types to listener mappings.
+     * @param {*} [thisArg] - The value of `this` within the listeners. Defaults to the class raising the event.
      * @returns {this}
-     */
-
-    /**
-    * @summary Attach an event handler function for one or more events to the class.
-    * @memberof FooFields.utils.EventClass#
-    * @function on
-    * @param {string} events - One or more space-separated event types.
-    * @param {function} handler - A function to execute when the event is triggered.
-    * @param {*} [thisArg] - The value of `this` within the `handler` function. Defaults to the `EventClass` raising the event.
-    * @returns {this}
-    */
-    on: function on(events, handler, thisArg) {
+     */ /**
+        * @summary Attach an event listener for one or more events to the class.
+        * @memberof FooFields.utils.EventClass#
+        * @function on
+        * @param {string} events - One or more space-separated event types.
+        * @param {function} listener - A function to execute when the event is triggered.
+        * @param {*} [thisArg] - The value of `this` within the `listener`. Defaults to the class raising the event.
+        * @returns {this}
+        */
+    on: function on(events, listener, thisArg) {
       var self = this;
-
       if (_is.object(events)) {
-        thisArg = _is.undef(handler) ? this : handler;
+        thisArg = listener;
         Object.keys(events).forEach(function (key) {
-          key.split(" ").forEach(function (type) {
-            self.__on(type, events[key], thisArg);
-          });
+          if (_is.fn(events[key])) {
+            key.split(" ").forEach(function (type) {
+              self.addListener(type, events[key], thisArg);
+            });
+          }
         });
-      } else if (_is.string(events) && _is.fn(handler)) {
-        thisArg = _is.undef(thisArg) ? this : thisArg;
+      } else if (_is.string(events) && _is.fn(listener)) {
         events.split(" ").forEach(function (type) {
-          self.__on(type, handler, thisArg);
+          self.addListener(type, listener, thisArg);
         });
       }
-
       return self;
     },
-    __on: function __on(event, handler, thisArg) {
+    /**
+     * @summary Adds a single event listener to the current class.
+     * @memberof FooFields.utils.EventClass#
+     * @function addListener
+     * @param {string} event - The event type, this can not contain any whitespace.
+     * @param {function} listener - A function to execute when the event is triggered.
+     * @param {*} [thisArg] - The value of `this` within the `listener`. Defaults to the class raising the event.
+     * @returns {boolean} Returns `true` if added.
+     */
+    addListener: function addListener(event, listener, thisArg) {
+      if (!_is.string(event) || /\s/.test(event) || !_is.fn(listener)) return false;
       var self = this,
-          namespaced = _str.contains(event, "."),
-          type = namespaced ? _str.until(event, ".") : event,
-          namespace = namespaced ? _str.from(event, ".") : null;
-
-      if (!_is.array(self.__handlers[type])) {
-        self.__handlers[type] = [];
+        parsed = _.Event.parse(event);
+      thisArg = _is.undef(thisArg) ? self : thisArg;
+      if (!_is.array(self.events[parsed.type])) {
+        self.events[parsed.type] = [];
       }
-
-      var exists = self.__handlers[type].some(function (h) {
-        return h.namespace === namespace && h.fn === handler && h.thisArg === thisArg;
+      var exists = self.events[parsed.type].some(function (h) {
+        return h.namespace === parsed.namespace && h.fn === listener && h.thisArg === thisArg;
       });
-
       if (!exists) {
-        self.__handlers[type].push({
-          namespace: namespace,
-          fn: handler,
+        self.events[parsed.type].push({
+          namespace: parsed.namespace,
+          fn: listener,
           thisArg: thisArg
         });
+        return true;
       }
+      return false;
     },
-
     /**
-     * @summary Remove multiple event handler functions for one or more events from the class.
+     * @summary Remove multiple event listeners from the class.
      * @memberof FooFields.utils.EventClass#
      * @function off
-     * @param {object} events - An object containing an event name to handler mapping.
-     * @param {*} [thisArg] - The value of `this` within the `handler` function. Defaults to the `EventClass` raising the event.
+     * @param {Object.<string, function>} events - An object containing event types to listener mappings.
+     * @param {*} [thisArg] - The value of `this` within the `listener` function. Defaults to the class raising the event.
      * @returns {this}
-     */
-
-    /**
-    * @summary Remove an event handler function for one or more events from the class.
-    * @memberof FooFields.utils.EventClass#
-    * @function off
-    * @param {string} events - One or more space-separated event types.
-    * @param {function} handler - The handler to remove.
-    * @param {*} [thisArg] - The value of `this` within the `handler` function.
-    * @returns {this}
-    */
-    off: function off(events, handler, thisArg) {
+     */ /**
+        * @summary Remove an event listener from the class.
+        * @memberof FooFields.utils.EventClass#
+        * @function off
+        * @param {string} events - One or more space-separated event types.
+        * @param {function} listener - A function to execute when the event is triggered.
+        * @param {*} [thisArg] - The value of `this` within the `listener`. Defaults to the class raising the event.
+        * @returns {this}
+        */
+    off: function off(events, listener, thisArg) {
       var self = this;
-
       if (_is.object(events)) {
-        thisArg = _is.undef(handler) ? this : handler;
+        thisArg = listener;
         Object.keys(events).forEach(function (key) {
           key.split(" ").forEach(function (type) {
-            self.__off(type, _is.fn(events[key]) ? events[key] : null, thisArg);
+            self.removeListener(type, events[key], thisArg);
           });
         });
       } else if (_is.string(events)) {
-        handler = _is.fn(handler) ? handler : null;
-        thisArg = _is.undef(thisArg) ? this : thisArg;
         events.split(" ").forEach(function (type) {
-          self.__off(type, handler, thisArg);
+          self.removeListener(type, listener, thisArg);
         });
       }
-
       return self;
     },
-    __off: function __off(event, handler, thisArg) {
+    /**
+     * @summary Removes a single event listener from the current class.
+     * @memberof FooFields.utils.EventClass#
+     * @function removeListener
+     * @param {string} event - The event type, this can not contain any whitespace.
+     * @param {function} [listener] - The listener registered to the event type.
+     * @param {*} [thisArg] - The value of `this` registered for the `listener`. Defaults to the class raising the event.
+     * @returns {boolean} Returns `true` if removed.
+     */
+    removeListener: function removeListener(event, listener, thisArg) {
+      if (!_is.string(event) || /\s/.test(event)) return false;
       var self = this,
-          type = _str.until(event, ".") || null,
-          namespace = _str.from(event, ".") || null,
-          types = [];
-
-      if (!_is.empty(type)) {
-        types.push(type);
-      } else if (!_is.empty(namespace)) {
-        types.push.apply(types, Object.keys(self.__handlers));
+        parsed = _.Event.parse(event),
+        types = [];
+      thisArg = _is.undef(thisArg) ? self : thisArg;
+      if (!_is.empty(parsed.type)) {
+        types.push(parsed.type);
+      } else if (!_is.empty(parsed.namespace)) {
+        types.push.apply(types, Object.keys(self.events));
       }
-
       types.forEach(function (type) {
-        if (!_is.array(self.__handlers[type])) return;
-        self.__handlers[type] = self.__handlers[type].filter(function (h) {
-          if (handler != null) {
-            return !(h.namespace === namespace && h.fn === handler && h.thisArg === thisArg);
+        if (!_is.array(self.events[type])) return;
+        self.events[type] = self.events[type].filter(function (h) {
+          if (listener != null) {
+            return !(h.namespace === parsed.namespace && h.fn === listener && h.thisArg === thisArg);
           }
-
-          if (namespace != null) {
-            return h.namespace !== namespace;
+          if (parsed.namespace != null) {
+            return h.namespace !== parsed.namespace;
           }
-
           return false;
         });
-
-        if (self.__handlers[type].length === 0) {
-          delete self.__handlers[type];
+        if (self.events[type].length === 0) {
+          delete self.events[type];
         }
       });
+      return true;
     },
-
     /**
      * @summary Trigger an event on the current class.
      * @memberof FooFields.utils.EventClass#
      * @function trigger
      * @param {(string|FooFields.utils.Event)} event - Either a space-separated string of event types or a custom event object to raise.
-     * @param {Array} [args] - An array of additional arguments to supply to the handlers after the event object.
+     * @param {Array} [args] - An array of additional arguments to supply to the listeners after the event object.
      * @returns {(FooFields.utils.Event|FooFields.utils.Event[]|null)} Returns the {@link FooFields.utils.Event|event object} of the triggered event. If more than one event was triggered an array of {@link FooFields.utils.Event|event objects} is returned. If no `event` was supplied or triggered `null` is returned.
      */
     trigger: function trigger(event, args) {
       args = _is.array(args) ? args : [];
       var self = this,
-          result = [];
-
+        result = [];
       if (event instanceof _.Event) {
         result.push(event);
-
-        self.__trigger(event, args);
+        self.emit(event, args);
       } else if (_is.string(event)) {
         event.split(" ").forEach(function (type) {
-          var index = result.push(new _.Event(type)) - 1;
-
-          self.__trigger(result[index], args);
+          var e = new _.Event(type);
+          result.push(e);
+          self.emit(e, args);
         });
       }
-
       return _is.empty(result) ? null : result.length === 1 ? result[0] : result;
     },
-    __trigger: function __trigger(event, args) {
+    /**
+     * @summary Emits the supplied event on the current class.
+     * @memberof FooFields.utils.EventClass#
+     * @function emit
+     * @param {FooFields.utils.Event} event - The event object to emit.
+     * @param {Array} [args] - An array of additional arguments to supply to the listener after the event object.
+     */
+    emit: function emit(event, args) {
+      if (!(event instanceof FooFields.utils.Event)) return;
       var self = this;
-      event.target = self;
-      if (!_is.array(self.__handlers[event.type])) return;
-
-      self.__handlers[event.type].forEach(function (h) {
-        if (event.namespace != null && h.namespace !== event.namespace) return;
-        h.fn.apply(h.thisArg, [event].concat(args));
-      });
+      args = _is.array(args) ? args : [];
+      if (event.target === null) event.target = self;
+      if (_is.array(self.events[event.type])) {
+        self.events[event.type].forEach(function (h) {
+          if (event.namespace != null && h.namespace !== event.namespace) return;
+          h.fn.apply(h.thisArg, [event].concat(args));
+        });
+      }
+      if (_is.array(self.events["__all__"])) {
+        self.events["__all__"].forEach(function (h) {
+          h.fn.apply(h.thisArg, [event].concat(args));
+        });
+      }
     }
   });
-})( // dependencies
+})(
+// dependencies
 FooFields.utils, FooFields.utils.is, FooFields.utils.str);
-
 (function ($, _, _is) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
-  _.Bounds = _.Class.extend(
-  /** @lends FooFields.utils.Bounds */
-  {
+  if (_.version !== '0.2.2') return;
+
+  /**
+   * @summary A simple bounding rectangle class.
+   * @memberof FooFields.utils.
+   * @class Bounds
+   * @augments FooFields.utils.Class
+   * @borrows FooFields.utils.Class.extend as extend
+   * @borrows FooFields.utils.Class.override as override
+   */
+  _.Bounds = _.Class.extend(/** @lends FooFields.utils.Bounds.prototype */{
     /**
-     * @summary A simple bounding rectangle class.
+     * @ignore
      * @constructs
-     * @augments FooFields.utils.Class
-     * @borrows FooFields.utils.Class.extend as extend
-     * @borrows FooFields.utils.Class.override as override
-     */
+     **/
     construct: function construct() {
       var self = this;
+      /**
+       * @summary The top position.
+       * @memberof FooFields.utils.Bounds#
+       * @name top
+       * @type {number}
+       */
       self.top = 0;
+      /**
+       * @summary The right position.
+       * @memberof FooFields.utils.Bounds#
+       * @name right
+       * @type {number}
+       */
       self.right = 0;
+      /**
+       * @summary The bottom position.
+       * @memberof FooFields.utils.Bounds#
+       * @name bottom
+       * @type {number}
+       */
       self.bottom = 0;
+      /**
+       * @summary The left position.
+       * @memberof FooFields.utils.Bounds#
+       * @name left
+       * @type {number}
+       */
       self.left = 0;
+      /**
+       * @summary The width of the rectangle described by the position properties.
+       * @memberof FooFields.utils.Bounds#
+       * @name width
+       * @type {number}
+       */
       self.width = 0;
+      /**
+       * @summary The height of the rectangle described by the position properties.
+       * @memberof FooFields.utils.Bounds#
+       * @name height
+       * @type {number}
+       */
       self.height = 0;
     },
-
     /**
      * @summary Inflate the bounds by the specified amount.
      * @memberof FooFields.utils.Bounds#
@@ -3962,7 +3947,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
      */
     inflate: function inflate(amount) {
       var self = this;
-
       if (_is.number(amount)) {
         self.top -= amount;
         self.right += amount;
@@ -3971,10 +3955,8 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
         self.width += amount * 2;
         self.height += amount * 2;
       }
-
       return self;
     },
-
     /**
      * @summary Checks if the supplied bounds object intersects with this one.
      * @memberof FooFields.utils.Bounds#
@@ -3987,17 +3969,14 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
       return self.left <= bounds.right && bounds.left <= self.right && self.top <= bounds.bottom && bounds.top <= self.bottom;
     }
   });
-
   var __$window;
   /**
    * @summary Gets the bounding rectangle of the current viewport.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @function getViewportBounds
    * @param {number} [inflate] - An amount to inflate the bounds by. A positive number will expand the bounds outside of the visible viewport while a negative one would shrink it.
    * @returns {FooFields.utils.Bounds}
    */
-
-
   _.getViewportBounds = function (inflate) {
     if (!__$window) __$window = $(window);
     var bounds = new _.Bounds();
@@ -4010,19 +3989,17 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
     bounds.inflate(inflate);
     return bounds;
   };
+
   /**
    * @summary Get the bounding rectangle for the supplied element.
-   * @memberof FooFields.utils
+   * @memberof FooFields.utils.
    * @function getElementBounds
    * @param {(jQuery|HTMLElement|string)} element - The jQuery wrapper around the element, the element itself, or a CSS selector to retrieve the element with.
    * @returns {FooFields.utils.Bounds}
    */
-
-
   _.getElementBounds = function (element) {
     if (!_is.jq(element)) element = $(element);
     var bounds = new _.Bounds();
-
     if (element.length !== 0) {
       var offset = element.offset();
       bounds.top = offset.top;
@@ -4030,23 +4007,26 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
       bounds.width = element.width();
       bounds.height = element.height();
     }
-
     bounds.right = bounds.left + bounds.width;
     bounds.bottom = bounds.top + bounds.height;
     return bounds;
   };
 })(FooFields.utils.$, FooFields.utils, FooFields.utils.is);
-
 (function ($, _, _is, _fn, _obj) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
-  _.Timer = _.EventClass.extend(
-  /** @lends FooFields.utils.Timer */
-  {
+  if (_.version !== '0.2.2') return;
+
+  /**
+   * @summary A simple timer that triggers events.
+   * @memberof FooFields.utils.
+   * @class Timer
+   * @param {number} [interval=1000] - The internal tick interval of the timer.
+   */
+  _.Timer = _.EventClass.extend(/** @lends FooFields.utils.Timer */{
     /**
-     * @summary A simple timer that triggers events.
+     * @ignore
      * @constructs
-     * @param {number} [interval=1000] - The internal tick interval of the timer.
+     * @param {number} [interval=1000]
      */
     construct: function construct(interval) {
       this._super();
@@ -4058,8 +4038,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default 1000
        * @readonly
        */
-
-
       this.interval = _is.number(interval) ? interval : 1000;
       /**
        * @summary Whether the timer is currently running or not.
@@ -4069,7 +4047,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default false
        * @readonly
        */
-
       this.isRunning = false;
       /**
        * @summary Whether the timer is currently paused or not.
@@ -4079,7 +4056,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default false
        * @readonly
        */
-
       this.isPaused = false;
       /**
        * @summary Whether the timer can resume from a previous state or not.
@@ -4089,7 +4065,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default false
        * @readonly
        */
-
       this.canResume = false;
       /**
        * @summary Whether the timer can restart or not.
@@ -4099,7 +4074,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default false
        * @readonly
        */
-
       this.canRestart = false;
       /**
        * @summary The internal tick timeout ID.
@@ -4109,7 +4083,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default null
        * @private
        */
-
       this.__timeout = null;
       /**
        * @summary Whether the timer is incrementing or decrementing.
@@ -4119,7 +4092,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default false
        * @private
        */
-
       this.__decrement = false;
       /**
        * @summary The total time for the timer.
@@ -4129,7 +4101,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default 0
        * @private
        */
-
       this.__time = 0;
       /**
        * @summary The remaining time for the timer.
@@ -4139,7 +4110,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default 0
        * @private
        */
-
       this.__remaining = 0;
       /**
        * @summary The current time for the timer.
@@ -4149,7 +4119,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default 0
        * @private
        */
-
       this.__current = 0;
       /**
        * @summary The final time for the timer.
@@ -4159,7 +4128,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default 0
        * @private
        */
-
       this.__finish = 0;
       /**
        * @summary The last arguments supplied to the {@link FooFields.utils.Timer#start|start} method.
@@ -4169,10 +4137,8 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        * @default []
        * @private
        */
-
       this.__restart = [];
     },
-
     /**
      * @summary Resets the timer back to a fresh starting state.
      * @memberof FooFields.utils.Timer#
@@ -4191,7 +4157,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
       this.isPaused = false;
       this.canResume = false;
     },
-
     /**
      * @summary Generates event args to be passed to listeners of the timer events.
      * @memberof FooFields.utils.Timer#
@@ -4203,7 +4168,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
     __eventArgs: function __eventArgs(args) {
       return [this.__current, this.__time, this.__decrement].concat(_fn.arg2arr(arguments));
     },
-
     /**
      * @summary Performs the tick for the timer checking and modifying the various internal states.
      * @memberof FooFields.utils.Timer#
@@ -4213,10 +4177,8 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
     __tick: function __tick() {
       var self = this;
       self.trigger("tick", self.__eventArgs());
-
       if (self.__current === self.__finish) {
         self.trigger("complete", self.__eventArgs());
-
         self.__reset();
       } else {
         if (self.__decrement) {
@@ -4224,7 +4186,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
         } else {
           self.__current++;
         }
-
         self.__remaining--;
         self.canResume = self.__remaining > 0;
         self.__timeout = setTimeout(function () {
@@ -4232,7 +4193,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
         }, self.interval);
       }
     },
-
     /**
      * @summary Starts the timer using the supplied `time` and whether or not to increment or decrement from the value.
      * @memberof FooFields.utils.Timer#
@@ -4254,10 +4214,8 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
       self.isRunning = true;
       self.isPaused = false;
       self.trigger("start", self.__eventArgs());
-
       self.__tick();
     },
-
     /**
      * @summary Starts the timer counting down to `0` from the supplied `time`.
      * @memberof FooFields.utils.Timer#
@@ -4267,7 +4225,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
     countdown: function countdown(time) {
       this.start(time, true);
     },
-
     /**
      * @summary Starts the timer counting up from `0` to the supplied `time`.
      * @memberof FooFields.utils.Timer#
@@ -4277,7 +4234,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
     countup: function countup(time) {
       this.start(time, false);
     },
-
     /**
      * @summary Stops and then restarts the timer using the last arguments supplied to the {@link FooFields.utils.Timer#start|start} method.
      * @memberof FooFields.utils.Timer#
@@ -4285,12 +4241,10 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
      */
     restart: function restart() {
       this.stop();
-
       if (this.canRestart) {
         this.start.apply(this, this.__restart);
       }
     },
-
     /**
      * @summary Stops the timer.
      * @memberof FooFields.utils.Timer#
@@ -4299,11 +4253,9 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
     stop: function stop() {
       if (this.isRunning || this.isPaused) {
         this.__reset();
-
         this.trigger("stop", this.__eventArgs());
       }
     },
-
     /**
      * @summary Pauses the timer and returns the remaining seconds.
      * @memberof FooFields.utils.Timer#
@@ -4312,21 +4264,17 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
      */
     pause: function pause() {
       var self = this;
-
       if (self.__timeout != null) {
         clearTimeout(self.__timeout);
         self.__timeout = null;
       }
-
       if (self.isRunning) {
         self.isRunning = false;
         self.isPaused = true;
         self.trigger("pause", self.__eventArgs());
       }
-
       return self.__remaining;
     },
-
     /**
      * @summary Resumes the timer from a previously paused state.
      * @memberof FooFields.utils.Timer#
@@ -4334,16 +4282,13 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
      */
     resume: function resume() {
       var self = this;
-
       if (self.canResume) {
         self.isRunning = true;
         self.isPaused = false;
         self.trigger("resume", self.__eventArgs());
-
         self.__tick();
       }
     },
-
     /**
      * @summary Resets the timer back to a fresh starting state.
      * @memberof FooFields.utils.Timer#
@@ -4351,32 +4296,42 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
      */
     reset: function reset() {
       this.__reset();
-
       this.trigger("reset", this.__eventArgs());
     }
   });
 })(FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn, FooFields.utils.obj);
-
 (function ($, _, _is, _fn) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
-  _.Factory = _.Class.extend(
-  /** @lends FooFields.utils.Factory */
-  {
+  if (_.version !== '0.2.2') return;
+
+  /**
+   * @summary A factory for classes allowing them to be registered and created using a friendly name.
+   * @memberof FooFields.utils.
+   * @class Factory
+   * @description This class allows other classes to register themselves for use at a later time. Depending on how you intend to use the registered classes you can also specify a load and execution order through the `priority` parameter of the {@link FooFields.utils.Factory#register|register} method.
+   * @augments FooFields.utils.Class
+   * @borrows FooFields.utils.Class.extend as extend
+   * @borrows FooFields.utils.Class.override as override
+   */
+  _.Factory = _.Class.extend(/** @lends FooFields.utils.Factory.prototype */{
     /**
-     * @summary A factory for classes allowing them to be registered and created using a friendly name.
+     * @ignore
      * @constructs
-     * @description This class allows other classes to register themselves for use at a later time. Depending on how you intend to use the registered classes you can also specify a load and execution order through the `priority` parameter of the {@link FooFields.utils.Factory#register|register} method.
-     * @augments FooFields.utils.Class
-     * @borrows FooFields.utils.Class.extend as extend
-     * @borrows FooFields.utils.Class.override as override
-     */
+     **/
     construct: function construct() {
+      /**
+       * @summary An object containing all the required info to create a new instance of a registered class.
+       * @typedef {Object} FooFields.utils.Factory~RegisteredClass
+       * @property {string} name - The friendly name of the registered class.
+       * @property {function} klass - The constructor for the registered class.
+       * @property {number} priority - The priority for the registered class.
+       */
+
       /**
        * @summary An object containing all registered classes.
        * @memberof FooFields.utils.Factory#
        * @name registered
-       * @type {Object.<string, Object>}
+       * @type {Object.<string, FooFields.utils.Factory~RegisteredClass>}
        * @readonly
        * @example {@caption The following shows the structure of this object. The `<name>` placeholders would be the name the class was registered with.}
        * {
@@ -4395,7 +4350,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
        */
       this.registered = {};
     },
-
     /**
      * @summary Checks if the factory contains a class registered using the supplied `name`.
      * @memberof FooFields.utils.Factory#
@@ -4418,12 +4372,11 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
     contains: function contains(name) {
       return !_is.undef(this.registered[name]);
     },
-
     /**
      * @summary Creates new instances of all registered classes using there registered priority and the supplied arguments.
      * @memberof FooFields.utils.Factory#
      * @function load
-     * @param {Object.<string, function>} overrides - An object containing classes to override any matching registered classes with, if no overrides are required you can pass `false` or `null`.
+     * @param {Object.<string, (function|string)>} overrides - An object containing classes to override any matching registered classes with, if no overrides are required you can pass `false` or `null`.
      * @param {*} arg1 - The first argument to supply when creating new instances of all registered classes.
      * @param {...*} [argN] - Any number of additional arguments to supply when creating new instances of all registered classes.
      * @returns {Array.<Object>} An array containing new instances of all registered classes.
@@ -4525,22 +4478,18 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
      */
     load: function load(overrides, arg1, argN) {
       var self = this,
-          args = _fn.arg2arr(arguments),
-          reg = [],
-          loaded = [],
-          name,
-          klass;
-
+        args = _fn.arg2arr(arguments),
+        reg = [],
+        loaded = [],
+        name,
+        klass;
       overrides = args.shift() || {};
-
       for (name in self.registered) {
         if (!self.registered.hasOwnProperty(name)) continue;
         var component = self.registered[name];
-
         if (overrides.hasOwnProperty(name)) {
           klass = overrides[name];
           if (_is.string(klass)) klass = _fn.fetch(overrides[name]);
-
           if (_is.fn(klass)) {
             component = {
               name: name,
@@ -4549,15 +4498,12 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
             };
           }
         }
-
         reg.push(component);
       }
-
       for (name in overrides) {
         if (!overrides.hasOwnProperty(name) || self.registered.hasOwnProperty(name)) continue;
         klass = overrides[name];
         if (_is.string(klass)) klass = _fn.fetch(overrides[name]);
-
         if (_is.fn(klass)) {
           reg.push({
             name: name,
@@ -4566,7 +4512,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
           });
         }
       }
-
       reg.sort(function (a, b) {
         return b.priority - a.priority;
       });
@@ -4577,7 +4522,6 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
       });
       return loaded;
     },
-
     /**
      * @summary Create a new instance of a class registered with the supplied `name` and arguments.
      * @memberof FooFields.utils.Factory#
@@ -4605,19 +4549,15 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
      */
     make: function make(name, arg1, argN) {
       var self = this,
-          args = _fn.arg2arr(arguments),
-          reg;
-
+        args = _fn.arg2arr(arguments),
+        reg;
       name = args.shift();
       reg = self.registered[name];
-
       if (_is.hash(reg) && _is.fn(reg.klass)) {
         return _fn.apply(reg.klass, args);
       }
-
       return null;
     },
-
     /**
      * @summary Gets an array of all registered names.
      * @memberof FooFields.utils.Factory#
@@ -4643,16 +4583,13 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
     names: function names(prioritize) {
       prioritize = _is.boolean(prioritize) ? prioritize : false;
       var names = [],
-          name;
-
+        name;
       if (prioritize) {
         var reg = [];
-
         for (name in this.registered) {
           if (!this.registered.hasOwnProperty(name)) continue;
           reg.push(this.registered[name]);
         }
-
         reg.sort(function (a, b) {
           return b.priority - a.priority;
         });
@@ -4665,10 +4602,8 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
           names.push(name);
         }
       }
-
       return names;
     },
-
     /**
      * @summary Registers a `klass` constructor with the factory using the given `name`.
      * @memberof FooFields.utils.Factory#
@@ -4706,138 +4641,31 @@ FooFields.utils, FooFields.utils.is, FooFields.utils.str);
       return true;
     }
   });
-})( // dependencies
+})(
+// dependencies
 FooFields.utils.$, FooFields.utils, FooFields.utils.is, FooFields.utils.fn);
-
-(function (_, _fn, _str) {
-  // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return; // this is done to handle Content Security in Chrome and other browsers blocking access to the localStorage object under certain configurations.
-  // see: https://www.chromium.org/for-testers/bug-reporting-guidelines/uncaught-securityerror-failed-to-read-the-localstorage-property-from-window-access-is-denied-for-this-document
-
-  var localAvailable = false;
-
-  try {
-    localAvailable = !!window.localStorage;
-  } catch (err) {
-    localAvailable = false;
-  }
-
-  _.Debugger = _.Class.extend(
-  /** @lends FooFields.utils.Debugger */
-  {
-    /**
-     * @summary A debug utility class that can be enabled across sessions using the given `key` by storing its state in `localStorage`.
-     * @constructs
-     * @param {string} key - The key to use to store the debug state in `localStorage`.
-     * @description This class allows you to write additional debug info to the console within your code which by default is not actually output. You can then enable the debugger and it will start to output the results to the console.
-     *
-     * This most useful feature of this is the ability to store the debug state across page sessions by using `localStorage`. This allows you enable the debugger and then refresh the page to view any debugger output that occurs on page load.
-     */
-    construct: function construct(key) {
-      /**
-       * @summary The key used to store the debug state in `localStorage`.
-       * @memberof FooFields.utils.Debugger#
-       * @name key
-       * @type {string}
-       */
-      this.key = key;
-      /**
-       * @summary Whether or not the debugger is currently enabled.
-       * @memberof FooFields.utils.Debugger#
-       * @name enabled
-       * @type {boolean}
-       * @readonly
-       * @description The value for this property is synced with the current state stored in `localStorage` and should never set from outside of this class.
-       */
-
-      this.enabled = localAvailable ? !!localStorage.getItem(this.key) : false;
-    },
-
-    /**
-     * @summary Enable the debugger causing additional info to be logged to the console.
-     * @memberof FooFields.utils.Debugger#
-     * @function enable
-     * @example
-     * var d = new FooFields.utils.Debugger( "FOO_DEBUG" );
-     * d.log( "Never logged" );
-     * d.enabled();
-     * d.log( "I am logged!" );
-     */
-    enable: function enable() {
-      if (!localAvailable) return;
-      this.enabled = true;
-      localStorage.setItem(this.key, this.enabled);
-    },
-
-    /**
-     * @summary Disable the debugger stopping additional info being logged to the console.
-     * @memberof FooFields.utils.Debugger#
-     * @function disable
-     * @example
-     * var d = new FooFields.utils.Debugger( "FOO_DEBUG" );
-     * d.log( "Never logged" );
-     * d.enabled();
-     * d.log( "I am logged!" );
-     * d.disable();
-     * d.log( "Never logged" );
-     */
-    disable: function disable() {
-      if (!localAvailable) return;
-      this.enabled = false;
-      localStorage.removeItem(this.key);
-    },
-
-    /**
-     * @summary Logs the supplied message and additional arguments to the console when enabled.
-     * @memberof FooFields.utils.Debugger#
-     * @function log
-     * @param {string} message - The message to log to the console.
-     * @param {*} [argN] - Any number of additional arguments to supply after the message.
-     * @description This method basically wraps the `console.log` method and simply checks the enabled state of the debugger before passing along any supplied arguments.
-     */
-    log: function log(message, argN) {
-      if (!this.enabled) return;
-      console.log.apply(console, _fn.arg2arr(arguments));
-    },
-
-    /**
-     * @summary Logs the formatted message and additional arguments to the console when enabled.
-     * @memberof FooFields.utils.Debugger#
-     * @function logf
-     * @param {string} message - The message containing named `replacements` to log to the console.
-     * @param {Object.<string, *>} replacements - An object containing key value pairs used to perform a named format on the `message`.
-     * @param {*} [argN] - Any number of additional arguments to supply after the message.
-     * @see {@link FooFields.utils.str.format} for more information on supplying the replacements object.
-     */
-    logf: function logf(message, replacements, argN) {
-      if (!this.enabled) return;
-
-      var args = _fn.arg2arr(arguments);
-
-      message = args.shift();
-      replacements = args.shift();
-      args.unshift(_str.format(message, replacements));
-      this.log.apply(this, args);
-    }
-  });
-})( // dependencies
-FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
-
 (function ($, _, _fn) {
   // only register methods if this version is the current version
-  if (_.version !== '0.1.9') return;
-  _.FullscreenAPI = _.EventClass.extend(
-  /** @lends FooFields.utils.FullscreenAPI */
-  {
+  if (_.version !== '0.2.2') return;
+
+  /**
+   * @summary A wrapper around the fullscreen API to ensure cross browser compatibility.
+   * @memberof FooFields.utils.
+   * @class FullscreenAPI
+   * @augments FooFields.utils.EventClass
+   * @borrows FooFields.utils.EventClass.extend as extend
+   * @borrows FooFields.utils.EventClass.override as override
+   */
+  _.FullscreenAPI = _.EventClass.extend(/** @lends FooFields.utils.FullscreenAPI */{
     /**
-     * @summary A wrapper around the fullscreen API to ensure cross browser compatibility.
+     * @ignore
      * @constructs
      */
     construct: function construct() {
       this._super();
       /**
        * @summary An object containing a single browsers various methods and events needed for this wrapper.
-       * @typedef {Object} FooFields.utils.FullscreenAPI~BrowserAPI
+       * @typedef {?Object} FooFields.utils.FullscreenAPI~BrowserAPI
        * @property {string} enabled
        * @property {string} element
        * @property {string} request
@@ -4848,13 +4676,16 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        */
 
       /**
+       * @summary An object containing the supported fullscreen browser API's.
+       * @typedef {Object.<string, FooFields.utils.FullscreenAPI~BrowserAPI>} FooFields.utils.FullscreenAPI~SupportedBrowsers
+       */
+
+      /**
        * @summary Contains the various browser specific method and event names.
        * @memberof FooFields.utils.FullscreenAPI#
        * @name apis
-       * @type {{w3: BrowserAPI, ms: BrowserAPI, moz: BrowserAPI, webkit: BrowserAPI}}
+       * @type {FooFields.utils.FullscreenAPI~SupportedBrowsers}
        */
-
-
       this.apis = {
         w3: {
           enabled: "fullscreenEnabled",
@@ -4901,9 +4732,8 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @summary The current browsers specific method and event names.
        * @memberof FooFields.utils.FullscreenAPI#
        * @name api
-       * @type {?BrowserAPI}
+       * @type {FooFields.utils.FullscreenAPI~BrowserAPI}
        */
-
       this.api = this.getAPI();
       /**
        * @summary Whether or not the fullscreen API is supported in the current browser.
@@ -4911,12 +4741,9 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name supported
        * @type {boolean}
        */
-
       this.supported = this.api != null;
-
       this.__listen();
     },
-
     /**
      * @summary Destroys the current wrapper unbinding events and freeing up resources.
      * @memberof FooFields.utils.FullscreenAPI#
@@ -4925,29 +4752,25 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
      */
     destroy: function destroy() {
       this.__stopListening();
-
       return this._super();
     },
-
     /**
      * @summary Fetches the correct API for the current browser.
      * @memberof FooFields.utils.FullscreenAPI#
      * @function getAPI
-     * @return {?BrowserAPI} If the fullscreen API is not supported `null` is returned.
+     * @return {?FooFields.utils.FullscreenAPI~BrowserAPI} Returns `null` if the fullscreen API is not supported.
      */
     getAPI: function getAPI() {
       for (var vendor in this.apis) {
-        if (!this.apis.hasOwnProperty(vendor)) continue; // Check if document has the "enabled" property
-
+        if (!this.apis.hasOwnProperty(vendor)) continue;
+        // Check if document has the "enabled" property
         if (this.apis[vendor].enabled in document) {
           // It seems this browser supports the fullscreen API
           return this.apis[vendor];
         }
       }
-
       return null;
     },
-
     /**
      * @summary Gets the current fullscreen element or null.
      * @memberof FooFields.utils.FullscreenAPI#
@@ -4957,7 +4780,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     element: function element() {
       return this.supported ? document[this.api.element] : null;
     },
-
     /**
      * @summary Requests the browser to place the specified element into fullscreen mode.
      * @memberof FooFields.utils.FullscreenAPI#
@@ -4970,10 +4792,8 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         var result = element[this.api.request]();
         return !result ? $.Deferred(this.__resolver(this.api.request)).promise() : result;
       }
-
       return _fn.rejected;
     },
-
     /**
      * @summary Requests that the browser switch from fullscreen mode back to windowed mode.
      * @memberof FooFields.utils.FullscreenAPI#
@@ -4985,10 +4805,8 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         var result = document[this.api.exit]();
         return !result ? $.Deferred(this.__resolver(this.api.exit)).promise() : result;
       }
-
       return _fn.rejected;
     },
-
     /**
      * @summary Toggles the supplied element between fullscreen and windowed modes.
      * @memberof FooFields.utils.FullscreenAPI#
@@ -4999,7 +4817,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     toggle: function toggle(element) {
       return !!this.element() ? this.exit() : this.request(element);
     },
-
     /**
      * @summary Starts listening to the document level fullscreen events and triggers an abbreviated version on this class.
      * @memberof FooFields.utils.FullscreenAPI#
@@ -5015,7 +4832,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         self.trigger("error");
       });
     },
-
     /**
      * @summary Stops listening to the document level fullscreen events.
      * @memberof FooFields.utils.FullscreenAPI#
@@ -5027,7 +4843,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       if (!self.supported) return;
       $(document).off(self.api.events.change + ".utils").off(self.api.events.error + ".utils");
     },
-
     /**
      * @summary Creates a resolver function to patch browsers which do not return a Promise from there request and exit methods.
      * @memberof FooFields.utils.FullscreenAPI#
@@ -5043,7 +4858,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @callback FooFields.utils.FullscreenAPI~resolver
        * @param {jQuery.Deferred} def - The jQuery.Deferred object to resolve.
        */
-
       return function resolver(def) {
         // Reject the promise if asked to exitFullscreen and there is no element currently in fullscreen
         if (method === self.api.exit && !!self.element()) {
@@ -5051,63 +4865,27 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
             def.reject(new TypeError());
           }, 1);
           return;
-        } // When receiving an internal fullscreenchange event, fulfill the promise
+        }
 
-
+        // When receiving an internal fullscreenchange event, fulfill the promise
         function change() {
           def.resolve();
           $(document).off(self.api.events.change, change).off(self.api.events.error, error);
-        } // When receiving an internal fullscreenerror event, reject the promise
+        }
 
-
+        // When receiving an internal fullscreenerror event, reject the promise
         function error() {
           def.reject(new TypeError());
           $(document).off(self.api.events.change, change).off(self.api.events.error, error);
         }
-
         $(document).on(self.api.events.change, change).on(self.api.events.error, error);
       };
     }
   });
-  /**
-   * @summary A cross browser wrapper for the fullscreen API.
-   * @memberof FooFields.utils
-   * @name fullscreen
-   * @type {FooFields.utils.FullscreenAPI}
-   */
-
-  _.fullscreen = new _.FullscreenAPI();
 })(FooFields.utils.$, FooFields.utils, FooFields.utils.fn);
 "use strict";
 
 (function ($, _, _utils, _is, _str, _obj) {
-  /**
-   * @summary Returns the value of the first element in the provided array that satisfies the provided test function.
-   * @memberof FooFields.utils.
-   * @function find
-   * @param {Array} array - The array to search.
-   * @param {FooFields.utils~ArrFindCallback} callback - Function to execute on each value in the array.
-   * @param {*} [thisArg] - Object to use as `this` inside the callback.
-   * @returns {*}
-   */
-  _utils.find = function (array, callback, thisArg) {
-    if (!_is.array(array) || !_is.fn(callback)) return;
-
-    for (var i = 0, l = array.length; i < l; i++) {
-      if (callback.call(thisArg, array[i], i, array)) {
-        return array[i];
-      }
-    }
-  };
-  /**
-   * @summary Executed once for each index of the array until it returns a truthy value.
-   * @callback FooFields.utils~ArrFindCallback
-   * @param {*} element - The current element in the array.
-   * @param {number} [index] - The index of the current element in the array.
-   * @param {Array} [array] - The array currently being searched.
-   * @returns {boolean} A truthy value.
-   */
-
   /**
    * @summary Strips the `prefix` and/or `suffix from the `target` string.
    * @memberof FooFields.utils.
@@ -5117,21 +4895,18 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
    * @param {string} [suffix=null] - The suffix to remove.
    * @returns {string}
    */
-
-
   _utils.strip = function (target, prefix, suffix) {
     if (_is.string(target)) {
       if (_is.string(prefix) && !_is.empty(prefix) && _str.startsWith(target, prefix)) {
         target = _str.from(target, prefix);
       }
-
       if (_is.string(suffix) && !_is.empty(suffix) && _str.endsWith(target, suffix)) {
         target = _str.until(target, suffix);
       }
     }
-
     return target;
   };
+
   /**
    * @summary Exposes the `methods` from the `source` on the `target`.
    * @memberof FooFields.utils.
@@ -5140,8 +4915,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
    * @param {Object} target - The object to expose methods on.
    * @param {String[]} methods - An array of method names to expose.
    */
-
-
   _utils.expose = function (source, target, methods) {
     if (_is.object(source) && _is.object(target) && _is.array(methods)) {
       methods.forEach(function (method) {
@@ -5158,7 +4931,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   _.Instance = _utils.EventClass.extend({
     construct: function construct() {
       var self = this;
-
       self._super();
       /**
        * @summary The options for this instance.
@@ -5166,8 +4938,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name opt
        * @type {FooFields~Options}
        */
-
-
       self.opt = _obj.extend({}, _.config.opt);
       /**
        * @summary The CSS classes for this instance.
@@ -5175,7 +4945,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name cls
        * @type {FooFields~Classes}
        */
-
       self.cls = _obj.extend({}, _.config.cls);
       /**
        * @summary The i18n for this instance.
@@ -5183,7 +4952,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name i18n
        * @type {FooFields~i18n}
        */
-
       self.i18n = _obj.extend({}, _.config.i18n);
       /**
        * @summary The CSS selectors for this instance.
@@ -5191,7 +4959,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name sel
        * @type {FooFields~Classes}
        */
-
       self.sel = _utils.selectify(self.cls);
       /**
        * @summary The jQuery document object for this instance.
@@ -5199,7 +4966,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name $doc
        * @type {?jQuery}
        */
-
       self.$doc = null;
       /**
        * @summary The MediaQueryList used to determine whether the instance is being displayed on a small screen.
@@ -5207,7 +4973,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name mqlSmall
        * @type {?MediaQueryList}
        */
-
       self.mqlSmall = null;
       /**
        * @summary Whether or not the instance is currently being displayed on a small screen.
@@ -5215,7 +4980,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name small
        * @type {boolean}
        */
-
       self.small = false;
       /**
        * @summary The MediaQueryList used to determine whether the instance can use hover.
@@ -5223,7 +4987,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name mqlHoverable
        * @type {?MediaQueryList}
        */
-
       self.mqlHoverable = null;
       /**
        * @summary Whether or not the instance is currently using hover.
@@ -5231,7 +4994,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name hoverable
        * @type {boolean}
        */
-
       self.hoverable = false;
       /**
        * @summary The containers for this instance.
@@ -5239,36 +5001,31 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name containers
        * @type {FooFields.Container[]}
        */
-
       self.containers = [];
       /**
        * @type  {ResizeObserver}
        */
+      self.fieldObserver = new ResizeObserver(_fn.throttle(self.onFieldResizeObserved.bind(self), 1000 / 60));
 
-      self.fieldObserver = new ResizeObserver(_fn.throttle(self.onFieldResizeObserved.bind(self), 1000 / 60)); // bind the event listeners to ensure we have access back to this instance and can unbind the listeners later
-
+      // bind the event listeners to ensure we have access back to this instance and can unbind the listeners later
       self.onMqlSmallChanged = self.onMqlSmallChanged.bind(self);
       self.onMqlHoverableChanged = self.onMqlHoverableChanged.bind(self);
     },
     init: function init(config) {
-      var self = this; // first parse the config object if one is supplied
-
+      var self = this;
+      // first parse the config object if one is supplied
       if (_is.hash(config)) {
         _obj.extend(self.opt, config.opt);
-
         _obj.extend(self.i18n, config.i18n);
-
         if (_is.hash(config.cls)) {
           // only check config.cls so we don't selectify more than we need to.
           _obj.extend(self.cls, config.cls);
-
           self.sel = _utils.selectify(self.cls);
         }
-      } // now bind any event listeners prior to triggering any events
-
-
-      if (!_is.empty(self.opt.on)) self.on(self.opt.on, self); // initialize all the properties
-
+      }
+      // now bind any event listeners prior to triggering any events
+      if (!_is.empty(self.opt.on)) self.on(self.opt.on, self);
+      // initialize all the properties
       self.$doc = $(document);
       self.mqlSmall = window.matchMedia("(max-width: " + self.opt.smallScreen + "px)");
       self.mqlHoverable = window.matchMedia("(hover: hover)");
@@ -5280,22 +5037,21 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       self.trigger("init", [self]);
       self.containers.forEach(function (ctnr) {
         ctnr.init();
-      }); // noinspection JSDeprecatedSymbols
+      });
 
-      self.mqlSmall.addListener(self.onMqlSmallChanged); // noinspection JSDeprecatedSymbols
-
+      // noinspection JSDeprecatedSymbols
+      self.mqlSmall.addListener(self.onMqlSmallChanged);
+      // noinspection JSDeprecatedSymbols
       self.mqlHoverable.addListener(self.onMqlHoverableChanged);
       self.trigger("ready", [self]);
     },
     reinit: function reinit() {
-      var self = this,
-          current = self.containers.map(function (cntr) {
+      var self = this;
+      var current = self.containers.map(function (cntr) {
         return cntr.$el.get(0);
       });
-      var newContainers = $(self.sel.container.el).not(current).map(function (i, el) {
-        return new _.Container(self, el);
-      }).get();
-      newContainers.forEach(function (cntr) {
+      $(self.sel.container.el).not(current).each(function (i, el) {
+        var cntr = new _.Container(self, el);
         self.containers.push(cntr);
         cntr.init();
       });
@@ -5303,19 +5059,18 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     destroy: function destroy() {
       var self = this;
       self.trigger("destroy", [self]);
-      self.fieldObserver.disconnect(); // noinspection JSDeprecatedSymbols
+      self.fieldObserver.disconnect();
 
-      self.mqlSmall.removeListener(self.onMqlSmallChanged); // noinspection JSDeprecatedSymbols
-
+      // noinspection JSDeprecatedSymbols
+      self.mqlSmall.removeListener(self.onMqlSmallChanged);
+      // noinspection JSDeprecatedSymbols
       self.mqlHoverable.removeListener(self.onMqlHoverableChanged);
       self.containers.forEach(function (ctnr) {
         ctnr.destroy();
       });
       if (!_is.empty(self.opt.on)) self.off(self.opt.on, self);
-
       self._super();
     },
-
     /**
      * @summary Get a field by ID.
      * @memberof FooFields.Instance#
@@ -5326,15 +5081,13 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     field: function field(id) {
       var self = this;
       var field,
-          i = 0,
-          l = self.containers.length;
-
+        i = 0,
+        l = self.containers.length;
       for (; i < l; i++) {
         field = self.containers[i].field(id);
         if (field instanceof _.Field) return field;
       }
     },
-
     /**
      * @summary Get a content by ID.
      * @memberof FooFields.Instance#
@@ -5345,15 +5098,13 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     content: function content(id) {
       var self = this;
       var content,
-          i = 0,
-          l = self.containers.length;
-
+        i = 0,
+        l = self.containers.length;
       for (; i < l; i++) {
         content = self.containers[i].content(id);
         if (content instanceof _.Content) return content;
       }
     },
-
     /**
      * @summary Get a container by ID.
      * @memberof FooFields.Instance#
@@ -5363,7 +5114,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
      */
     container: function container(id) {
       var self = this;
-
       if (_is.string(id)) {
         id = _utils.strip(id, "#");
         return _utils.find(self.containers, function (container) {
@@ -5377,7 +5127,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         return result;
       }, {});
     },
-
     /**
      * @summary Listens for the small screen MediaQueryList changed event.
      * @memberof FooFields.Instance#
@@ -5394,10 +5143,8 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @param {FooFields.Instance} instance - The instance raising the event.
        * @param {boolean} state - Whether or not the screen is small.
        */
-
       self.trigger("small-changed", [self, self.small = mqlEvent.matches]);
     },
-
     /**
      * @summary Listens for the hover MediaQueryList changed event.
      * @memberof FooFields.Instance#
@@ -5414,10 +5161,8 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @param {FooFields.Instance} instance - The instance raising the event.
        * @param {boolean} state - Whether or not hover is supported.
        */
-
       self.trigger("hoverable-changed", [self, self.hoverable = mqlEvent.matches]);
     },
-
     /**
      * @summary The callback for the ResizeObserver that watches for field size changes.
      * @memberof FooFields.Instance#
@@ -5428,7 +5173,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       var self = this;
       entries.forEach(function (entry) {
         var $field = $(entry.target);
-
         if (_is.array(entry.contentBoxSize) && entry.contentBoxSize.length > 0) {
           $field.toggleClass(self.cls.small, entry.contentBoxSize[0].inlineSize < self.opt.smallField);
         } else {
@@ -5444,7 +5188,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   _.Component = _utils.EventClass.extend({
     construct: function construct(instance, element, classes, selectors) {
       var self = this;
-
       self._super();
       /**
        * @summary The parent instance for this component.
@@ -5452,8 +5195,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name instance
        * @type {FooFields.Component}
        */
-
-
       self.instance = instance;
       /**
        * @summary The jQuery element object for this component.
@@ -5461,7 +5202,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name $el
        * @type {string}
        */
-
       self.$el = _is.jq(element) ? element : $(element);
       /**
        * @summary The CSS classes for this component.
@@ -5469,7 +5209,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name cls
        * @type {Object}
        */
-
       self.cls = classes;
       /**
        * @summary The CSS selectors for this component.
@@ -5477,8 +5216,11 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name sel
        * @type {Object}
        */
-
       self.sel = selectors;
+    },
+    isConnected: function isConnected() {
+      var _this$$el$get;
+      return !!((_this$$el$get = this.$el.get(0)) !== null && _this$$el$get !== void 0 && _this$$el$get.isConnected);
     },
     init: function init() {},
     destroy: function destroy() {
@@ -5488,7 +5230,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   _.CtnrComponent = _.Component.extend({
     construct: function construct(instance, ctnr, element, classes, selectors) {
       var self = this;
-
       self._super(instance, element, classes, selectors);
       /**
        * @summary The parent container for this component.
@@ -5496,8 +5237,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
        * @name ctnr
        * @type {FooFields.Container}
        */
-
-
       self.ctnr = ctnr;
       self.opt = _obj.extend({
         showWhen: {
@@ -5507,14 +5246,13 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         }
       }, self.$el.data());
       self.visible = !self.$el.hasClass(self.instance.cls.hidden);
-      self._showWhenField = null;
+      self._showWhenFields = [];
     },
     init: function init() {
       this.setupVisibilityRules();
     },
     destroy: function destroy() {
       this.teardownVisibilityRules();
-
       this._super();
     },
     toggle: function toggle(state) {
@@ -5524,68 +5262,93 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       self.trigger("toggle", [self.visible, self]);
       self.ctnr.trigger("toggle", [self, self.visible]);
     },
+    getShowWhenRules: function getShowWhenRules() {
+      var showWhen = this.opt.showWhen;
+      if (_is.array(showWhen)) {
+        return showWhen.filter(function (rule) {
+          return _is.object(rule) && !_is.empty(rule.field);
+        });
+      }
+      if (_is.object(showWhen) && !_is.empty(showWhen.field)) {
+        return [showWhen];
+      }
+      return [];
+    },
     setupVisibilityRules: function setupVisibilityRules() {
       var self = this;
-
-      if (self.opt.showWhen.field !== null) {
-        var field = self.instance.field(self.opt.showWhen.field);
-
-        if (field instanceof _.Field) {
-          if (field.visible) {
-            self.visible = self.checkVisibilityRules(field.val());
-          } else {
-            self.visible = false;
+      var showRules = self.getShowWhenRules();
+      if (showRules.length > 0) {
+        var fieldsById = {};
+        showRules.forEach(function (rule) {
+          var field = self.instance.field(rule.field);
+          if (field instanceof _.Field && fieldsById[field.id] !== true) {
+            fieldsById[field.id] = true;
+            self._showWhenFields.push(field);
+            field.on({
+              "change": self.onShowWhenFieldChanged,
+              "toggle": self.onShowWhenFieldToggled
+            }, self);
           }
-
-          self._showWhenField = field;
-
-          self._showWhenField.on({
-            "change": self.onShowWhenFieldChanged,
-            "toggle": self.onShowWhenFieldToggled
-          }, self);
+        });
+        if (self._showWhenFields.length > 0) {
+          self.visible = self.checkVisibilityRules();
+        } else {
+          self.visible = false;
         }
       }
-
       self.toggle(self.visible);
     },
     teardownVisibilityRules: function teardownVisibilityRules() {
       var self = this;
-
-      if (self._showWhenField instanceof _.Field) {
-        self._showWhenField.off({
+      self._showWhenFields.forEach(function (field) {
+        field.off({
           "change": self.onShowWhenFieldChanged,
           "toggle": self.onShowWhenFieldToggled
         }, self);
+      });
+      self._showWhenFields = [];
+    },
+    checkVisibilityRule: function checkVisibilityRule(rule, value) {
+      var testValue = rule.value;
+      switch (rule.operator) {
+        case "!==":
+          return value !== testValue;
+        case "regex":
+          return new RegExp(testValue).test(value);
+        case "indexOf":
+          return _is.string(value) || _is.array(value) ? value.indexOf(testValue) !== -1 : false;
+        default:
+          return value === testValue;
       }
     },
     checkVisibilityRules: function checkVisibilityRules(value) {
-      var self = this,
-          testValue = self.opt.showWhen.value,
-          visible;
-
-      switch (self.opt.showWhen.operator) {
-        case "!==":
-          visible = value !== testValue;
-          break;
-
-        case "regex":
-          visible = new RegExp(testValue).test(value);
-          break;
-
-        case "indexOf":
-          visible = value.indexOf(testValue) !== -1;
-          break;
-
-        default:
-          visible = value === testValue;
-          break;
+      var self = this;
+      var showRules = self.getShowWhenRules();
+      if (showRules.length === 0) {
+        return true;
       }
-
-      return visible;
+      if (showRules.length === 1) {
+        var singleRule = showRules[0];
+        var singleField = self.instance.field(singleRule.field);
+        if (!(singleField instanceof _.Field) || !singleField.visible) {
+          return false;
+        }
+        return self.checkVisibilityRule(singleRule, _is.undef(value) ? singleField.val() : value);
+      }
+      for (var i = 0, l = showRules.length; i < l; i++) {
+        var rule = showRules[i];
+        var field = self.instance.field(rule.field);
+        if (!(field instanceof _.Field) || !field.visible) {
+          return false;
+        }
+        if (!self.checkVisibilityRule(rule, field.val())) {
+          return false;
+        }
+      }
+      return true;
     },
     onShowWhenFieldChanged: function onShowWhenFieldChanged(e, value, field) {
       var self = this;
-
       if (field.visible) {
         self.toggle(self.checkVisibilityRules(value));
       } else {
@@ -5594,7 +5357,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     onShowWhenFieldToggled: function onShowWhenFieldToggled(e, visible, field) {
       var self = this;
-
       if (visible) {
         self.toggle(self.checkVisibilityRules(field.val()));
       } else {
@@ -5609,9 +5371,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   /**
    * @class FooFields.Container
    */
-  _.Container = _.Component.extend(
-  /** @lends FooFields.Container */
-  {
+  _.Container = _.Component.extend(/** @lends FooFields.Container */{
     /**
      * @summary This class is used by the rest of the plugin to perform certain global checks.
      * @memberof FooFields.Container#
@@ -5623,10 +5383,9 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
      * @borrows FooFields.utils.Class.override as override
      */
     construct: function construct(instance, element) {
-      var self = this; // noinspection JSValidateTypes
-
+      var self = this;
+      // noinspection JSValidateTypes
       self._super(instance, element, instance.cls.container, instance.sel.container);
-
       self.id = self.$el.attr("id");
       self.$state = self.$el.children('input[type="hidden"][name*="__state"]');
       self.$tabContainer = self.$el.children(self.sel.tabs.el);
@@ -5638,7 +5397,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         return new _.Tab(self, el, i);
       }).get();
     },
-
     /**
      * @summary Init the container raising events.
      * @memberof FooFields.Container#
@@ -5646,7 +5404,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
      */
     init: function init() {
       var self = this,
-          active = null;
+        active = null;
       self.$el.toggleClass(self.cls.tabs.exists, self.tabs.length > 0);
       self.setSmall(self.instance.small);
       self.setHoverable(self.instance.hoverable);
@@ -5666,7 +5424,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         "hoverable-changed": self.onHoverableChanged
       }, self);
     },
-
     /**
      * @summary Destroy the container raising events.
      * @memberof FooFields.Container#
@@ -5693,7 +5450,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       });
       self.contents.forEach(function (content) {
         content.activate(id);
-
         if (content.id === id) {
           self.$state.val(id);
         }
@@ -5701,7 +5457,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     toggle: function toggle(id, state) {
       var self = this;
-
       if (_is.string(id)) {
         id = _utils.strip(id, "#");
         self.tabs.forEach(function (tab) {
@@ -5716,18 +5471,30 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         });
       }
     },
+    /**
+     * @summary Get a field by ID.
+     * @memberof FooFields.Container#
+     * @function field
+     * @param {string} id - The ID of the field to find.
+     * @returns {FooFields.Field}
+     */
     field: function field(id) {
       var self = this,
-          field;
-
+        field;
       for (var i = 0, l = self.contents.length; i < l; i++) {
         field = self.contents[i].field(id);
         if (field instanceof _.Field) return field;
       }
     },
+    /**
+     * @summary Get a content by ID.
+     * @memberof FooFields.Container#
+     * @function content
+     * @param {string} id - The ID of the content to find.
+     * @returns {FooFields.Content}
+     */
     content: function content(id) {
       var self = this;
-
       if (_is.string(id)) {
         id = _utils.strip(id, "#");
         return _utils.find(self.contents, function (content) {
@@ -5741,7 +5508,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         return result;
       }, {});
     },
-
     /**
      * @summary Sets the small screen state for this container.
      * @memberof FooFields.Container#
@@ -5752,7 +5518,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       var self = this;
       self.$el.toggleClass(self.instance.cls.small, !!state);
     },
-
     /**
      * @summary Sets the hoverable state for this container.
      * @memberof FooFields.Container#
@@ -5763,7 +5528,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       var self = this;
       self.$el.toggleClass(self.instance.cls.hoverable, !!state);
     },
-
     /**
      * @summary Listens for the `small-changed` event.
      * @memberof FooFields.Container#
@@ -5775,7 +5539,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     onSmallChanged: function onSmallChanged(e, instance, state) {
       this.setSmall(state);
     },
-
     /**
      * @summary Listens for the `hoverable-changed` event.
      * @memberof FooFields.Container#
@@ -5795,9 +5558,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   _.Tab = _.CtnrComponent.extend({
     construct: function construct(ctnr, el, index) {
       var self = this;
-
       self._super(ctnr.instance, ctnr, el, ctnr.cls.tabs.tab, ctnr.sel.tabs.tab);
-
       self.el = self.$el.get(0);
       self.index = index;
       self.$link = self.$el.children(self.sel.link).first();
@@ -5813,18 +5574,14 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       self.$link.on("click.foofields", {
         self: self
       }, self.onLinkClick);
-
       self._super();
-
       self.menu.init();
     },
     destroy: function destroy() {
       var self = this;
       self.$el.removeClass(self.instance.cls.first).removeClass(self.instance.cls.last);
       self.$link.off(".foofields");
-
       self._super();
-
       self.menu.destroy();
     },
     handles: function handles(id) {
@@ -5839,7 +5596,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     onLinkClick: function onLinkClick(e) {
       e.preventDefault();
       var self = e.data.self;
-
       if (self.menu.exists && self.instance.small && !self.instance.hoverable) {
         self.menu.toggle();
       } else {
@@ -5848,7 +5604,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     onShowWhenFieldChanged: function onShowWhenFieldChanged(e, value, field) {
       var self = this;
-
       if (field.visible) {
         self.ctnr.toggle(self.target, self.checkVisibilityRules(value));
       } else {
@@ -5857,7 +5612,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     onShowWhenFieldToggled: function onShowWhenFieldToggled(e, visible, field) {
       var self = this;
-
       if (visible) {
         self.ctnr.toggle(self.target, self.checkVisibilityRules(field.val()));
       } else {
@@ -5872,9 +5626,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   _.TabMenu = _.CtnrComponent.extend({
     construct: function construct(tab, el) {
       var self = this;
-
       self._super(tab.instance, tab.ctnr, el, tab.cls.menu, tab.sel.menu);
-
       self.tab = tab;
       self.$header = $("<li/>", {
         "class": self.cls.header
@@ -5930,7 +5682,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       self.visible = !_is.undef(visible) ? !!visible : !self.visible;
       self.tab.$el.toggleClass(self.cls.visible, self.visible);
       self.ctnr.$tabContainer.toggleClass(self.cls.showing, self.ctnr.$tabs.filter(self.sel.visible).length > 0);
-
       if (self.visible) {
         self.instance.$doc.off("click.foofields-menu_" + self.tab.index).on("click.foofields-menu_" + self.tab.index, self.onDocumentClick);
       } else {
@@ -5955,7 +5706,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     setSmall: function setSmall(state) {
       var self = this;
-
       if (state) {
         self.$el.prepend(self.$header);
       } else {
@@ -5964,7 +5714,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     setHoverable: function setHoverable(state) {
       var self = this;
-
       if (state) {
         self.tab.$el.off({
           "mouseenter.foofields": self.onTabMouseEnter,
@@ -5985,7 +5734,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       }
     },
     //region Listeners
-
     /**
      * @summary Listens for the `small-changed` event.
      * @memberof FooFields.TabMenu#
@@ -5997,7 +5745,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     onSmallChanged: function onSmallChanged(e, instance, state) {
       this.setSmall(state);
     },
-
     /**
      * @summary Listens for the `hoverable-changed` event.
      * @memberof FooFields.TabMenu#
@@ -6010,6 +5757,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       this.setHoverable(state);
     },
     //endregion
+
     //region Listeners
     onHeaderClick: function onHeaderClick(e) {
       e.preventDefault();
@@ -6018,7 +5766,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     onDocumentClick: function onDocumentClick(e) {
       var self = this;
-
       if (!$.contains(self.tab.el, e.target)) {
         self.toggle(false);
       }
@@ -6027,7 +5774,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       var self = this;
       clearTimeout(self._leave);
       self._leave = null;
-
       if (self._enter === null) {
         self._enter = setTimeout(function () {
           self.toggle(true);
@@ -6039,7 +5785,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       var self = this;
       clearTimeout(self._enter);
       self._enter = null;
-
       if (self._leave === null) {
         self._leave = setTimeout(function () {
           self.toggle(false);
@@ -6049,16 +5794,16 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     onItemToggled: function onItemToggled() {
       var self = this,
-          hasVisible = self.items.some(function (item) {
-        return item.visible;
-      });
+        hasVisible = self.items.some(function (item) {
+          return item.visible;
+        });
       self.tab.$el.toggleClass(self.cls.exists, hasVisible);
       self.$el.toggleClass(self.cls.empty, !hasVisible);
       self.setSmall(hasVisible && self.instance.small);
       self.setHoverable(hasVisible && self.instance.hoverable);
       self.exists = hasVisible;
-    } //endregion
-
+    }
+    //endregion
   });
 })(FooFields.$, FooFields, FooFields.utils, FooFields.utils.is);
 "use strict";
@@ -6067,9 +5812,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   _.TabMenuItem = _.CtnrComponent.extend({
     construct: function construct(menu, el, index) {
       var self = this;
-
       self._super(menu.instance, menu.ctnr, el, menu.cls.item, menu.sel.item);
-
       self.menu = menu;
       self.index = index;
       self.active = self.$el.hasClass(self.instance.cls.active);
@@ -6083,14 +5826,12 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       self.$link.on("click.foofields", {
         self: self
       }, self.onLinkClick);
-
       self._super();
     },
     destroy: function destroy() {
       var self = this;
       self.$el.removeClass(self.instance.cls.first).removeClass(self.instance.cls.last);
       self.$link.off(".foofields");
-
       self._super();
     },
     activate: function activate(id) {
@@ -6105,14 +5846,11 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     onShowWhenFieldChanged: function onShowWhenFieldChanged(e, value, field) {
       var self = this;
-
       if (field.visible) {
         var visible = self.checkVisibilityRules(value);
-
         if (visible && !self.menu.exists) {
           self.menu.exists = true;
         }
-
         self.ctnr.toggle(self.target, visible);
       } else {
         self.ctnr.toggle(self.target, false);
@@ -6120,14 +5858,11 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     onShowWhenFieldToggled: function onShowWhenFieldToggled(e, visible, field) {
       var self = this;
-
       if (visible) {
         var _visible = self.checkVisibilityRules(field.val());
-
         if (_visible && !self.menu.exists) {
           self.menu.exists = true;
         }
-
         self.ctnr.toggle(self.target, _visible);
       } else {
         self.ctnr.toggle(self.target, false);
@@ -6141,9 +5876,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   _.Content = _.CtnrComponent.extend({
     construct: function construct(ctnr, el) {
       var self = this;
-
       self._super(ctnr.instance, ctnr, el, ctnr.cls.content, ctnr.sel.content);
-
       self.id = self.$el.attr("id");
       self.active = self.$el.hasClass(self.instance.cls.active);
       self.fields = self.$el.children(self.sel.field).map(function (i, el) {
@@ -6153,9 +5886,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     init: function init() {
       var self = this;
       self.$el.toggleClass(self.instance.cls.active, self.active);
-
       self._super();
-
       self.fields.forEach(function (field) {
         field.init();
       });
@@ -6165,28 +5896,31 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       self.fields.forEach(function (field) {
         field.destroy();
       });
-
       self._super();
     },
     activate: function activate(id) {
       var self = this;
       self.$el.toggleClass(self.instance.cls.active, self.active = self.id === id);
     },
+    /**
+     * @summary Get a field by ID.
+     * @memberof FooFields.Content#
+     * @function field
+     * @param {string} id - The ID of the field to find.
+     * @returns {FooFields.Field}
+     */
     field: function field(id) {
       var groups = [];
-
       var result = _utils.find(this.fields, function (field) {
         if (field instanceof _.FieldGroup) groups.push(field);
         return field.id === id;
       });
-
       if (!(result instanceof _.Field)) {
         for (var i = 0, l = groups.length; i < l; i++) {
           result = groups[i].field(id);
           if (result instanceof _.Field) return result;
         }
       }
-
       return result;
     },
     val: function val() {
@@ -6197,7 +5931,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     onShowWhenFieldChanged: function onShowWhenFieldChanged(e, value, field) {
       var self = this;
-
       if (field.visible) {
         self.ctnr.toggle(self.id, self.checkVisibilityRules(value));
       } else {
@@ -6206,7 +5939,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     onShowWhenFieldToggled: function onShowWhenFieldToggled(e, visible, field) {
       var self = this;
-
       if (visible) {
         self.ctnr.toggle(self.id, self.checkVisibilityRules(field.val()));
       } else {
@@ -6218,9 +5950,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
 "use strict";
 
 (function ($, _, _utils, _is, _obj) {
-  _.Fields = _utils.Factory.extend(
-  /** @lends FooFields.Fields */
-  {
+  _.Fields = _utils.Factory.extend(/** @lends FooFields.Fields */{
     /**
      * @summary A factory for tables allowing them to be easily registered and created.
      * @memberof FooFields.
@@ -6265,7 +5995,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     register: function register(name, klass, selector, options, classes, i18n, priority) {
       var self = this;
       if (!_is.string(selector)) return false;
-
       if (self._super(name, klass, priority)) {
         var reg = self.registered[name];
         reg.selector = selector;
@@ -6274,22 +6003,20 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         reg.i18n = _is.hash(i18n) ? i18n : {};
         return true;
       }
-
       return false;
     },
     make: function make(name, content, element, options, i18n, classes) {
       var self = this,
-          reg = self.registered[name];
-
+        reg = self.registered[name];
       if (_is.hash(reg)) {
         options = _is.hash(options) ? options : {};
         i18n = _is.hash(i18n) ? i18n : {};
         classes = _is.hash(classes) ? classes : {};
         var inst = content.instance,
-            regBases = self.bases(name),
-            ext_options = [{}],
-            ext_classes = [{}],
-            ext_i18n = [{}];
+          regBases = self.bases(name),
+          ext_options = [{}],
+          ext_classes = [{}],
+          ext_i18n = [{}];
         regBases.push(self.registered[name]);
         regBases.push({
           options: inst.opt.fields[name],
@@ -6309,14 +6036,13 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         i18n = _obj.extend.apply(_obj, ext_i18n);
         return self._super(name, content, element, options, classes, i18n);
       }
-
       return null;
     },
     create: function create(content, element, options, i18n, classes) {
       var self = this,
-          name;
-      element = _is.jq(element) ? element : $(element); // merge the options with any supplied using data attributes
-
+        name;
+      element = _is.jq(element) ? element : $(element);
+      // merge the options with any supplied using data attributes
       options = _obj.extend({
         i18n: {},
         classes: {}
@@ -6325,15 +6051,12 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       classes = _obj.extend({}, classes, options.classes);
       delete options.i18n;
       delete options.classes;
-
       for (name in self.registered) {
         if (!self.registered.hasOwnProperty(name) || name === "field" || !element.is(self.registered[name].selector)) continue;
         return self.make(name, content, element, options, i18n, classes);
       }
-
       return self.make("field", content, element, options, i18n, classes);
     },
-
     /**
      * @summary Get all registered base fields for the supplied name.
      * @memberof FooFields.Fields#
@@ -6344,19 +6067,17 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     bases: function bases(name) {
       if (!this.contains(name)) return [];
       var self = this,
-          reg = self.registered[name],
-          bases = reg.klass.bases(),
-          result = [];
+        reg = self.registered[name],
+        bases = reg.klass.bases(),
+        result = [];
       bases.forEach(function (base) {
         var found = self.find(base);
-
         if (found !== null) {
           result.push(found);
         }
       });
       return result;
     },
-
     /**
      * @summary Given the class this method attempts to find its registered values.
      * @memberof FooFields.Fields#
@@ -6366,13 +6087,11 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
      */
     find: function find(klass) {
       var name,
-          reg = this.registered;
-
+        reg = this.registered;
       for (name in reg) {
         if (!reg.hasOwnProperty(name) || reg[name].klass !== klass) continue;
         return reg[name];
       }
-
       return null;
     }
   });
@@ -6384,9 +6103,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   _.Field = _.CtnrComponent.extend({
     construct: function construct(content, element, options, classes, i18n) {
       var self = this;
-
       self._super(content.instance, content.ctnr, element, classes, _utils.selectify(classes));
-
       self.content = content;
       self.opt = options;
       self.i18n = i18n;
@@ -6398,13 +6115,11 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     init: function init() {
       var self = this;
-      self.setup();
       self.$change.on("change", {
         self: self
       }, self.onValueChanged);
-
+      self.setup();
       self._super();
-
       self.trigger("init", [self]);
       self.instance.fieldObserver.observe(self.$el.get(0));
     },
@@ -6415,13 +6130,11 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       self.trigger("destroy", [self]);
       self.$change.off("change", self.onValueChanged);
       self.teardown();
-
       self._super();
     },
     teardown: function teardown() {},
     toggle: function toggle(state) {
       this._super(state);
-
       if (this.visible) {
         this.enable();
       } else {
@@ -6436,28 +6149,24 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     val: function val(value) {
       var self = this,
-          $inputs = self.$value,
-          isRadio = $inputs.is(":radio"),
-          single = $inputs.length === 1;
-
+        $inputs = self.$value,
+        isRadio = $inputs.is(":radio"),
+        single = $inputs.length === 1;
       if (_is.undef(value)) {
         if (_is.string(self.opt.valueFilter)) {
           $inputs = $inputs.filter(self.opt.valueFilter);
         }
-
         var result = $inputs.map(function () {
           var $el = $(this);
           return self.opt.valueAttribute !== null ? $el.attr(self.opt.valueAttribute) : $el.is(":checkbox") && single ? $el.is(":checked") : $el.val();
         }).get();
         return (single || isRadio) && result.length > 0 ? result.length === 0 ? null : result[0] : isRadio ? "" : result;
       }
-
       var changed = false;
       $inputs.each(function (i) {
         var $el = $(this),
-            oldValue = null,
-            newValue = null;
-
+          oldValue = null,
+          newValue = null;
         if (self.opt.valueAttribute !== null) {
           newValue = _is.string(value) ? value : JSON.stringify(value);
           oldValue = $el.attr(self.opt.valueAttribute);
@@ -6470,7 +6179,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
           } else if (_is.string(value)) {
             newValue = $el.val() === value;
           }
-
           if (newValue !== null) {
             oldValue = $el.prop('checked');
             $el.prop('checked', newValue);
@@ -6484,19 +6192,17 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
           oldValue = $el.val();
           $el.val(newValue);
         }
-
         if (!changed) {
           changed = oldValue !== newValue;
         }
       });
-
       if (changed) {
         self.doValueChanged();
       }
     },
     doValueChanged: function doValueChanged() {
       var self = this,
-          value = self.val();
+        value = self.val();
       self.trigger("change", [value, self]);
       self.ctnr.trigger("change", [self, value]);
     },
@@ -6504,7 +6210,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       e.data.self.doValueChanged();
     }
   });
-
   _.fields.register("field", _.Field, ".foofields-field", {
     // options
     showWhen: {
@@ -6520,7 +6225,8 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     el: "foofields-field",
     label: "foofields-label",
     input: "foofields-field-input"
-  }, {// i18n
+  }, {
+    // i18n
   });
 })(FooFields.$, FooFields, FooFields.utils, FooFields.utils.is);
 "use strict";
@@ -6534,21 +6240,21 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       self.$message = self.$input.find('.response-message');
       self.$button.on("click", function (e) {
         e.preventDefault();
-        e.stopPropagation(); //hide the message if previously shown
+        e.stopPropagation();
 
-        self.$message.hide(); //show the spinner
+        //hide the message if previously shown
+        self.$message.hide();
 
+        //show the spinner
         self.$spinner.addClass('is-active');
         var postData = {
           'action': 'foofields_' + self.id,
           'nonce': self.opt.nonce
         };
         var $postID = $('#post_ID');
-
         if ($postID.length) {
           postData.postID = $postID.val();
         }
-
         $.ajax({
           url: window.ajaxurl,
           type: 'POST',
@@ -6578,7 +6284,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       });
     }
   });
-
   _.fields.register('ajaxbutton', _.AjaxButton, '.foofields-type-ajaxbutton', {}, {}, {});
 })(FooFields.$, FooFields, FooFields.utils.is, FooFields.utils.obj);
 "use strict";
@@ -6588,7 +6293,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     console.log("FooFields.ColorPicker dependency missing.");
     return;
   }
-
   _.ColorPicker = _.Field.extend({
     setup: function setup() {
       var self = this;
@@ -6600,13 +6304,11 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     val: function val(value) {
       var self = this,
-          current = self.$pickers.val();
-
+        current = self.$pickers.val();
       if (!_is.undef(value)) {
         self.$pickers.wpColorPicker('color', value);
         return;
       }
-
       return current;
     },
     doValueChanging: function doValueChanging(value) {
@@ -6627,7 +6329,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       }, 100);
     }
   });
-
   _.fields.register("colorpicker", _.ColorPicker, ".foofields-type-colorpicker", {}, {}, {});
 })(FooFields.$, FooFields, FooFields.utils.is, FooFields.utils.fn, FooFields.utils.obj);
 "use strict";
@@ -6642,7 +6343,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       self.$metabox.detach().appendTo(self.$container);
     }
   });
-
   _.fields.register("embed-metabox", _.EmbedMetabox, ".foofields-type-embed-metabox", {}, {}, {});
 })(FooFields.$, FooFields, FooFields.utils.is, FooFields.utils.obj);
 "use strict";
@@ -6651,9 +6351,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   _.FieldGroup = _.Field.extend({
     construct: function construct(content, element, options, classes, i18n) {
       var self = this;
-
       self._super(content, element, options, classes, i18n);
-
       self.fields = self.$el.children(self.sel.el).map(function (i, el) {
         return _.fields.create(self, el);
       }).get();
@@ -6661,9 +6359,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     init: function init() {
       var self = this;
-
       self._super();
-
       self.fields.forEach(function (field) {
         field.on("change", self.onFieldChange, self);
         field.init();
@@ -6677,24 +6373,20 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         field.off("change", self.onFieldChange, self);
         field.destroy();
       });
-
       self._super();
     },
     field: function field(id) {
       var groups = [];
-
       var result = _utils.find(this.fields, function (field) {
         if (field instanceof _.FieldGroup) groups.push(field);
         return field.id === id;
       });
-
       if (!(result instanceof _.Field)) {
         for (var i = 0, l = groups.length; i < l; i++) {
           result = groups[i].field(id);
           if (result instanceof _.Field) return result;
         }
       }
-
       return result;
     },
     val: function val(value) {
@@ -6714,7 +6406,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     doValueChanged: function doValueChanged() {
       // override the base method to prevent raising duplicate events on the container
       var self = this,
-          value = self.val();
+        value = self.val();
       self.trigger("change", [value, self]);
     },
     onFieldChange: function onFieldChange() {
@@ -6726,90 +6418,11 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       }, 50);
     }
   });
-
   _.fields.register("field-group", _.FieldGroup, ".foofields-type-field-group", {
     changeSelector: "code.fbr-does-not-exist",
     valueSelector: "code.fbr-does-not-exist"
   }, {}, {});
 })(FooFields.$, FooFields, FooFields.utils, FooFields.utils.is, FooFields.utils.obj);
-"use strict";
-
-(function ($, _, _is, _obj) {
-  _.HtmlList = _.Field.extend({
-    updateSelected: function updateSelected() {
-      var self = this;
-      self.$change.each(function () {
-        var $el = $(this);
-        $el.parent('label').toggleClass(self.instance.cls.selected, $el.is(self.opt.valueFilter));
-      });
-    },
-    setup: function setup() {
-      this.updateSelected();
-    },
-    doValueChanged: function doValueChanged() {
-      var self = this;
-      self.updateSelected();
-
-      if (self.opt.nonce) {
-        self.doCallback();
-      }
-
-      self._super();
-    },
-    doCallback: function doCallback() {
-      var self = this;
-      var postData = {
-        'action': 'foofields_' + self.id,
-        'value': self.val(),
-        'nonce': self.opt.nonce
-      };
-
-      if ($('#post_ID').length) {
-        postData.postID = $('#post_ID').val();
-      }
-
-      $.ajax({
-        url: window.ajaxurl,
-        type: 'POST',
-        data: postData,
-        error: function error() {//What do we do with an error?
-        },
-        success: function success(res) {
-          if (res) {
-            if (res.success) {
-              // if ( res.data.message ) {
-              // 	alert( res.data.message );
-              // }
-              // if ( res.data.replace ) {
-              // 	$( res.data.replace.target ).html( res.data.replace.html );
-              // 	_.__instance__.reinit();
-              // }
-              // if ( res.data.show ) {
-              // 	$( res.data.show ).show();
-              // }
-              if (res.data.metabox) {
-                var $metabox = $('#' + res.data.metabox.id);
-                $metabox.find('.inside').html(res.data.metabox.html);
-                $metabox.find('.postbox-header h2').html(res.data.metabox.title);
-
-                _.__instance__.reinit();
-
-                $metabox.show();
-              }
-            }
-          }
-        },
-        complete: function complete() {}
-      });
-    }
-  });
-
-  _.fields.register("htmllist", _.HtmlList, ".foofields-type-htmllist,.foofields-type-radiolist,.foofields-type-checkboxlist", {
-    changeSelector: "[type='checkbox'],[type='radio']",
-    valueSelector: "[type='checkbox'],[type='radio']",
-    valueFilter: ":checked"
-  }, {}, {});
-})(FooFields.$, FooFields, FooFields.utils.is, FooFields.utils.obj);
 "use strict";
 
 (function ($, _, _is, _fn, _obj) {
@@ -6829,26 +6442,154 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     onInputChange: function onInputChange(e) {
       var self = e.data.self,
-          val = self.val();
-
+        val = self.val();
       if (val !== self.currentValue) {
         self.currentValue = val;
         self.doValueChanged();
       }
     }
   });
-
   _.fields.register("input", _.Input, ".foofields-type-text,.foofields-type-textarea", {}, {}, {});
 })(FooFields.$, FooFields, FooFields.utils.is, FooFields.utils.fn, FooFields.utils.obj);
+"use strict";
+
+(function ($, _, _is, _obj) {
+  _.InputList = _.Field.extend({
+    setup: function setup() {
+      var self = this;
+      self.currentValue = self.val();
+      self.$change.off("change", self.onValueChanged).on('input.foofields', {
+        self: self
+      }, self.onInputChange);
+    },
+    teardown: function teardown() {
+      var self = this;
+      self.$change.off('.foofields');
+    },
+    onInputChange: function onInputChange(e) {
+      var self = e.data.self,
+        val = self.val();
+      if (val !== self.currentValue) {
+        self.currentValue = val;
+        self.doValueChanged();
+      }
+    },
+    doValueChanged: function doValueChanged() {
+      var self = this;
+      self.$input.removeClass(self.instance.cls.selected).filter(self.opt.valueFilter).addClass(self.instance.cls.selected);
+      self._super();
+    }
+  });
+  _.fields.register("inputlist", _.InputList, ".foofields-type-radiolist,.foofields-type-checkboxlist,.foofields-type-htmllist", {
+    changeSelector: "[type='checkbox'],[type='radio']",
+    valueSelector: "[type='checkbox'],[type='radio']",
+    valueFilter: ":checked"
+  }, {}, {});
+})(FooFields.$, FooFields, FooFields.utils.is, FooFields.utils.obj);
+"use strict";
+
+(function ($, _, _is, _obj) {
+  _.MetaboxList = _.Field.extend({
+    setup: function setup() {
+      var self = this;
+      self.$labels = self.$change.parents('label');
+      self.$change.off("change", self.onValueChanged).on('input.foofields', {
+        self: self
+      }, self.onInputChange);
+    },
+    teardown: function teardown() {
+      var self = this;
+      self.$change.off('.foofields');
+    },
+    onInputChange: function onInputChange(e) {
+      var self = e.data.self;
+      self.doValueChanged();
+    },
+    doValueChanged: function doValueChanged() {
+      var self = this;
+      self.$labels.removeClass(self.instance.cls.selected).filter(':has(input:checked)').addClass(self.instance.cls.selected);
+      self._super();
+      if (self.opt.nonce && self.opt.target) {
+        self.doCallback();
+      }
+    },
+    doCallback: function doCallback() {
+      var self = this,
+        value = self.val();
+      var postData = {
+        'action': 'foofields_' + self.id,
+        'value': value,
+        'nonce': self.opt.nonce
+      };
+      var $postID = $('#post_ID');
+      if ($postID.length) {
+        postData.postID = $postID.val();
+      }
+      self.disable();
+      var $screenElementsLabel = $("label[for=\"".concat(self.opt.target, "-hide\"]"));
+      var $target = $('#' + self.opt.target).addClass(self.instance.cls.loading);
+      var update = function update(title, content) {
+        var container = _.__instance__.container(self.opt.target + '-container');
+        if (container) {
+          var index = _.__instance__.containers.indexOf(container);
+          _.__instance__.containers.splice(index, 1);
+          container.destroy();
+        }
+        var $title = $target.find('.postbox-header h2').html(title);
+        $target.find('.inside').html(content);
+        // update the Screen Options checkbox label to match the current title
+        $screenElementsLabel.contents().filter(function (i, el) {
+          return el.nodeType === 3;
+        }).replaceWith(document.createTextNode($title.text()));
+        _.__instance__.reinit();
+      };
+      var error = function error(reason) {
+        var content = '<p>An unknown error occurred attempting to load the metabox from the server.</p>';
+        if (_is.string(reason)) {
+          content = reason;
+        }
+        if (reason instanceof Error) {
+          content = reason.message;
+        }
+        update('Error Loading Metabox', content);
+      };
+      return $.ajax({
+        url: window.ajaxurl,
+        type: 'POST',
+        data: postData
+      }).done(function (res) {
+        var _res$data;
+        if (res !== null && res !== void 0 && res.success && _is.hash(res === null || res === void 0 || (_res$data = res.data) === null || _res$data === void 0 ? void 0 : _res$data.metabox)) {
+          var _res$data$metabox = res.data.metabox,
+            _res$data$metabox$tit = _res$data$metabox.title,
+            title = _res$data$metabox$tit === void 0 ? '' : _res$data$metabox$tit,
+            _res$data$metabox$htm = _res$data$metabox.html,
+            html = _res$data$metabox$htm === void 0 ? '' : _res$data$metabox$htm;
+          update(title, html);
+        } else {
+          error(res === null || res === void 0 ? void 0 : res.message);
+        }
+      }).fail(function (reason) {
+        return error(reason);
+      }).always(function () {
+        $target.removeClass(self.instance.cls.loading);
+        self.enable();
+      });
+    }
+  });
+  _.fields.register("metaboxlist", _.MetaboxList, ".foofields-type-metaboxlist", {
+    changeSelector: "[type='checkbox'],[type='radio']",
+    valueSelector: "[type='checkbox'],[type='radio']",
+    valueFilter: ":checked"
+  }, {}, {});
+})(FooFields.$, FooFields, FooFields.utils.is, FooFields.utils.obj);
 "use strict";
 
 (function ($, _, _is, _obj) {
   _.Repeater = _.Field.extend({
     construct: function construct(content, element, options, classes, i18n) {
       var self = this;
-
       self._super(content, element, options, classes, i18n);
-
       self.$addButton = self.$input.children(self.sel.add);
       self.$table = self.$input.children('table').first();
       self.$tbody = self.$table.children('tbody').first();
@@ -6859,15 +6600,14 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     init: function init() {
       var self = this;
-
       self._super();
-
       self.$addButton.on('click.foofields', {
         self: self
       }, self.onAddNewClick);
       self.rows.forEach(function (row) {
         row.init();
       });
+      var target;
       var original;
       self.$tbody.sortable({
         cancel: ':input',
@@ -6877,54 +6617,59 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         distance: 5,
         start: function start(e, ui) {
           original = ui.item.index();
+          target = self.rows[original];
           ui.placeholder.height(ui.item.height());
+          ui.placeholder.width(ui.item.width());
         },
         update: function update(e, ui) {
           var current = ui.item.index(),
-              from = original < current ? original : current;
-          self.$tbody.children('tr').eq(from).nextAll('tr').andSelf().trigger('index-change');
+            from = original < current ? original : current;
+          self.$tbody.children('tr').eq(from).nextAll('tr').addBack().trigger('index-change');
+          self.trigger('moved', [target, current, original]);
+          self.doValueChanged();
         }
       });
     },
     destroy: function destroy() {
       var self = this;
-      self.$tbody.sortable("destroy");
+      try {
+        self.$tbody.sortable("destroy");
+      } catch (_unused) {
+        // eat error if sortable hasn't been initialized yet
+      }
       self.rows.forEach(function (row) {
         row.destroy();
       });
       self.$addButton.off('.foofields');
-
       self._super();
     },
     addNewRow: function addNewRow() {
       var self = this,
-          row = new _.RepeaterRow(self, self.$template.clone()); // add the row to the collection for later use
-
+        $row = self.$template.clone();
+      self.$tbody.append($row).sortable("refresh");
+      var row = new _.RepeaterRow(self, $row);
+      // add the row to the collection for later use
       self.rows.push(row);
-      self.$tbody.append(row.$el).sortable("refresh");
-      row.init(true); // row.enable();
+      row.init(true);
+      // row.enable();
       // always remove the empty class when adding a row, jquery internally checks if it exists
-
       self.$el.removeClass(self.cls.empty);
       self.doValueChanged();
       return row;
     },
     remove: function remove(row) {
       var self = this,
-          $after = row.$el.nextAll('tr');
+        $after = row.$el.nextAll('tr');
       row.$el.remove();
       self.$tbody.sortable("refresh");
       var i = self.rows.indexOf(row);
-
       if (i !== -1) {
         self.rows.splice(i, 1);
-      } //check if no rows are left
-
-
+      }
+      //check if no rows are left
       if (self.$tbody.children("tr").length === 0) {
         self.$el.addClass(self.cls.empty);
       }
-
       $after.trigger('index-change');
       self.doValueChanged();
     },
@@ -6935,25 +6680,29 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     toggle: function toggle(state) {
       this._super(state);
-
       this.$template.find(":input").attr("disabled", "disabled");
     },
     val: function val(value) {
       var self = this;
-
       if (_is.array(value)) {
         self.rows.forEach(function (row, i) {
           row.val(i < value.length ? value[i] : []);
         });
         return;
       }
-
-      return self.rows.map(function (row) {
+      return self.rows.sort(function (a, b) {
+        return a.index - b.index;
+      }).map(function (row) {
         return row.val();
       });
+    },
+    doValueChanged: function doValueChanged() {
+      var self = this,
+        value = self.val();
+      self.trigger("change", [value, self]);
+      self.ctnr.trigger("change", [self, value]);
     }
   });
-
   _.fields.register("repeater", _.Repeater, ".foofields-type-repeater", {}, {
     add: "foofields-repeater-add",
     empty: "foofields-empty"
@@ -6976,8 +6725,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       e.preventDefault();
       e.stopPropagation();
       var $this = $(this),
-          confirmMessage = $this.data('confirm');
-
+        confirmMessage = $this.data('confirm');
       if (confirmMessage && confirm(confirmMessage)) {
         // within the context of a repeater the fields content property
         // holds a reference to its parent RepeaterRow so we can simply
@@ -6986,7 +6734,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       }
     }
   });
-
   _.fields.register("repeater-delete", _.RepeaterDelete, ".foofields-type-repeater-delete", {}, {
     button: "foofields-repeater-delete"
   }, {});
@@ -7008,7 +6755,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       }));
     }
   });
-
   _.fields.register("repeater-index", _.RepeaterIndex, ".foofields-type-repeater-index", {
     format: "{count}"
   }, {}, {});
@@ -7019,25 +6765,22 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   _.RepeaterRow = _.Component.extend({
     construct: function construct(repeater, el) {
       var self = this;
-
       self._super(repeater.instance, el, repeater.cls, repeater.sel);
-
       self.repeater = repeater;
       self.ctnr = repeater.ctnr;
+      self.index = self.$el.index();
       self.$cells = self.$el.children('td,th');
       self.fields = self.$cells.children(self.sel.el).map(function (i, el) {
         return _.fields.create(self, el);
       }).get();
       self.regex = {
-        id: /(_)-?\d+(-.*?)?$/i,
+        id: /(_)-?\d+([_-].*?)?$/i,
         name: /(\[.*?]\[)-?\d+(]\[.*?])$/i
       };
     },
     init: function init(reindex) {
       var self = this;
-
       self._super();
-
       self.$el.on('index-change.foofields', {
         self: self
       }, self.onIndexChange);
@@ -7045,7 +6788,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         field.on("change", self.onFieldChange, self);
         field.init();
       });
-      if (reindex) self.reindex();
+      if (reindex) self.reindex(true);
     },
     destroy: function destroy() {
       var self = this;
@@ -7053,7 +6796,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
         field.off("change", self.onFieldChange, self);
         field.destroy();
       });
-
       self._super();
     },
     remove: function remove() {
@@ -7061,39 +6803,38 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       self.repeater.remove(self);
     },
     reindex: function reindex() {
+      var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       var self = this,
-          index = self.$el.index();
-      self.fields.forEach(function (field) {
-        field.id = self.update(field.$el, index);
-        field.$el.find("[id],[name]").each(function (i, el) {
-          self.update(el, index);
+        index = self.$el.index();
+      if (force || self.index !== index) {
+        self.index = index;
+        self.fields.forEach(function (field) {
+          field.id = self.update(field.$el, index);
+          field.$el.find("[id],[name]").each(function (i, el) {
+            self.update(el, index);
+          });
         });
-      });
-      self.trigger('index-change', [index]);
+        self.trigger('index-change', [index, self]);
+        self.repeater.trigger('index-change', [index, self]);
+      }
     },
     update: function update(el, index) {
       el = _is.jq(el) ? el : $(el);
       var id = el.prop('id');
-
       if (_is.string(id)) {
         var newId = id.replace(this.regex.id, '$1' + index + '$2');
-
         if (newId !== id) {
           el.prop('id', newId);
           id = newId;
         }
       }
-
       var name = el.prop('name');
-
       if (_is.string(name)) {
         var newName = name.replace(this.regex.name, '$1' + index + '$2');
-
         if (newName !== name) {
           el.prop('name', newName);
         }
       }
-
       return id;
     },
     field: function field(id) {
@@ -7114,17 +6855,15 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     },
     val: function val(value) {
       var self = this,
-          fields = self.fields.filter(function (field) {
-        return !(field instanceof _.RepeaterIndex) && !(field instanceof _.RepeaterDelete);
-      });
-
+        fields = self.fields.filter(function (field) {
+          return !(field instanceof _.RepeaterIndex) && !(field instanceof _.RepeaterDelete);
+        });
       if (_is.array(value)) {
         fields.forEach(function (field, i) {
           field.val(i < value.length ? value[i] : '');
         });
         return;
       }
-
       return fields.map(function (field) {
         return field.val();
       });
@@ -7138,15 +6877,12 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     console.log("FooFields.Selectize dependency missing.");
     return;
   }
-
   _.Selectize = _.Field.extend({
     setup: function setup() {
       var self = this;
       self.$select = self.$input.children("select").first();
-
       if (self.$select.length) {
         self.$display = self.$input.children("input[type=hidden]").first();
-
         var options = _obj.extend({}, self.opt.selectize, {
           onChange: function onChange(value) {
             if (self.api instanceof window.Selectize) {
@@ -7164,48 +6900,40 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
             });
           }
         });
-
         self.api = self.$select.selectize(options).get(0).selectize;
       }
     },
     val: function val(value) {
       var self = this;
-
       if (!!self.api) {
         if (!_is.undef(value)) {
           self.api.setValue(value);
           self.doValueChanged();
           return;
         }
-
         return self.api.getValue();
       }
-
       return "";
     },
     teardown: function teardown() {
       var self = this;
-
       if (self.api instanceof Selectize) {
         self.api.destroy();
       }
     },
     enable: function enable() {
       var self = this;
-
       if (self.api instanceof Selectize) {
         self.api.enable();
       }
     },
     disable: function disable() {
       var self = this;
-
       if (self.api instanceof Selectize) {
         self.api.disable();
       }
     }
   });
-
   _.fields.register("selectize", _.Selectize, ".foofields-type-selectize", {
     query: null,
     selectize: {
@@ -7225,13 +6953,11 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     console.log("FooFields.Selectize dependency missing.");
     return;
   }
-
   _.SelectizeMulti = _.Field.extend({
     setup: function setup() {
       var self = this;
       self.$select = self.$input.children("select").first();
       self.create = false;
-
       if (self.opt.create) {
         self.create = function (input, callback) {
           this.close();
@@ -7265,10 +6991,8 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
           });
         };
       }
-
       if (self.$select.length) {
         _obj.extend(self.opt, self.$select.data());
-
         var options = _obj.extend({}, self.opt.selectize, {
           onChange: function onChange(value) {
             if (self.api instanceof window.Selectize) {
@@ -7277,48 +7001,40 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
           },
           create: self.create
         });
-
         self.api = self.$select.selectize(options).get(0).selectize;
       }
     },
     teardown: function teardown() {
       var self = this;
-
       if (self.api instanceof Selectize) {
         self.api.destroy();
       }
     },
     enable: function enable() {
       var self = this;
-
       if (self.api instanceof Selectize) {
         self.api.enable();
       }
     },
     disable: function disable() {
       var self = this;
-
       if (self.api instanceof Selectize) {
         self.api.disable();
       }
     },
     val: function val(value) {
       var self = this;
-
       if (!!self.api) {
         if (!_is.undef(value)) {
           self.api.setValue(value);
           self.doValueChanged();
           return;
         }
-
         return self.api.getValue();
       }
-
       return "";
     }
   });
-
   _.fields.register("selectize-multi", _.SelectizeMulti, ".foofields-type-selectize-multi", {
     selectize: {
       plugins: ['remove_button'],
@@ -7336,9 +7052,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
   _.Suggest = _.Field.extend({
     construct: function construct(content, element, options, classes, i18n) {
       var self = this;
-
       self._super(content, element, options, classes, i18n);
-
       self._timeout = null;
       self._prevLength = 0;
       self._cache = [];
@@ -7371,20 +7085,16 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     query: function query() {
       var self = this;
       var q = self.$suggest.val().trim(),
-          multipleSepPos,
-          items;
-
+        multipleSepPos,
+        items;
       if (self.opt.multiple) {
         multipleSepPos = q.lastIndexOf(self.opt.multipleSep);
-
         if (multipleSepPos !== -1) {
           q = q.substring(multipleSepPos + self.opt.multipleSep.length).trim();
         }
       }
-
       if (q.length >= self.opt.minchars) {
         var cached = self.checkCache(q);
-
         if (cached) {
           self.displayItems(cached['items']);
         } else {
@@ -7404,12 +7114,10 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     displayItems: function displayItems(items) {
       if (!items) return;
       var self = this;
-
       if (!items.length) {
         self.$suggestions.hide();
         return;
       }
-
       self.resetPosition(); // when the form moves after the page has loaded
 
       var html = items.reduce(function (result, item) {
@@ -7427,32 +7135,26 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     checkCache: function checkCache(query) {
       var self = this;
       var i;
-
       for (i = 0; i < self._cache.length; i++) {
         if (self._cache[i]['q'] === query) {
           self._cache.unshift(self._cache.splice(i, 1)[0]);
-
           return self._cache[0];
         }
       }
-
       return false;
     },
     addToCache: function addToCache(query, items, size) {
       var self = this;
       var cached;
-
       while (self._cache.length && self._cacheSize + size > self.opt.maxCacheSize) {
         cached = self._cache.pop();
         self._cacheSize -= cached['size'];
       }
-
       self._cache.push({
         q: query,
         size: size,
         items: items
       });
-
       self._cacheSize += size;
     },
     onBlur: function onBlur(e) {
@@ -7462,33 +7164,28 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       }, 200);
     },
     onKeydown: function onKeydown(e) {
-      var self = e.data.self; // handling up/down/escape requires results to be visible
+      var self = e.data.self;
+      // handling up/down/escape requires results to be visible
       // handling enter/tab requires that AND a result to be selected
-
       if (/27$|38$|40$/.test(e.keyCode) && self.$suggestions.is(':visible') || /^13$|^9$/.test(e.keyCode) && self.getCurrentResult()) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
         e.cancelBubble = true;
         e.returnValue = false;
-
         switch (e.keyCode) {
           case 38:
             // up
             self.prevResult();
             break;
-
           case 40:
             // down
             self.nextResult();
             break;
-
           case 9: // tab
-
           case 13:
             // return
             self.selectCurrentResult();
             break;
-
           case 27:
             //	escape
             self.$suggestions.hide();
@@ -7513,18 +7210,16 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       e.data.self.selectCurrentResult();
     },
     parseTxt: function parseTxt(txt, query) {
-      var self = this; // parse returned data for non-empty items
-
+      var self = this;
+      // parse returned data for non-empty items
       return txt.split(self.opt.delimiter).reduce(function (result, token) {
         var trimmed = token.trim();
-
         if (trimmed.length) {
           trimmed = trimmed.replace(new RegExp(query, 'ig'), function (matched) {
             return '<span class="' + self.cls.match + '">' + matched + '</span>';
           });
           result.push(trimmed);
         }
-
         return result;
       }, []);
     },
@@ -7539,22 +7234,18 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       var self = this;
       var $currentResult = self.getCurrentResult();
       if (!$currentResult) return;
-
       if (self.opt.multiple) {
         var value = self.$suggest.val();
-
         if (value.indexOf(self.opt.multipleSep) !== -1) {
           value = value.substring(0, value.lastIndexOf(self.opt.multipleSep) + self.opt.multipleSep.length) + ' ';
         } else {
           value = "";
         }
-
         self.$suggest.val(value + $currentResult.text() + self.opt.multipleSep + ' ');
         self.$suggest.focus();
       } else {
         self.$suggest.val($currentResult.text());
       }
-
       self.$suggestions.hide();
       self.$suggest.trigger('change');
       if (self.opt.onSelect) self.opt.onSelect.apply(self.$suggest.get(0));
@@ -7562,7 +7253,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     nextResult: function nextResult() {
       var self = this;
       var $currentResult = self.getCurrentResult();
-
       if ($currentResult) {
         $currentResult.removeClass(self.cls.select).next().addClass(self.cls.select);
       } else {
@@ -7572,7 +7262,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
     prevResult: function prevResult() {
       var self = this;
       var $currentResult = self.getCurrentResult();
-
       if ($currentResult) {
         $currentResult.removeClass(self.cls.select).prev().addClass(self.cls.select);
       } else {
@@ -7580,7 +7269,6 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
       }
     }
   });
-
   _.fields.register("suggest", _.Suggest, ".foofields-type-suggest", {
     source: null,
     multiple: false,
@@ -7600,9 +7288,7 @@ FooFields.utils, FooFields.utils.fn, FooFields.utils.str);
 
 (function ($, _, _utils, _is, _obj) {
   _.__instance__ = new _.Instance();
-
   _utils.expose(_.__instance__, _, ["on", "off", "trigger", "init", "destroy", "field", "content", "container", "val"]);
-
   _utils.ready(function () {
     _.__instance__.init(window.FOOFIELDS);
   });

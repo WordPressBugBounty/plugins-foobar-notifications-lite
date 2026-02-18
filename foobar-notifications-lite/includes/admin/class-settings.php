@@ -82,6 +82,14 @@ if ( ! class_exists( 'FooPlugins\FooBar\Admin\Settings' ) ) {
 						'type'    => 'checkbox',
 						'tab'     => 'advanced'
 				);
+
+				$advanced_tab['fields'][] = array(
+						'id'      => 'hide_promos',
+						'label'   => __( 'Hide Promotions', 'foobar' ),
+						'desc'    => __( 'Hide all PRO promotions from the admin area.', 'foobar' ),
+						'type'    => 'checkbox',
+						'tab'     => 'advanced'
+				);
 			}
 
 			$system_info_tab = array(

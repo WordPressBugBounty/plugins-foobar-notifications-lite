@@ -72,6 +72,14 @@ if ( ! class_exists( __NAMESPACE__ . '\General' ) ) {
 								)
 							)
 						), //inline help
+						array(
+							'id'      => 'max_content_width',
+							'label'   => __( 'Max Content Width', 'foobar' ),
+							'desc'    => __( 'Do you want to constrain the content displayed within the notification to a specific size?' ),
+							'type'    => 'unit',
+							'default' => '',
+							'default_unit' => 'px'
+						), //max content width
 					)
 				),
 				'state_group' => array(
@@ -151,16 +159,33 @@ if ( ! class_exists( __NAMESPACE__ . '\General' ) ) {
 							'desc'    => __( 'What do you want the toggle button shape to look like?', 'foobar' ),
 							'type'    => 'radiolist',
 							'order'   => 10,
-							'default' => 'fbr-toggle-default',
+							'default' => 'fbr-toggle-circle',
 							'choices' => $this->get_toggle_choices()
 						), //toggle shape
+						array(
+							'id'      => 'toggle_size',
+							'class'   => 'foofields-full-width',
+							'label'   => __( 'Size', 'foobar' ),
+							'desc'    => __( 'The size of the toggle button.', 'foobar' ),
+							'type'    => 'radiolist',
+							'order'   => 20,
+							'default' => 'fbr-toggle-size-sm',
+							'choices' => $this->get_toggle_size_choices(),
+							'data'    => array(
+								'show-when' => array(
+									'field'    => 'toggle',
+									'operator' => '!==',
+									'value'    => 'fbr-toggle-none',
+								)
+							)
+						), //toggle size
 						array(
 							'id'      => 'toggle_position',
 							'class'   => 'foofields-full-width',
 							'label'   => __( 'Position', 'foobar' ),
 							'desc'    => __( 'Where do you want the toggle button to show?', 'foobar' ),
 							'type'    => 'radiolist',
-							'order'   => 20,
+							'order'   => 30,
 							'default' => '',
 							'choices' => $this->get_toggle_position_choices(),
 							'data'    => array(
@@ -177,7 +202,7 @@ if ( ! class_exists( __NAMESPACE__ . '\General' ) ) {
 							'label'   => __( 'Action', 'foobar' ),
 							'desc'    => __( 'What happens when the toggle button is clicked? ', 'foobar' ),
 							'type'    => 'radiolist',
-							'order'   => 30,
+							'order'   => 40,
 							'default' => '',
 							'choices' => $this->get_toggle_action_choices(),
 							'data'    => array(
@@ -187,10 +212,107 @@ if ( ! class_exists( __NAMESPACE__ . '\General' ) ) {
 									'value'    => 'fbr-toggle-none',
 								)
 							)
-						) //toggle action
+						), //toggle action
+						array(
+							'id'      => 'toggle_full_height',
+							'class'   => 'foofields-full-width',
+							'label'   => __( 'Full Height', 'foobar' ),
+							'desc'    => __( 'Should the toggle take up the full height of the notification when opened?', 'foobar' ),
+							'type'    => 'radiolist',
+							'order'   => 50,
+							'default' => 'fbr-toggle-static',
+							'choices' => $this->get_toggle_full_height_choices(),
+							'data'    => array(
+								'show-when' => array(
+									'field'    => 'toggle',
+									'operator' => 'regex',
+									'value'    => 'fbr-toggle-default|fbr-toggle-circle',
+								)
+							)
+						), //toggle full height
+						array(
+							'id'      => 'toggle_balance',
+							'class'   => 'foofields-full-width',
+							'label'   => __( 'Balanced', 'foobar' ),
+							'desc'    => __( 'Should space be reserved on the opposite side from the toggle to balance the notification layout?', 'foobar' ),
+							'type'    => 'radiolist',
+							'order'   => 60,
+							'default' => 'fbr-toggle-balance',
+							'choices' => $this->get_toggle_balance_choices(),
+							'data'    => array(
+								'show-when' => array(
+									array(
+										'field'    => 'layout',
+										'operator' => 'regex',
+										'value'    => 'fbr-layout-top|fbr-layout-top-inline|fbr-layout-bottom|fbr-layout-inline',
+									),
+									array(
+										'field'    => 'toggle',
+										'operator' => '!==',
+										'value'    => 'fbr-toggle-none',
+									)
+								)
+							)
+						) //toggle balance
 					)
 				)
 			);
+
+			if ( foobar_check_capability_admin( array( 'has_nav' ) ) ) {
+				$general_fields['nav_group'] = array(
+					'id'      => 'nav_group',
+					'type'    => 'field-group',
+					'label'   => __( 'Previous & Next Buttons', 'foobar' ),
+					'desc'	=> __( 'The previous and next buttons are displayed on either side of the notification content if it has two or more messages.', 'foobar' ),
+					'order'   => 30,
+					'fields' => array(
+						array(
+							'id'      => 'nav',
+							'class'   => 'foofields-full-width',
+							'label'   => __( 'Shape', 'foobar' ),
+							'desc'    => __( 'What do you want the previous and next buttons to look like?', 'foobar' ),
+							'type'    => 'radiolist',
+							'order'   => 10,
+							'default' => 'fbr-nav-circle',
+							'choices' => $this->get_nav_choices()
+						), //nav enabled
+						array(
+							'id'      => 'nav_full_height',
+							'class'   => 'foofields-full-width',
+							'label'   => __( 'Full Height', 'foobar' ),
+							'desc'    => __( 'Should the previous and next buttons take up the full height of the notification?', 'foobar' ),
+							'type'    => 'radiolist',
+							'order'   => 20,
+							'default' => 'fbr-nav-static',
+							'choices' => $this->get_nav_full_height_choices(),
+							'data'    => array(
+								'show-when' => array(
+									'field'    => 'nav',
+									'operator' => '!==',
+									'value'    => 'fbr-nav-none',
+								)
+							)
+						), //nav full height
+						array(
+							'id'      => 'nav_size',
+							'class'   => 'foofields-full-width',
+							'label'   => __( 'Size', 'foobar' ),
+							'desc'    => __( 'The size of the previous and next button.', 'foobar' ),
+							'type'    => 'radiolist',
+							'order'   => 30,
+							'default' => 'fbr-nav-size-sm',
+							'choices' => $this->get_nav_size_choices(),
+							'data'    => array(
+								'show-when' => array(
+									'field'    => 'nav',
+									'operator' => '!==',
+									'value'    => 'fbr-nav-none',
+								)
+							)
+						) //nav size
+					)
+				);
+			}
 
 			$fields['general'] = array(
 				'id'     => 'general',
@@ -237,6 +359,19 @@ if ( ! class_exists( __NAMESPACE__ . '\General' ) ) {
 			) );
 		}
 
+		function get_toggle_full_height_choices() {
+			return apply_filters( 'foobar_admin_notification_metaboxsettings_toggle_full_height_choices', array(
+				'' => array(
+					'label'   => __( 'Yes', 'foobar' ),
+					'tooltip' => __( 'The toggle button expands to the full height of the notification when opened.', 'foobar' )
+				),
+				'fbr-toggle-static'     => array(
+					'label'   => __( 'No', 'foobar' ),
+					'tooltip' => __( 'The toggle button stays the same size as when the notification is closed.', 'foobar' ),
+				)
+			) );
+		}
+
 		function get_toggle_position_choices() {
 			return apply_filters( 'foobar_admin_notification_metaboxsettings_toggle_position_choices', array(
 				'' => array(
@@ -268,6 +403,36 @@ if ( ! class_exists( __NAMESPACE__ . '\General' ) ) {
 //					'label'   => __( 'Close Immediately', 'foobar' ),
 //					'tooltip' => __( 'Closing the bar will remove it completely, with NO transition.', 'foobar' ),
 //				),
+			) );
+		}
+
+		function get_toggle_balance_choices() {
+			return apply_filters(  'foobar_admin_notification_metaboxsettings_toggle_balance_choices', array(
+				'fbr-toggle-balance' => array(
+					'label'   => __( 'Yes', 'foobar' ),
+					'tooltip' => __( 'Space is reserved on the opposite side of the notification from the toggle to balance the layout.', 'foobar' )
+				),
+				''     => array(
+					'label'   => __( 'No', 'foobar' ),
+					'tooltip' => __( 'No space is reserved.', 'foobar' ),
+				)
+			) );
+		}
+		
+		function get_toggle_size_choices() {
+			return apply_filters(  'foobar_admin_notification_metaboxsettings_toggle_size_choices', array(
+				'fbr-toggle-size-sm' => array(
+					'label'   => __( 'Small', 'foobar' ),
+					'tooltip' => __( 'A small toggle size.', 'foobar' )
+				),
+				'fbr-toggle-size-md'     => array(
+					'label'   => __( 'Medium', 'foobar' ),
+					'tooltip' => __( 'A medium toggle size.', 'foobar' ),
+				),
+				'fbr-toggle-size-lg'     => array(
+					'label'   => __( 'Large', 'foobar' ),
+					'tooltip' => __( 'A large toggle size.', 'foobar' ),
+				)
 			) );
 		}
 
@@ -306,6 +471,53 @@ if ( ! class_exists( __NAMESPACE__ . '\General' ) ) {
 				'no'     => array(
 					'label'   => __( 'No', 'foobar' ),
 					'tooltip' => __( 'The state of the bar will be persisted indefinitely.', 'foobar' ),
+				)
+			) );
+		}
+
+		function get_nav_choices() {
+			return apply_filters( 'foobar_admin_notification_metaboxsettings_nav_choices', array(
+				'fbr-nav-default' => array(
+					'label'   => __( 'Square', 'foobar' ),
+					'tooltip' => __( 'The default previous and next button shape, which is square', 'foobar' )
+				),
+				'fbr-nav-circle'     => array(
+					'label'   => __( 'Circle', 'foobar' ),
+					'tooltip' => __( 'A circular previous and next button', 'foobar' ),
+				),
+				'fbr-nav-none'     => array(
+					'label'   => __( 'None', 'foobar' ),
+					'tooltip' => __( 'Do not show the previous and next button', 'foobar' ),
+				)
+			) );
+		}
+
+		function get_nav_full_height_choices() {
+			return apply_filters( 'foobar_admin_notification_metaboxsettings_nav_full_height_choices', array(
+				'' => array(
+					'label'   => __( 'Yes', 'foobar' ),
+					'tooltip' => __( 'The previous and next buttons expand to the full height of the notification.', 'foobar' )
+				),
+				'fbr-nav-static'     => array(
+					'label'   => __( 'No', 'foobar' ),
+					'tooltip' => __( 'The previous and next buttons stay a fixed size.', 'foobar' ),
+				)
+			) );
+		}
+		
+		function get_nav_size_choices() {
+			return apply_filters(  'foobar_admin_notification_metaboxsettings_nav_size_choices', array(
+				'fbr-nav-size-sm' => array(
+					'label'   => __( 'Small', 'foobar' ),
+					'tooltip' => __( 'A small previous & next button size.', 'foobar' )
+				),
+				'fbr-nav-size-md'     => array(
+					'label'   => __( 'Medium', 'foobar' ),
+					'tooltip' => __( 'A medium previous & next button size.', 'foobar' ),
+				),
+				'fbr-nav-size-lg'     => array(
+					'label'   => __( 'Large', 'foobar' ),
+					'tooltip' => __( 'A large previous & next button size.', 'foobar' ),
 				)
 			) );
 		}

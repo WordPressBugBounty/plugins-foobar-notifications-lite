@@ -33,6 +33,7 @@ define( 'FOOBAR_FRONT_PREVIEW', 'foobar_show_preview' );
 define( 'FOOBAR_BAR_TYPE_MESSAGE', 'message' );
 define( 'FOOBAR_BAR_TYPE_CTA', 'cta' );
 define( 'FOOBAR_BAR_TYPE_COOKIE', 'cookie' );
+define( 'FOOBAR_BAR_TYPE_HTML', 'html' );
 define( 'FOOBAR_BAR_TYPE_SIGNUP', 'sign-up' );
 define( 'FOOBAR_BAR_TYPE_COUNTDOWN', 'countdown' );
 define( 'FOOBAR_BAR_TYPE_TWEET', 'tweet' );

@@ -14,7 +14,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 					'manager'        => FOOBAR_SLUG,
 					'post_type'      => FOOBAR_CPT_NOTIFICATION,
 					'metabox_id'     => 'types',
-					'metabox_title'  => __( 'What type of notification do you want to create?', 'foobar' ),
 					'priority'       => 'high',
 					'meta_key'       => FOOBAR_NOTIFICATION_META_TYPE,
 					'disable_close'  => true
@@ -28,7 +27,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 			$this->add_filter( 'must_add_meta_boxes', array( $this, 'must_add_meta_boxes' ) );
 			$this->add_action( 'enqueue_assets', array( $this, 'enqueue' ) );
 			$this->add_filter( 'get_posted_data', array( $this, 'get_type' ), 10, 2 );
-			$this->add_filter( 'can_save', array( $this, 'can_save_pro_bar' ), 10, 2 );
 		}
 
 		function must_add_meta_boxes(){
@@ -191,39 +189,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 		}
 
 		/**
-		 * Check if a bar type is PRO
-		 *
-		 * @param string $type
-		 * @return bool
-		 */
-		function is_pro_bar_type( $type ) {
-			$pro_types = array(
-				FOOBAR_BAR_TYPE_SIGNUP,
-				FOOBAR_BAR_TYPE_COUNTDOWN,
-				FOOBAR_BAR_TYPE_TWEET,
-				FOOBAR_BAR_TYPE_FREE_SHIPPING
-			);
-			return in_array( $type, $pro_types );
-		}
-
-		/**
-		 * Prevent saving PRO bar types in free version
-		 *
-		 * @param bool $can_save
-		 * @param object $metabox
-		 * @return bool
-		 */
-		function can_save_pro_bar( $can_save, $metabox ) {
-			if ( ! foobar_is_pro() ) {
-				$posted_data = $metabox->get_posted_data();
-				if ( isset( $posted_data['type'] ) && $this->is_pro_bar_type( $posted_data['type'] ) ) {
-					return false;
-				}
-			}
-			return $can_save;
-		}
-
-		/**
 		 * Return the data as a string and not an array
 		 *
 		 * @param $posted_data
@@ -237,13 +202,6 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 			if ( array_key_exists( 'type', $posted_data ) ) {
 				$type = $posted_data['type'];
 				
-				// Prevent PRO bar creation in free version
-				if ( ! foobar_is_pro() && $this->is_pro_bar_type( $type ) ) {
-					// Build admin URL for pricing page
-					wp_redirect( foobar_admin_pricing_url() );
-					exit;
-				}
-
 				$foobar_admin_current_type = $type;
 			} else {
 				// Get the type from post_meta for existing bars
@@ -330,101 +288,8 @@ if ( ! class_exists( __NAMESPACE__ . '\Types' ) ) {
 	    }
     </style>";
 
-			$button_text_create = __( 'Create Notification', 'foobar' );
-			$button_text_purchase = __( 'Upgrade to PRO to unlock this feature!', 'foobar' );
+				do_action( 'foobar_admin_notification_types_custom_css' );
 
-				echo "
-    <script type='text/javascript'>
-	    document.addEventListener( 'DOMContentLoaded', function() {
-            const postBody = document.getElementById( 'post-body' );
-            if ( postBody ) {
-                postBody.classList.remove( 'columns-2' );
-            }
-            
-            // Handle PRO bar type button behavior
-            const typeTabs = document.querySelectorAll('.foobar-type-tab');
-            const createButton = document.querySelector('#foobar_notification-types_create-field button, #foobar_notification-types_create-field a, #foobar_notification-types_create-field input[type=\"submit\"], .foobar-type-footer button');
-            
-            if (createButton && typeTabs.length > 0) {
-                const proTypes = ['sign-up', 'countdown', 'tweet', 'free-shipping'];
-                
-                // Build the admin URL for pricing page
-                const adminUrl = window.location.protocol + '//' + window.location.host + window.location.pathname.replace(/\/wp-admin\/.*$/, '/wp-admin/');
-                const purchaseUrl = adminUrl + 'edit.php?post_type=foobar_notification&page=foobar-notifications-lite-pricing';
-                
-                function updateButton(selectedType) {
-                    const isPro = proTypes.includes(selectedType);
-                    
-                    if (isPro) {
-                        // Update button text
-                        const buttonSpan = createButton.querySelector('span');
-                        if (buttonSpan) {
-                            buttonSpan.textContent = '$button_text_purchase';
-                        } else if (createButton.tagName === 'BUTTON' || createButton.tagName === 'A') {
-                            createButton.textContent = '$button_text_purchase';
-                        } else if (createButton.tagName === 'INPUT') {
-                            createButton.value = '$button_text_purchase';
-                        }
-                        
-                        // Update button styling and behavior
-                        //createButton.classList.remove('button-primary');
-                        //createButton.classList.add('button-secondary');
-                        createButton.setAttribute('data-is-pro', 'true');
-                        
-                        // Remove submit behavior and add click handler
-                        if (createButton.tagName === 'INPUT') {
-                            createButton.type = 'button';
-                        } else {
-                            createButton.removeAttribute('type');
-                        }
-                        
-                        createButton.onclick = function(e) {
-                            e.preventDefault();
-                            window.location.href = purchaseUrl;
-                        };
-                    } else {
-                        // Update button text
-                        const buttonSpan = createButton.querySelector('span');
-                        if (buttonSpan) {
-                            buttonSpan.textContent = '$button_text_create';
-                        } else if (createButton.tagName === 'BUTTON' || createButton.tagName === 'A') {
-                            createButton.textContent = '$button_text_create';
-                        } else if (createButton.tagName === 'INPUT') {
-                            createButton.value = '$button_text_create';
-                        }
-                        
-                        // Update button styling and behavior
-                        //createButton.classList.remove('button-secondary');
-                        //createButton.classList.add('button-primary');
-                        createButton.setAttribute('data-is-pro', 'false');
-                        
-                        if (createButton.tagName === 'INPUT') {
-                            createButton.type = 'submit';
-                        } else {
-                            createButton.setAttribute('type', 'submit');
-                        }
-                        
-                        createButton.onclick = null;
-                    }
-                }
-                
-                // Set initial button state
-                const selectedTab = document.querySelector('.foobar-type-tab.foofields-selected');
-                if (selectedTab) {
-                    const selectedType = selectedTab.getAttribute('data-value');
-                    updateButton(selectedType);
-                }
-                
-                // Listen for tab changes
-                typeTabs.forEach(tab => {
-                    tab.addEventListener('click', function() {
-                        const type = this.getAttribute('data-value');
-                        updateButton(type);
-                    });
-                });
-            }
-	    } );
-    </script>";
 			} else {
 				echo "
     <style type='text/css'>

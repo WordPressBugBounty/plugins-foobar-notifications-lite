@@ -18,6 +18,7 @@ if ( ! class_exists( __NAMESPACE__ . '\FoobarMetabox' ) ) {
 			$mappings['icon-picker'] = __NAMESPACE__ . '\IconPicker';
 			$mappings['time-selector'] = __NAMESPACE__ . '\TimeSelector';
 			$mappings['numeric'] = __NAMESPACE__ . '\Numeric';
+			$mappings['unit'] = __NAMESPACE__ . '\Unit';
 			$mappings['blurb'] = __NAMESPACE__ . '\Blurb';
 			$mappings['button'] = __NAMESPACE__ . '\Button';
 

@@ -148,41 +148,89 @@ if ( ! class_exists( __NAMESPACE__ . '\Container' ) ) {
 			if ( array_key_exists( $unique_id, $this->show_rules[$type] ) ) {
 				//we have show when rules for the tab/fields
 
-				$show_rule = $this->show_rules[$type][$unique_id];
-				$show_rule_value = $show_rule['value'];
-				$show_rule_operator = isset( $show_rule['operator'] ) ? $show_rule['operator'] : '===';
-				$show_rule_field_id = $this->get_unique_id( array( 'id' => $show_rule['field'] ) );
-				$show_rule_field_visible = $this->show_rule_is_visible( $show_rule_field_id, 'fields' );
+				$show_rules = $this->get_show_rule_list( $this->show_rules[$type][$unique_id] );
 
-				// if the target field is not visible then hide this field
-				if ( false === $show_rule_field_visible ) return false;
-
-				$show_rule_field = $this->fields[$show_rule_field_id];
-				$show_rule_field_value = $show_rule_field->value();
-
-				if ( '===' === $show_rule_operator ) {
-					if ( $show_rule_value === $show_rule_field_value ) {
-						return true;
-					}
-				} else if ( '!==' === $show_rule_operator ) {
-					if ( $show_rule_value !== $show_rule_field_value ) {
-						return true;
-					}
-				} else if ( 'indexOf' === $show_rule_operator ) {
-					if ( strpos( $show_rule_field_value, $show_rule_value ) !== false ) {
-						return true;
-					}
-				} else if ( 'regex' === $show_rule_operator ) {
-					if ( preg_match( '/' . $show_rule_value . '/', $show_rule_field_value ) === 1 ) {
-						return true;
+				foreach ( $show_rules as $show_rule ) {
+					if ( ! $this->show_rule_matches( $show_rule ) ) {
+						return false;
 					}
 				}
-				//otherwise it should not be visible
-				return false;
+
+				return true;
 			}
 
 			//always visible by default
 			return true;
+		}
+
+		/**
+		 * Normalize show rules into a list.
+		 *
+		 * @param mixed $show_rule
+		 *
+		 * @return array
+		 */
+		function get_show_rule_list( $show_rule ) {
+			if ( ! is_array( $show_rule ) ) {
+				return array();
+			}
+
+			// Backward compatibility: a single show rule object.
+			if ( isset( $show_rule['field'] ) ) {
+				return array( $show_rule );
+			}
+
+			$result = array();
+			foreach ( $show_rule as $rule ) {
+				if ( is_array( $rule ) && isset( $rule['field'] ) ) {
+					$result[] = $rule;
+				}
+			}
+
+			return $result;
+		}
+
+		/**
+		 * Evaluate a single show rule.
+		 *
+		 * @param array $show_rule
+		 *
+		 * @return bool
+		 */
+		function show_rule_matches( $show_rule ) {
+			if ( ! is_array( $show_rule ) || ! isset( $show_rule['field'] ) ) {
+				return false;
+			}
+
+			$show_rule_value = isset( $show_rule['value'] ) ? $show_rule['value'] : null;
+			$show_rule_operator = isset( $show_rule['operator'] ) ? $show_rule['operator'] : '===';
+			$show_rule_field_id = $this->get_unique_id( array( 'id' => $show_rule['field'] ) );
+
+			if ( ! array_key_exists( $show_rule_field_id, $this->fields ) ) {
+				return false;
+			}
+
+			$show_rule_field_visible = $this->show_rule_is_visible( $show_rule_field_id, 'fields' );
+
+			// if the target field is not visible then hide this field
+			if ( false === $show_rule_field_visible ) {
+				return false;
+			}
+
+			$show_rule_field       = $this->fields[ $show_rule_field_id ];
+			$show_rule_field_value = $show_rule_field->value();
+
+			if ( '===' === $show_rule_operator ) {
+				return $show_rule_value === $show_rule_field_value;
+			} else if ( '!==' === $show_rule_operator ) {
+				return $show_rule_value !== $show_rule_field_value;
+			} else if ( 'indexOf' === $show_rule_operator ) {
+				return strpos( (string) $show_rule_field_value, (string) $show_rule_value ) !== false;
+			} else if ( 'regex' === $show_rule_operator ) {
+				return preg_match( '/' . $show_rule_value . '/', (string) $show_rule_field_value ) === 1;
+			}
+
+			return false;
 		}
 
 		/**
@@ -848,7 +896,16 @@ if ( ! class_exists( __NAMESPACE__ . '\Container' ) ) {
 		 */
 		function process_data_attribute( $key, $value ) {
 			if ( 'show-when' === $key && is_array( $value ) ) {
-				$value['field'] = $this->get_unique_id( array( 'id' => $value['field'] ) ) . '-field';
+				$is_single_show_rule = isset( $value['field'] );
+				$show_rules = $this->get_show_rule_list( $value );
+
+				foreach ( $show_rules as &$show_rule ) {
+					$show_rule['field'] = $this->get_unique_id( array( 'id' => $show_rule['field'] ) ) . '-field';
+				}
+
+				if ( count( $show_rules ) > 0 ) {
+					$value = $is_single_show_rule ? $show_rules[0] : $show_rules;
+				}
 			}
 			return is_array( $value ) ? $this->json_encode( $value ) : $value;
 		}

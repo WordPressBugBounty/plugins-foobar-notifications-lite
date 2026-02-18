@@ -245,7 +245,7 @@ function foobar_set_setting(  $key, $value  ) {
  * @return bool
  */
 function foobar_is_debug() {
-    return foobar_get_setting( 'debug', false );
+    return foobar_get_setting( 'debug', '' ) === 'on';
 }
 
 /**
@@ -368,114 +368,7 @@ function foobar_registered_bar_types() {
         ),
     );
     // Apply filters to get all registered bar types (including PRO ones)
-    $types = apply_filters( 'foobar_registered_bar_types', $types );
-    // If not PRO version, add PRO bar types for display purposes only
-    if ( !foobar_is_pro() ) {
-        $pro_types = array(
-            FOOBAR_BAR_TYPE_SIGNUP        => array(
-                'type'         => 'FooPlugins\\FooBar\\Pro\\BarTypes\\SignUp\\Bar',
-                'label'        => __( 'Sign Up', 'foobar' ) . ' <i class="dashicons dashicons-star-filled"></i>',
-                'tooltip'      => __( 'Shows an email sign up form', 'foobar' ),
-                'capabilities' => array(
-                    'has_button',
-                    'has_text_input',
-                    'has_input_with_button',
-                    'has_items'
-                ),
-                'attributes'   => array(
-                    'class' => 'foobar-pro',
-                ),
-                'blurb'        => array(
-                    'title'    => __( 'Sign Up', 'foobar' ),
-                    'desc'     => __( 'This notification can increase your mailing list subscribers count by displaying a simple sign up form.', 'foobar' ),
-                    'features' => array(__( 'Easy integration with reCAPTCHA v3.', 'foobar' ), __( 'Customizable success and error messages.', 'foobar' )),
-                    'images'   => array(array(
-                        'src'     => FOOBAR_URL . 'assets/admin/img/foobar-blurb-sign-up.png',
-                        'caption' => __( 'The initial message displayed to visitors.', 'foobar' ),
-                    ), array(
-                        'src'     => FOOBAR_URL . 'assets/admin/img/foobar-blurb-sign-up_success.png',
-                        'caption' => __( 'The message displayed to visitors who successfully sign up.', 'foobar' ),
-                    ), array(
-                        'src'     => FOOBAR_URL . 'assets/admin/img/foobar-blurb-sign-up_error.png',
-                        'caption' => __( 'The message displayed when an error occurs.', 'foobar' ),
-                    )),
-                ),
-            ),
-            FOOBAR_BAR_TYPE_COUNTDOWN     => array(
-                'type'         => 'FooPlugins\\FooBar\\Pro\\BarTypes\\Countdown\\Bar',
-                'label'        => __( 'Countdown', 'foobar' ) . ' <i class="dashicons dashicons-star-filled"></i>',
-                'tooltip'      => __( 'Shows a message with a call-to-action button and a countdown', 'foobar' ),
-                'capabilities' => array('has_button', 'has_items'),
-                'attributes'   => array(
-                    'class' => 'foobar-pro',
-                ),
-                'blurb'        => array(
-                    'title'    => __( 'Countdown', 'foobar' ),
-                    'desc'     => __( 'This notification can help generate awareness of upcoming events to your visitors in a clear and visible way. It can also help during those events by displaying limited time offers.', 'foobar' ),
-                    'features' => array(
-                        __( 'Countdown to a fixed date time. e.g. Show a countdown to 15 May 2023 at 10:30 pm.', 'foobar' ),
-                        __( 'Countdown to a relative date time. e.g. 5 minutes from when the notification is first seen it expires.', 'foobar' ),
-                        __( 'Customizable styles for the countdown.', 'foobar' ),
-                        __( 'Customizable expiry message.', 'foobar' )
-                    ),
-                    'images'   => array(array(
-                        'src'     => FOOBAR_URL . 'assets/admin/img/foobar-blurb-countdown.png',
-                        'caption' => __( 'Announce upcoming or ongoing sales!', 'foobar' ),
-                    ), array(
-                        'src'     => FOOBAR_URL . 'assets/admin/img/foobar-blurb-countdown_expired.png',
-                        'caption' => __( 'Expiry message displayed to visitors who see the countdown expire.', 'foobar' ),
-                    )),
-                ),
-            ),
-            FOOBAR_BAR_TYPE_TWEET         => array(
-                'type'         => 'FooPlugins\\FooBar\\Pro\\BarTypes\\Tweet\\Bar',
-                'label'        => __( 'Tweet', 'foobar' ) . ' <i class="dashicons dashicons-star-filled"></i>',
-                'tooltip'      => __( 'Shows a message with a Tweet button', 'foobar' ),
-                'capabilities' => array('has_button', 'has_border'),
-                'attributes'   => array(
-                    'class' => 'foobar-pro',
-                ),
-                'blurb'        => array(
-                    'title'  => __( 'Tweet', 'foobar' ),
-                    'desc'   => __( 'This notification lets your visitors easily tweet out predefined messages.', 'foobar' ),
-                    'images' => array(array(
-                        'src'     => FOOBAR_URL . 'assets/admin/img/foobar-blurb-tweet.png',
-                        'caption' => __( 'A tweet notification displayed at the top of your page.', 'foobar' ),
-                    ), array(
-                        'src'     => FOOBAR_URL . 'assets/admin/img/foobar-blurb-tweet_inline.png',
-                        'caption' => __( 'A tweet notification displayed inline.', 'foobar' ),
-                    )),
-                ),
-            ),
-            FOOBAR_BAR_TYPE_FREE_SHIPPING => array(
-                'type'         => 'FooPlugins\\FooBar\\Pro\\BarTypes\\FreeShipping\\Bar',
-                'label'        => __( 'Free Shipping', 'foobar' ) . ' <i class="dashicons dashicons-star-filled"></i>',
-                'tooltip'      => __( 'Shows a message with the amount required to get free shipping.', 'foobar' ),
-                'capabilities' => array('has_buttons', 'has_items', 'has_progress_bar'),
-                'attributes'   => array(
-                    'class' => 'foobar-pro',
-                ),
-                'blurb'        => array(
-                    'title'    => __( 'Free Shipping', 'foobar' ),
-                    'desc'     => __( 'This notification can help boost minimum sales by offering free shipping once a certain cart total has been reached.', 'foobar' ),
-                    'features' => array(__( 'Easy integration with WooCommerce.', 'foobar' ), __( 'Customizable messages for new customers, those with items in their cart, and those who have qualified for free shipping.', 'foobar' ), __( 'Customizable progress bar.', 'foobar' )),
-                    'images'   => array(array(
-                        'src'     => FOOBAR_URL . 'assets/admin/img/foobar-blurb-free-shipping.png',
-                        'caption' => __( 'The initial message displayed to visitors.', 'foobar' ),
-                    ), array(
-                        'src'     => FOOBAR_URL . 'assets/admin/img/foobar-blurb-free-shipping_progress.png',
-                        'caption' => __( 'The message displayed to visitors with items in their cart.', 'foobar' ),
-                    ), array(
-                        'src'     => FOOBAR_URL . 'assets/admin/img/foobar-blurb-free-shipping_qualified.png',
-                        'caption' => __( 'The message displayed to visitors who qualify for free shipping.', 'foobar' ),
-                    )),
-                ),
-            ),
-        );
-        // Merge PRO types with free types
-        $types = array_merge( $types, $pro_types );
-    }
-    return $types;
+    return apply_filters( 'foobar_registered_bar_types', $types );
 }
 
 /**

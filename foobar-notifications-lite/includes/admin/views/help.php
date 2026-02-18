@@ -479,6 +479,11 @@ $demos_created = foobar_get_setting( 'demo_content' ) === 'on';
 				<p><img src="<?php echo esc_url( FOOBAR_URL . 'assets/admin/img/foobar-help-pro-freeshipping.png'); ?>" /></p>
 			</div>
 			<div class="foobar-section-feature">
+				<h2><?php _e( 'HTML Bars','foobar' ); ?></h2>
+				<p><?php _e( 'Add any HTML to your bar. Add multiple sections that users can navigate through.', 'foobar' );?></p>
+				<p><img src="<?php echo esc_url( FOOBAR_URL . 'assets/admin/img/foobar-help-pro-html.png'); ?>" /></p>
+			</div>
+			<div class="foobar-section-feature">
 				<h2><?php _e( 'Scheduling','foobar' ); ?></h2>
 				<p><?php _e( 'Decide when your bar shows, by selecting a start and end date/time.', 'foobar' );?></p>
 				<p><img src="<?php echo esc_url( FOOBAR_URL . 'assets/admin/img/foobar-help-pro-scheduling.png'); ?>" /></p>
