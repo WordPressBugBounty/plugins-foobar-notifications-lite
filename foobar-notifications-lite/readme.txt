@@ -2,7 +2,7 @@
 Contributors: bradvin, steveush, fooplugins
 Tags: announcement,bar,notice bar,notification bar,top bar
 Requires at least: 5.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 5.6
 Stable tag: 2.2.1
 License: GPLv2 or later
