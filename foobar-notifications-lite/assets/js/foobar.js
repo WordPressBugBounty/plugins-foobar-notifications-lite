@@ -6260,8 +6260,31 @@ FooBar.utils.$, FooBar.utils, FooBar.utils.is, FooBar.utils.fn);
         console.debug(err);
       });
     },
+    isInSchedule: function () {
+      const self = this,
+        schedule = self.opt.schedule;
+      if (!_is.hash(schedule) || schedule.enabled !== true) {
+        return true;
+      }
+      const now = Date.now(),
+        scheduleFrom = parseInt(schedule.from, 10),
+        scheduleTo = parseInt(schedule.to, 10);
+      if (!isNaN(scheduleFrom) && scheduleFrom > 0 && now < scheduleFrom * 1000) {
+        return false;
+      }
+      if (!isNaN(scheduleTo) && scheduleTo > 0 && now > scheduleTo * 1000) {
+        return false;
+      }
+      return true;
+    },
     beforeSetup: function () {
       const self = this;
+      if (!self.isInSchedule()) {
+        _t.disable(self.$el, function ($el) {
+          $el.css("display", "none");
+        });
+        return _fn.rejectWith(self.i18n.scheduled);
+      }
       // the bar always starts in a closed state regardless of the CSS classes applied in the markup
       _t.disable(self.$el, function ($el) {
         $el.removeClass(self.cls.open).addClass(self.cls.closed).css('display', '');
@@ -6285,6 +6308,7 @@ FooBar.utils.$, FooBar.utils, FooBar.utils.is, FooBar.utils.fn);
         self.$toggle.on("click.foobar", {
           self: self
         }, self.onToggleClick).append(self.icon('expand'), self.opt.dismiss ? self.icon('dismiss') : self.icon('collapse'));
+        self.updateToggleAttributes(false);
         self.$loader.append(self.icon('loading'));
         self.$el.on("click.foobar", {
           self: self
@@ -6339,6 +6363,7 @@ FooBar.utils.$, FooBar.utils, FooBar.utils.is, FooBar.utils.fn);
       self.$prev.off("click.foobar").empty();
       self.$next.off("click.foobar").empty();
       self.$toggle.off("click.foobar").empty();
+      self.updateToggleAttributes(false);
       self.$loader.empty();
       self.$content.removeClass(self.cls.hidden);
       self.$el.off("click.foobar").removeClass([self.cls.open, self.cls.interacted, self.cls.noEffects, self.cls.multiple, self.cls.pushing]).removeAttr('style');
@@ -6474,12 +6499,24 @@ FooBar.utils.$, FooBar.utils, FooBar.utils.is, FooBar.utils.fn);
     getLast: function () {
       return this.getNth('last');
     },
+    updateToggleAttributes: function (state) {
+      const self = this;
+      if (!_is.boolean(state)) {
+        state = self.isOpen;
+      }
+      const label = state ? self.opt.dismiss ? self.$toggle.data('labelDismiss') : self.$toggle.data('labelClose') : self.$toggle.data('labelOpen');
+      self.$toggle.attr('aria-expanded', state ? 'true' : 'false');
+      if (_is.string(label) && label.length > 0) {
+        self.$toggle.attr('aria-label', label);
+      }
+    },
     toggle: function (state, immediate) {
       const self = this;
       if (!_is.boolean(state)) {
         state = !self.$el.hasClass(self.cls.open);
       }
       self.isOpen = state;
+      self.updateToggleAttributes(state);
       self.parent.unobserve();
       self.parent.position(immediate);
       _t.disable(self.$content, function ($el) {
@@ -6908,6 +6945,7 @@ FooBar.utils.$, FooBar.utils, FooBar.utils.is, FooBar.utils.fn);
     },
     i18n: {
       empty: "No items were initialized.",
+      scheduled: "The bar is outside the configured schedule window and will not be initialized.",
       unsupported: "The provided '{action}' action is not supported.",
       dismissed: "The bar has been dismissed previously and will not be initialized.",
       dismissing: "The bar is currently being dismissed.",
@@ -7300,10 +7338,6 @@ FooBar.utils.$, FooBar.utils, FooBar.utils.is, FooBar.utils.fn);
      */
     destroy: function () {
       const self = this;
-      // if (self.timeoutHandle !== null){
-      // 	clearTimeout(self.timeoutHandle);
-      // 	self.timeoutHandle = null;
-      // }
       self.clearTimeout();
       self._super();
     },
@@ -7393,8 +7427,10 @@ FooBar.utils.$, FooBar.utils, FooBar.utils.is, FooBar.utils.fn);
       self.clearTimeout();
       self.opt.duration = duration;
       if (self.isActive && self.opt.duration > 0) {
-        self.$timeout.css('animation-duration', self.opt.duration + 'ms');
-        self.parent.$content.append(self.$timeout);
+        if (self.opt.timeoutVisible) {
+          self.$timeout.css('animation-duration', self.opt.duration + 'ms');
+          self.parent.$content.append(self.$timeout);
+        }
         self.timeoutHandle = setTimeout(function () {
           self.timeoutHandle = null;
           self.$timeout.remove().css('animation-duration', '');
@@ -7437,6 +7473,7 @@ FooBar.utils.$, FooBar.utils, FooBar.utils.is, FooBar.utils.fn);
   _.items.register("item", _.Item, ".fbr-item", {
     options: {
       duration: 0,
+      timeoutVisible: true,
       timeoutAction: 'next',
       timeoutActionImmediate: false
     },

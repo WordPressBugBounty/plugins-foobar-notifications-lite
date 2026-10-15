@@ -262,8 +262,8 @@ if ( ! class_exists( __NAMESPACE__ . '\General' ) ) {
 				$general_fields['nav_group'] = array(
 					'id'      => 'nav_group',
 					'type'    => 'field-group',
-					'label'   => __( 'Previous & Next Buttons', 'foobar' ),
-					'desc'	=> __( 'The previous and next buttons are displayed on either side of the notification content if it has two or more messages.', 'foobar' ),
+					'label'   => __( 'Navigation Buttons', 'foobar' ),
+					'desc'	=> __( 'The previous and next buttons are displayed on either side of the notification content if it has two or more slides.', 'foobar' ),
 					'order'   => 30,
 					'fields' => array(
 						array(
@@ -297,7 +297,7 @@ if ( ! class_exists( __NAMESPACE__ . '\General' ) ) {
 							'id'      => 'nav_size',
 							'class'   => 'foofields-full-width',
 							'label'   => __( 'Size', 'foobar' ),
-							'desc'    => __( 'The size of the previous and next button.', 'foobar' ),
+							'desc'    => __( 'The size of the previous and next buttons.', 'foobar' ),
 							'type'    => 'radiolist',
 							'order'   => 30,
 							'default' => 'fbr-nav-size-sm',

@@ -28,7 +28,7 @@ if ( !class_exists( 'FooPlugins\FooBar\Activation' ) ) {
 				);
 				$save_data = true;
 			} else {
-				$version = $plugin_data['version'];
+				$version = isset( $plugin_data['version'] ) ? $plugin_data['version'] : '';
 
 				if ( $version !== FOOBAR_VERSION ) {
 					//the version has been updated

@@ -3,11 +3,11 @@
         'name' => 'fooplugins/foobar',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '801f7322055c3a00cedbb174b9db51595e75b57d',
+        'reference' => '4de1d515885b83c6a3bd123ed8fa189cbfd7247c',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'dev' => true,
+        'dev' => false,
     ),
     'versions' => array(
         'composer/installers' => array(
@@ -22,7 +22,7 @@
         'fooplugins/foobar' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '801f7322055c3a00cedbb174b9db51595e75b57d',
+            'reference' => '4de1d515885b83c6a3bd123ed8fa189cbfd7247c',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

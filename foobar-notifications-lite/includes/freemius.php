@@ -12,6 +12,10 @@ if ( !function_exists( 'foobar_fs' ) ) {
             if ( !defined( 'WP_FS__PRODUCT_6696_MULTISITE' ) ) {
                 define( 'WP_FS__PRODUCT_6696_MULTISITE', true );
             }
+            if ( empty( $_SERVER['HTTP_HOST'] ) ) {
+                $foobar_site_host = wp_parse_url( home_url(), PHP_URL_HOST );
+                $_SERVER['HTTP_HOST'] = ( !empty( $foobar_site_host ) ? $foobar_site_host : 'localhost' );
+            }
             // Include Freemius SDK.
             require_once FOOBAR_PATH . '/freemius/start.php';
             $pro_available = true;
@@ -23,26 +27,28 @@ if ( !function_exists( 'foobar_fs' ) ) {
                 $has_addons = FOOBAR_ADDONS_AVAILABLE;
             }
             $foobar_fs = fs_dynamic_init( array(
-                'id'             => '6696',
-                'slug'           => 'foobar-notifications-lite',
-                'premium_slug'   => 'foobar-premium',
-                'type'           => 'plugin',
-                'public_key'     => 'pk_66340abdc312fe16c68bd10b41948',
-                'is_premium'     => false,
-                'has_addons'     => $has_addons,
-                'has_paid_plans' => $pro_available,
-                'trial'          => array(
+                'id'               => '6696',
+                'slug'             => 'foobar-notifications-lite',
+                'premium_slug'     => 'foobar-premium',
+                'type'             => 'plugin',
+                'public_key'       => 'pk_66340abdc312fe16c68bd10b41948',
+                'is_premium'       => false,
+                'has_addons'       => $has_addons,
+                'has_paid_plans'   => $pro_available,
+                'has_affiliation'  => 'selected',
+                'trial'            => array(
                     'days'               => 7,
                     'is_require_payment' => true,
                 ),
-                'menu'           => array(
+                'menu'             => array(
                     'slug'       => 'edit.php?post_type=' . FOOBAR_CPT_NOTIFICATION,
                     'first-path' => 'edit.php?post_type=' . FOOBAR_CPT_NOTIFICATION . '&page=' . FOOBAR_ADMIN_MENU_HELP_SLUG,
                     'account'    => $pro_available || $has_addons,
                     'contact'    => false,
                     'support'    => false,
                 ),
-                'is_live'        => true,
+                'is_live'          => true,
+                'is_org_compliant' => true,
             ) );
         }
         return $foobar_fs;
@@ -61,4 +67,5 @@ if ( !function_exists( 'foobar_fs' ) ) {
         1
     );
     foobar_fs()->add_filter( 'pricing/show_annual_in_monthly', '__return_false' );
+    foobar_fs()->add_filter( 'show_affiliate_program_notice', '__return_false' );
 }

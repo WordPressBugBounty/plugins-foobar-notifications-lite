@@ -48,6 +48,7 @@ if ( !class_exists( 'FooPlugins\FooBar\Renderers\Bars\Bar' ) ) {
 			$has_nav = $this->has_capability( 'has_nav');
 
 			$unique_id = $this->bar->unique_id();
+			$content_id = $unique_id . '_content';
 			//render container div
 			$this->render_html_tag( 'div', array(
 				'id' => $unique_id,
@@ -57,22 +58,44 @@ if ( !class_exists( 'FooPlugins\FooBar\Renderers\Bars\Bar' ) ) {
 			), null, false );
 
 			//render content div
-			echo '<div class="fbr-content">';
+			$this->render_html_tag( 'div', array(
+				'id' => $content_id,
+				'class' => 'fbr-content'
+			), null, false );
 			if ( $has_nav ) {
-				echo '<button class="fbr-prev" type="button"></button>';
+				$this->render_html_tag( 'button', array(
+					'class' => 'fbr-prev',
+					'type' => 'button',
+					'aria-label' => __( 'Previous notification item', 'foobar' )
+				) );
 			}
 
 			//render items
 			$this->render_items();
 
 			if ( $has_nav ) {
-				echo '<button class="fbr-next" type="button"></button>';
+				$this->render_html_tag( 'button', array(
+					'class' => 'fbr-next',
+					'type' => 'button',
+					'aria-label' => __( 'Next notification item', 'foobar' )
+				) );
 			}
 			echo '</div>'; //close content div
 
 			$toggle_class = apply_filters( 'foobar_render_toggle_class', 'fbr-toggle', $this->bar );
 
-			echo '<button class="' . esc_attr( $toggle_class ) . '" type="button"></button>';
+			$toggle_attributes = apply_filters( 'foobar_render_toggle_attributes', array(
+				'class' => $toggle_class,
+				'type' => 'button',
+				'aria-label' => __( 'Open notification bar', 'foobar' ),
+				'aria-controls' => $content_id,
+				'aria-expanded' => 'false',
+				'data-label-open' => __( 'Open notification bar', 'foobar' ),
+				'data-label-close' => __( 'Close notification bar', 'foobar' ),
+				'data-label-dismiss' => __( 'Dismiss notification bar', 'foobar' )
+			), $this->bar );
+
+			$this->render_html_tag( 'button', $toggle_attributes );
 
 			echo '</div>'; //close container div
 
@@ -232,6 +255,14 @@ if ( !class_exists( 'FooPlugins\FooBar\Renderers\Bars\Bar' ) ) {
 			}
 
 			$custom_settings = $this->get_meta( 'custom_settings', '' );
+
+			if ( $this->get_meta( 'scheduled', '' ) === 'yes' ) {
+				$data_options['schedule'] = array(
+					'enabled' => true,
+					'from'    => intval( $this->get_meta( 'schedule_from', 0 ) ),
+					'to'      => intval( $this->get_meta( 'schedule_to', 0 ) )
+				);
+			}
 
 			if ( !empty( $custom_settings ) ) {
 				$settings_array = @json_decode($custom_settings, true);

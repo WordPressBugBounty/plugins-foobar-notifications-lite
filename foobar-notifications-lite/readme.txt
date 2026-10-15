@@ -2,9 +2,9 @@
 Contributors: bradvin, steveush, fooplugins
 Tags: announcement,bar,notice bar,notification bar,top bar
 Requires at least: 5.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 2.2.1
+Stable tag: 2.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -170,6 +170,33 @@ Yes. When editing a notification, click on the Visibility settings tab, and then
 Create a [new ticket](https://wordpress.org/support/plugin/foobar-notifications-lite/#new-post) on the support forum, or [contact us](https://fooplugins.com/support/?utm_source=foobar_wordpress_org)
 
 == Changelog ==
+
+= 2.2.9 =
+* Update : updated to Freemius SDK v2.13.5 (includes security fixes)
+
+= 2.2.8 =
+* Update : updated to Freemius SDK v2.13.4
+
+= 2.2.7 =
+* Updated 30 Jun 2026
+* Fix : Added accessible names and state attributes to FooBar toggle and navigation buttons to resolve empty button accessibility warnings.
+
+= 2.2.6 =
+* Updated 13 Jun 2026
+* Fix : Prevented activation warnings when existing FooBar settings are missing version data and when Freemius initializes without an HTTP host.
+
+= 2.2.5 =
+* Updated 13 Jun 2026
+
+= 2.2.4 =
+* Updated 14 Apr 2026
+* Update : Updated Freemius SDK to 2.13.1.
+
+= 2.2.3 =
+* Updated 18 Mar 2026
+
+= 2.2.2 =
+* Updated 18 Mar 2026
 
 = 2.2.1 =
 * Updated 17 Feb 2026
